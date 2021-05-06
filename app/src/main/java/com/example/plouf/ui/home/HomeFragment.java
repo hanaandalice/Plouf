@@ -31,9 +31,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public ImageView img_feces;
     public ImageView img_drink;
     public TextView tv_progress;
-
-
-
+    public TextView tv_peeCnt;
+    public TextView tv_fecesCnt;
     private Context context;
     public TextView tv_waterAmount;
 
@@ -47,11 +46,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         //init home
         tv_progress = root.findViewById(R.id.tv_progress);
-        img_water = root.findViewById(R.id.img_water);
         tv_waterAmount = root.findViewById(R.id.tv_waterAmount);
+        tv_peeCnt = root.findViewById(R.id.tv_peeCnt);
+        tv_fecesCnt = root.findViewById(R.id.tv_fecesCnt);
+
+        img_water = root.findViewById(R.id.img_water);
         img_drink = root.findViewById(R.id.img_drink);
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
+
 
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -61,6 +64,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
         tv_waterAmount.setText("마신 물 양");
+
+        //db에서 숫자 받아와서 변경. view 모델에서 데이터 받아오기
+        tv_peeCnt.setText("5");
+        tv_fecesCnt.setText("1");
+
 
         context = container.getContext();
 

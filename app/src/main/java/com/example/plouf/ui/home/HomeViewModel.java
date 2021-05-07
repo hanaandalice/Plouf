@@ -19,10 +19,7 @@ public class HomeViewModel extends ViewModel {
     public Integer waterNeed;
     public String waterState;
     public Integer cup;
-
-    public String txtProg;
-    public String txtAmount;
-
+//    public float waterPer;
 
 
     public MutableLiveData<Integer> livePee;
@@ -37,7 +34,7 @@ public class HomeViewModel extends ViewModel {
         waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
         waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
-        waterAmount = 1300; //디비에서 물 양 받아오기 PD_01.WATER
+        waterAmount = 0; //디비에서 물 양 받아오기 PD_01.WATER
         waterState = waterAmount+"/"+waterNeed+"ml";
 
 
@@ -52,8 +49,7 @@ public class HomeViewModel extends ViewModel {
         txtProgress.setValue(waterCnt+" 일째 물 마시기 도전 중");
 //        txtWaterAmount.setValue(waterAmount+" ml 마셨습니다.");
 
-        txtProg = waterCnt+" 1일째 물 마시기 도전 중";
-//        txtAmount = waterAmount+" 밀리 마셨습니다.";
+//        txtProg = waterCnt+" 1일째 물 마시기 도전 중";
 
 
     }
@@ -66,6 +62,7 @@ public class HomeViewModel extends ViewModel {
     public Integer getWaterAmount() { return waterAmount;} //물 섭취량 보내기
     public Integer getWaterNeed() { return waterNeed;} //필요 물 량 보내기
     public String getWaterState() {  return waterState;} //물 총량 대비 마신 상태
+    public float getWaterPer() {  return ((float)waterAmount/(float)waterNeed)*100;}
 
     public Integer getPeeCount() { return peeCount;}
     public Integer getFecesCount() { return fecesCount;}
@@ -74,9 +71,7 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Integer> getLivePee() { return livePee; }
     public LiveData<Integer> getLiveFeces() { return livefeces; }
 
-    //test
-    public String getTxtProg() {  return txtProg;}
-    public String getTxtAmount() {  return txtAmount;}
+
 
 
 
@@ -84,7 +79,6 @@ public class HomeViewModel extends ViewModel {
     public void addWater() {
         waterAmount+=cup;
         waterState = waterAmount+"/"+waterNeed+"ml";
-//        liveWaterState.setValue(waterState);
         //db에 물 섭취량 저장
     }
 

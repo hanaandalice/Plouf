@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 homeViewModel.addWater();
                 tv_waterState.setText(homeViewModel.getWaterState());
                 Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
+                setImg_water();
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
@@ -120,6 +121,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 homeViewModel.subWater();
                 tv_waterState.setText(homeViewModel.getWaterState());
                 Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
+                setImg_water();
                 break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subPee();
@@ -170,8 +172,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     //물 양에 따른 물방울 이미지 변경
     public void setImg_water(){
-        // TODO : 물 양에 따른 물방울 이미지 변화 파트 구현
-        // 데이터 퍼센트 받아와서(view Model) 케이스마다 다른 이미지 세팅
+        // TODO : 물 양에 따른 물방울 이미지 변화 케이스 구체화 하기
+        Float waterPer = homeViewModel.getWaterPer();
+        Log.d(TAG, "setImg_water: "+waterPer);
+        if(waterPer>=0 && waterPer<30) {
+            img_water.setImageResource(R.drawable.hungry_0_30);
+        } else if(waterPer>=30 && waterPer<50) {
+            img_water.setImageResource(R.drawable.normal_filled_30_50);
+        } else if(waterPer>=50 && waterPer<70) {
+            img_water.setImageResource(R.drawable.pleased_filled_50_80);
+        } else if(waterPer>=70 && waterPer<90) {
+            img_water.setImageResource(R.drawable.happpy_filled2_90);
+        } else {
+            img_water.setImageResource(R.drawable.veryhappy_filled_100);
+        }
     }
 
     //drink Image 변경

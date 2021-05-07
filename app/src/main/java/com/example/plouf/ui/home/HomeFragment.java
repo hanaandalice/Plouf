@@ -1,6 +1,8 @@
 package com.example.plouf.ui.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private Context context;
     public TextView tv_waterState;
     private View root;
+    private CharSequence[] dItems;
+    public AlertDialog.Builder dDialog;
+    public String dSelectItem;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +46,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         root = inflater.inflate(R.layout.fragment_home, container, false);
         context = container.getContext();
 
+
         initHome();
+
+
 
 
         homeViewModel.getProgressTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -72,7 +80,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_feces.setOnLongClickListener((View.OnLongClickListener) this);
         img_water.setOnLongClickListener((View.OnLongClickListener) this);
 
-        // TODO : 물 양에 따른 물방울 이미지 변화 파트 구현
 
         return root;
     }
@@ -121,9 +128,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 homeViewModel.subFeces();
                 tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
                 break;
-            case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 이미지 변경
-
-                Toast.makeText(context, "Longdrink", Toast.LENGTH_SHORT).show();
+            case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
+                dDialog = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+                dDialog.setTitle("음료 종류를 선택하세요")
+                        .setItems(dItems, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dSelectItem = dItems[which].toString();
+                                Toast.makeText(context,dItems[which], Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
                 break;
         }
         return true;    //onClick 동시 실행 안됨
@@ -140,5 +156,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_drink = root.findViewById(R.id.img_drink);
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
+
+        dItems = new CharSequence[]{"물", "커피", "차"};  //TODO : 물 커피 차 Strings에 값 만들어서 넣어주기
+        dSelectItem = new String();
+    }
+
+
+    //물 양에 따른 물방울 이미지 변경
+    public void setImg_water(){
+        // TODO : 물 양에 따른 물방울 이미지 변화 파트 구현
+        // 데이터 퍼센트 받아와서(view Model) 케이스마다 다른 이미지 세팅
+    }
+
+    //drink IMage 변경
+    public void setImg_drink(String dSelectItem) {
+        //String 비교하여 선택된 아이템의 스트링과 일치할 경우 이미지 변경
+        switch (dSelectItem) {
+            case "물":
+
+                break;
+            case "커피":
+                break;
+            case "차":
+                break;
+            default:
+                //기본이 물
+        }
     }
 }

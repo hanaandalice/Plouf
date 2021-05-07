@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private CharSequence[] dItems;
     public AlertDialog.Builder dDialog;
     public String dSelectItem;
+    public String water, coffee, tea;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -135,7 +136,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dSelectItem = dItems[which].toString();
-                                Toast.makeText(context,dItems[which], Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,dItems[which], Toast.LENGTH_SHORT).show();
+                                setImg_drink(dSelectItem);
                             }
                         })
                         .setCancelable(true)
@@ -157,7 +159,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
 
-        dItems = new CharSequence[]{"물", "커피", "차"};  //TODO : 물 커피 차 Strings에 값 만들어서 넣어주기
+        water = getString(R.string.drink_water_korean);
+        coffee = getString(R.string.drink_coffee_korean);
+        tea = getString(R.string.drink_tea_korean);
+
+        dItems = new CharSequence[]{water, coffee, tea};
         dSelectItem = new String();
     }
 
@@ -168,19 +174,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         // 데이터 퍼센트 받아와서(view Model) 케이스마다 다른 이미지 세팅
     }
 
-    //drink IMage 변경
+    //drink Image 변경
     public void setImg_drink(String dSelectItem) {
-        //String 비교하여 선택된 아이템의 스트링과 일치할 경우 이미지 변경
         switch (dSelectItem) {
-            case "물":
-
-                break;
             case "커피":
+                img_drink.setImageResource(R.drawable.drink_coffee);
                 break;
             case "차":
+                img_drink.setImageResource(R.drawable.drink_tea);
                 break;
             default:
-                //기본이 물
+                img_drink.setImageResource(R.drawable.drink_water);
+                break;
         }
     }
 }

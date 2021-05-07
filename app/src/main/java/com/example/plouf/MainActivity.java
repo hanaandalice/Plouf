@@ -9,7 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
+// TODO : 옆으로 슬라이드 했을때 메뉴 변경되게 만들기
 public class MainActivity extends AppCompatActivity {
 
     @Override

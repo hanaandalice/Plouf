@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         } else if(waterPer>=50 && waterPer<70) {
             img_water.setImageResource(R.drawable.pleased_filled_50_80);
         } else if(waterPer>=70 && waterPer<90) {
-            img_water.setImageResource(R.drawable.happpy_filled2_90);
+            img_water.setImageResource(R.drawable.excited_filled2_80);
         } else {
             img_water.setImageResource(R.drawable.veryhappy_filled_100);
         }

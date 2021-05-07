@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     }
 
     @Override
-    public boolean onLongClick(View v) {    //TODO : long 클릭이 동시에 short 클릭도 실행된다.?
+    public boolean onLongClick(View v) {
         switch (v.getId()){
             case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 이미지 변경
                 Toast.makeText(context, "Longdrink", Toast.LENGTH_SHORT).show();

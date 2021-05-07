@@ -23,7 +23,6 @@ import static android.content.ContentValues.TAG;
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener{
 
     private HomeViewModel homeViewModel;
-    public String msgWater;
     public ImageView img_water;
     public ImageView img_pee;
     public ImageView img_feces;
@@ -32,7 +31,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public TextView tv_peeCnt;
     public TextView tv_fecesCnt;
     private Context context;
-    public TextView tv_waterAmount;
+    public TextView tv_waterState;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,39 +52,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         });
 
         //db에서 숫자 받아와서 변경. view 모델에서 데이터 받아오기
-        tv_peeCnt.setText("5");
-        tv_fecesCnt.setText("1");
-        Log.d("homefrag", "onCreateView: "+homeViewModel.getPeeCount());
+//        tv_peeCnt.setText("5");
+//        tv_fecesCnt.setText("1");
+//        Log.d("homefrag", "onCreateView: "+homeViewModel.getPeeCount());
 
         tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
         tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
+        tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
 
-//        homeViewModel.getLivePee().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(@Nullable Integer integer) {
-//                tv_peeCnt.setText(integer.toString());
-//                Log.d("homefrag", "onChanged: "+integer);
-//            }
-//        });
-//        homeViewModel.getLiveFeces().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(@Nullable Integer integer) {
-//                tv_peeCnt.setText(integer.toString());
-//                Log.d("homefrag", "onChanged: "+integer);
-//            }
-//        });
-
-
-        homeViewModel.getWaterAmountTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                msgWater = s;
-                Log.d(TAG, "onChanged: "+msgWater);
-            }
-        });
-
-
-        tv_waterAmount.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
 
 
         img_water.setOnClickListener(this);
@@ -96,7 +70,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_drink.setOnLongClickListener((View.OnLongClickListener) this);
         img_pee.setOnLongClickListener((View.OnLongClickListener) this);
         img_feces.setOnLongClickListener((View.OnLongClickListener) this);
+        img_water.setOnLongClickListener((View.OnLongClickListener) this);
 
+        // TODO : 물 양에 따른 물방울 이미지 변화 파트 구현
 
         return root;
     }
@@ -106,8 +82,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public void onClick(View v) {
        switch (v.getId()){
             case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
-                Toast.makeText(context, msgWater, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "setOnClick: "+msgWater);
+                homeViewModel.addWater();
+                tv_waterState.setText(homeViewModel.getWaterState());
+                Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
@@ -131,8 +108,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public boolean onLongClick(View v) {
         switch (v.getId()){
-            case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 이미지 변경
-                Toast.makeText(context, "Longdrink", Toast.LENGTH_SHORT).show();
+            case R.id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
+                homeViewModel.subWater();
+                tv_waterState.setText(homeViewModel.getWaterState());
+                Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subPee();
@@ -142,6 +121,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 homeViewModel.subFeces();
                 tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
                 break;
+            case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 이미지 변경
+
+                Toast.makeText(context, "Longdrink", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;    //onClick 동시 실행 안됨
     }
@@ -149,7 +132,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     // 초기화
     public void initHome(){
         tv_progress = root.findViewById(R.id.tv_progress);
-        tv_waterAmount = root.findViewById(R.id.tv_waterAmount);
+        tv_waterState = root.findViewById(R.id.tv_waterAmount);
         tv_peeCnt = root.findViewById(R.id.tv_peeCnt);
         tv_fecesCnt = root.findViewById(R.id.tv_fecesCnt);
 

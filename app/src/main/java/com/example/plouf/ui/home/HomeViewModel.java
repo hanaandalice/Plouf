@@ -20,6 +20,10 @@ public class HomeViewModel extends ViewModel {
     public String waterState;
     public Integer cup;
 
+    public String txtProg;
+    public String txtAmount;
+
+
 
     public MutableLiveData<Integer> livePee;
     public MutableLiveData<Integer> livefeces;
@@ -30,6 +34,12 @@ public class HomeViewModel extends ViewModel {
         waterState = new String();
         peeCount = 6;   //디비에서 받아오기
         fecesCount = 2; //디비에서 대변 받아오기
+        waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
+        cup = 473;  //SharedPreferences에서 컵용량 받아오기
+        waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
+        waterAmount = 1300; //디비에서 물 양 받아오기 PD_01.WATER
+        waterState = waterAmount+"/"+waterNeed+"ml";
+
 
 
         livePee = new MutableLiveData<>();
@@ -39,20 +49,19 @@ public class HomeViewModel extends ViewModel {
         livefeces.setValue(fecesCount);
 
 
-        waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
         txtProgress.setValue(waterCnt+" 일째 물 마시기 도전 중");
+//        txtWaterAmount.setValue(waterAmount+" ml 마셨습니다.");
 
-        waterAmount = 1300; //디비에서 물 양 받아오기 PD_01.WATER
-        txtWaterAmount.setValue(waterAmount+" ml 마셨습니다.");
-        waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
+        txtProg = waterCnt+" 1일째 물 마시기 도전 중";
+//        txtAmount = waterAmount+" 밀리 마셨습니다.";
 
-        waterState = waterAmount+"/"+waterNeed+"ml";
+
     }
 
     //get data
     public LiveData<String> getProgressTxt() { return txtProgress; }
 
-    public LiveData<String> getWaterAmountTxt() { return txtWaterAmount;}
+//    public LiveData<String> getWaterAmountTxt() { return txtWaterAmount;}
 
     public Integer getWaterAmount() { return waterAmount;} //물 섭취량 보내기
     public Integer getWaterNeed() { return waterNeed;} //필요 물 량 보내기
@@ -65,12 +74,17 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Integer> getLivePee() { return livePee; }
     public LiveData<Integer> getLiveFeces() { return livefeces; }
 
+    //test
+    public String getTxtProg() {  return txtProg;}
+    public String getTxtAmount() {  return txtAmount;}
 
 
 
     //add data
     public void addWater() {
         waterAmount+=cup;
+        waterState = waterAmount+"/"+waterNeed+"ml";
+//        liveWaterState.setValue(waterState);
         //db에 물 섭취량 저장
     }
 
@@ -87,6 +101,7 @@ public class HomeViewModel extends ViewModel {
     //subtract data
     public void subWater(){
         waterAmount-=cup;
+        waterState = waterAmount+"/"+waterNeed+"ml";
         //db에 저장
     }
     public void subPee(){

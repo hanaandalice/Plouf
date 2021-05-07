@@ -40,11 +40,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
+        context = container.getContext();
 
         initHome();
 
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getProgressTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 tv_progress.setText(s);
@@ -56,7 +57,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_fecesCnt.setText("1");
 
 
-        context = container.getContext();
 
         homeViewModel.getWaterAmountTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -76,6 +76,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_drink.setOnClickListener(this);
 
         img_drink.setOnLongClickListener((View.OnLongClickListener) this);
+        img_pee.setOnLongClickListener((View.OnLongClickListener) this);
+        img_feces.setOnLongClickListener((View.OnLongClickListener) this);
+
 
 
         return root;
@@ -85,7 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     @Override
     public void onClick(View v) {
        switch (v.getId()){
-            case R.id.img_water :   //누르면 마신 물 기록 하고 퍼센테이지 토스트 메시지로 보여주기
+            case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
                 Toast.makeText(context, msgWater, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "setOnClick: "+msgWater);
                 break;
@@ -110,15 +113,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public boolean onLongClick(View v) {
         switch (v.getId()){
             case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 이미지 변경
-
-
-                return true;
+                Toast.makeText(context, "Longdrink", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
-
-                return true;
-
+                Toast.makeText(context, "Longpee", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
-                return true;
+                Toast.makeText(context, "Longfeces", Toast.LENGTH_SHORT).show();
+                break;
         }
         return false;
     }
@@ -134,6 +136,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_drink = root.findViewById(R.id.img_drink);
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
-
     }
 }

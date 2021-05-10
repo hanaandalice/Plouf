@@ -1,4 +1,4 @@
-package com.example.plouf.ui.notifications;
+package com.example.plouf.ui.settings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ public class SettingsViewModel extends ViewModel {
 
     public SettingsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Settings fragment");
+        mText.setValue("앱 잠금 설정");
     }
 
     public LiveData<String> getText() {

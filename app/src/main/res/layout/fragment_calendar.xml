@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/text_calendar"
-        app:mcv_selectionColor="#f79256"
-        app:mcv_selectionMode="range" />
+        app:mcv_selectionColor="#BDD7EE"
+        app:mcv_selectionMode="single" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

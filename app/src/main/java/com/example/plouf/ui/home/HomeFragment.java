@@ -175,7 +175,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         // TODO : 물 양에 따른 물방울 이미지 변화 케이스 구체화 하기
         Float waterPer = homeViewModel.getWaterPer();
         Log.d(TAG, "setImg_water: "+waterPer);
-        if(waterPer>=0 && waterPer<30) {
+        if(waterPer<30) {
             img_water.setImageResource(R.drawable.hungry_0_30);
         } else if(waterPer>=30 && waterPer<50) {
             img_water.setImageResource(R.drawable.normal_filled_30_50);

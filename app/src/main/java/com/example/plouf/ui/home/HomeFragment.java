@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
+import com.example.plouf.MainActivity;
 import com.example.plouf.R;
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PdEntity;
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
 
         initHome();
-        dbTestInit();
+//        dbTestInit();
 
 
 
@@ -98,18 +99,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 tv_waterState.setText(homeViewModel.getWaterState());
                 Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                 setImg_water();
-                dbTestInsert();
+//                dbTestInsert();
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
                 tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
                 Log.d(TAG, "setOnClick: "+img_pee);
-                dbTestUpdate();
+//                dbTestUpdate();
                 break;
             case R.id.img_feces :
                 homeViewModel.addFeces();
                 tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
                 Log.d(TAG, "setOnClick: "+img_feces);
+//                dbTestDelete("2021-05-10");
                 break;
             case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
                 Toast.makeText(context, "drink", Toast.LENGTH_SHORT).show();
@@ -209,31 +211,39 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
-    public void dbTestInit() {
-        db = db.getInstance(context);   //TODO : AsyncTask를 사용하여 백그라운드에서 디비 가져오게끔 구현
+//    public void dbTestInit() {
+////        db = db.getInstance(context);   //TODO : AsyncTask를 사용하여 백그라운드에서 디비 가져오게끔 구현
+////        db = Room.databaseBuilder(MainActivity.getContext(), AppDatabase.class, "TEST").allowMainThreadQueries().build();
+//        db = MainActivity.db;
+//        Log.d("DB", "dbTestInit:  성공");
+//
+//    }
+//
+//    public void dbTestInsert(){
+//        db.pdDao().insertTest();
+//
+//        Log.d("DB", "dbTestInsert:  성공");
+//
+//    }
+//
+//    public void dbTestUpdate(){
+//        PdEntity pdEntity = new PdEntity();
+//        pdEntity.setDate("2021-05-10");
+//        pdEntity.setWater(1200);
+//        pdEntity.setCoffee(470);
+//        pdEntity.setTea(200);
+//        pdEntity.setPeeCnt(7);
+//        pdEntity.setFecesCnt(1);
+//        pdEntity.setWaterAc(1);
+//        pdEntity.setAcCnt(4);
+//        db.pdDao().insert(pdEntity);
+//
+//        Log.d("DB", "dbTestUpdate: 업데이트 성공");
+//    }
+//
+//    public void dbTestDelete(String date){
+//        db.pdDao().deleteByDate(date);
+//        Log.d("DB", "dbTestDelete: 삭제 성공");
+//    }
 
-        Log.d("DB", "dbTestInit:  성공");
-
-    }
-
-    public void dbTestInsert(){
-        db.pdDao().insertTest();
-        Log.d("DB", "dbTestInsert:  성공");
-
-    }
-
-    public void dbTestUpdate(){
-        PdEntity pdEntity = new PdEntity();
-        pdEntity.setDate("2021-05-10");
-        pdEntity.setWater(1200);
-        pdEntity.setCoffee(470);
-        pdEntity.setTea(200);
-        pdEntity.setPeeCnt(7);
-        pdEntity.setFecesCnt(1);
-        pdEntity.setWaterAc(1);
-        pdEntity.setAcCnt(4);
-        db.pdDao().insert(pdEntity);
-
-        Log.d("DB", "dbTestUpdate: 업데이트 성공");
-    }
 }

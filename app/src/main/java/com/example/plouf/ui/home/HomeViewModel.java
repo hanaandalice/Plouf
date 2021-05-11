@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.plouf.MainActivity;
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PdDao;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -33,27 +34,21 @@ public class HomeViewModel extends ViewModel {
 
     public MutableLiveData<Integer> livePee;
     public MutableLiveData<Integer> livefeces;
+    private AppDatabase db;
 
     public HomeViewModel() {
+//        db = MainActivity.db;
         txtProgress = new MutableLiveData<>();
         txtWaterAmount = new MutableLiveData<>();
         waterState = new String();
         peeCount = 6;   //디비에서 받아오기
-        appDatabase = new AppDatabase() {
-            @Override
-            public PdDao pdDao() {
-                return null;
-            }
-        };
         calendarDay = CalendarDay.today();
+//        peeCount = db.pdDao().getPeeCnt(calendarDay.getDate().toString());   //repository로 데이터에 접근
+
+//        Log.d("DB", "HomeViewModel: "+peeCount);
 
 
-//        appDatabase.getWater(calendarDay.getDate().toString());
-//        Log.d("DB", "HomeViewModel: "+appDatabase.getWater(calendarDay.getDate().toString()));    //2021-05-11 형태
 
-
-
-//        peeCount = pdDao.getPeeCnt(calendarDay.getDate().toString());   //디비에서 받아오기
 
         Log.d("DB", "HomeViewModel: "+calendarDay.getDate().toString());    //2021-05-11 형태
 

@@ -45,6 +45,8 @@ public interface PdDao {
    @Query("INSERT INTO PD_01 VALUES('2021-05-11',120,475,50,7,2,1,5)")
    void insertTest();
 
+   @Query("DELETE FROM PD_01 WHERE RECORD_DATE = :date")
+   void deleteByDate(String date);
 
 
 

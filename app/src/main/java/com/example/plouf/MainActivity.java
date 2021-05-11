@@ -1,7 +1,9 @@
 package com.example.plouf;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.plouf.data.AppDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +16,16 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        db = AppDatabase.getInstance(getApplicationContext());
+        Log.d("DB", "onCreate: db getInstance");
+
 
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -41,4 +50,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }

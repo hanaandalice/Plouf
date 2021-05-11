@@ -5,6 +5,11 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.plouf.data.AppDatabase;
+import com.example.plouf.data.PdDao;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 /*
 * ViewModel UI 관련 데이터 보관, 관리
 * */
@@ -20,6 +25,10 @@ public class HomeViewModel extends ViewModel {
     public String waterState;
     public Integer cup;
 //    public float waterPer;
+//    public CalendarFragment calendarFragment;
+
+    AppDatabase appDatabase;
+    public CalendarDay calendarDay;
 
 
     public MutableLiveData<Integer> livePee;
@@ -30,6 +39,24 @@ public class HomeViewModel extends ViewModel {
         txtWaterAmount = new MutableLiveData<>();
         waterState = new String();
         peeCount = 6;   //디비에서 받아오기
+        appDatabase = new AppDatabase() {
+            @Override
+            public PdDao pdDao() {
+                return null;
+            }
+        };
+        calendarDay = CalendarDay.today();
+
+
+//        appDatabase.getWater(calendarDay.getDate().toString());
+//        Log.d("DB", "HomeViewModel: "+appDatabase.getWater(calendarDay.getDate().toString()));    //2021-05-11 형태
+
+
+
+//        peeCount = pdDao.getPeeCnt(calendarDay.getDate().toString());   //디비에서 받아오기
+
+        Log.d("DB", "HomeViewModel: "+calendarDay.getDate().toString());    //2021-05-11 형태
+
         fecesCount = 2; //디비에서 대변 받아오기
         waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
@@ -55,7 +82,8 @@ public class HomeViewModel extends ViewModel {
     }
 
     //get data
-    public LiveData<String> getProgressTxt() { return txtProgress; }
+    public LiveData<String> getProgressTxt() {
+        return txtProgress; }
 
 //    public LiveData<String> getWaterAmountTxt() { return txtWaterAmount;}
 

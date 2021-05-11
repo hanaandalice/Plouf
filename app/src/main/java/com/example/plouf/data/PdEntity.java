@@ -5,15 +5,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import kotlin.random.Random;
+
 @Entity(tableName = "PD_01")
-public class Pd {
+public class PdEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "RECORD_DATE")
     private String date;
 
+
     @ColumnInfo(name = "WATER")
-    private Integer water;
+    private Integer water ;
 
     @ColumnInfo(name = "COFFEE")
     private Integer coffee;
@@ -28,10 +31,10 @@ public class Pd {
     private  Integer fecesCnt;
 
     @ColumnInfo(name = "WATER_ACHIEVE")
-    private Integer waterAchieve;
+    private Integer waterAc;
 
     @ColumnInfo(name = "ACHIEVE_CNT")
-    private Integer achiveCnt;
+    private Integer acCnt;
 
     @NonNull
     public String getDate() {
@@ -58,12 +61,12 @@ public class Pd {
         return fecesCnt;
     }
 
-    public Integer getWaterAchieve() {
-        return waterAchieve;
+    public Integer getWaterAc() {
+        return waterAc;
     }
 
-    public Integer getAchiveCnt() {
-        return achiveCnt;
+    public Integer getAcCnt() {
+        return acCnt;
     }
 
     public void setDate(@NonNull String date) {
@@ -90,11 +93,11 @@ public class Pd {
         this.fecesCnt = fecesCnt;
     }
 
-    public void setWaterAchieve(Integer waterAchieve) {
-        this.waterAchieve = waterAchieve;
+    public void setWaterAc(Integer waterAchieve) {
+        this.waterAc = waterAchieve;
     }
 
-    public void setAchiveCnt(Integer achiveCnt) {
-        this.achiveCnt = achiveCnt;
+    public void setAcCnt(Integer achiveCnt) {
+        this.acCnt = achiveCnt;
     }
 }

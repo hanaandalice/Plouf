@@ -9,25 +9,42 @@ import java.util.List;
 @Dao
 public interface PdDao {
    @Insert()
-   void insert(Pd pd);
+   void insert(PdEntity pdEntity);
 
    @Delete
-   void delete(Pd pd);
+   void delete(PdEntity pdEntity);
 
    @Update
-   void update(Pd pd);
+   void update(PdEntity pdEntity);
 
+   //pd 데이터 전체 가져오기
    @Query("SELECT * FROM PD_01 ORDER BY RECORD_DATE")
-   LiveData<List<Pd>> loadAllPd();
+   LiveData<List<PdEntity>> loadAllPd();
 
-   @Query("SELECT WATER FROM pd_01 WHERE RECORD_DATE = :date")
-   LiveData<Integer> getWater(String date);
+   //날짜에 따른 물 섭취량
+   @Query("SELECT WATER FROM PD_01 WHERE RECORD_DATE = :date")
+   Integer getWater(String date);
 
+   //날짜에 따른 소변 횟수
    @Query("SELECT PEE_CNT FROM PD_01 WHERE RECORD_DATE = :date")
-   LiveData<Integer> getPeeCnt(String date);
+   Integer getPeeCnt(String date);
 
+   //날짜에 따른 대변 횟수
    @Query("SELECT FECES_CNT FROM PD_01 WHERE RECORD_DATE = :date")
-   LiveData <Integer> getFecesCnt(String date);
+   Integer getFecesCnt(String date);
+
+   //소변 전체 평균
+   @Query("SELECT AVG(PEE_CNT) FROM PD_01")
+   Integer getPeeAvg();
+
+   //대변 전체 평균
+   @Query("SELECT AVG(FECES_CNT) FROM PD_01")
+   Integer getFecesAvg();
+
+   //테스트 데이터 삽입
+   @Query("INSERT INTO PD_01 VALUES('2021-05-11',120,475,50,7,2,1,5)")
+   void insertTest();
+
 
 
 

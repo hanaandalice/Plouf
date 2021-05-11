@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 public class SettingsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
+    public Integer waterCup;
 
     public SettingsViewModel() {
         mText = new MutableLiveData<>();
@@ -16,4 +17,10 @@ public class SettingsViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
+    public void setWaterCup(Integer waterCup){this.waterCup = waterCup;}
+
+
+
+
 }

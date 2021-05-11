@@ -11,5 +11,9 @@
     <color name="select_blue">#2196F3</color>
     <color name="notSelect_gray">#CCCCCC</color>
     <color name="gray_line">#ECECEC</color>
+    <color name="dark_gray">#3E4345</color>
+
+    <!--for test-->
+
 
 </resources>

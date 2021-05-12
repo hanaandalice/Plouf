@@ -48,6 +48,14 @@ public interface PdDao {
    @Query("DELETE FROM PD_01 WHERE RECORD_DATE = :date")
    void deleteByDate(String date);
 
+   @Query("SELECT * FROM PD_01 WHERE RECORD_DATE = :date")
+   PdEntity getPdByDate(String date);
 
+   //가장 최근의 acheive_cnt 불러오기
+   @Query("SELECT ACHIEVE_CNT FROM PD_01 ORDER BY RECORD_DATE DESC LIMIT 1")
+   Integer getAcCnt();
+
+   @Query("SELECT WATER_ACHIEVE FROM PD_01 ORDER BY RECORD_DATE DESC LIMIT 1")
+   Integer getWaterAc();
 
 }

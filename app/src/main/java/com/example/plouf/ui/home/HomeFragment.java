@@ -23,6 +23,8 @@ import com.example.plouf.MainActivity;
 import com.example.plouf.R;
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PdEntity;
+import com.example.plouf.data.PdRepository;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import static android.content.ContentValues.TAG;
 
@@ -197,6 +199,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
         }
     }
+
+
 
 
 }

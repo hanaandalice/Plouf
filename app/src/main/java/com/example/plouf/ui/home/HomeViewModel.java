@@ -7,9 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.plouf.MainActivity;
+import com.example.plouf.PdApplication;
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PdDao;
+import com.example.plouf.data.PdRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.util.concurrent.ExecutionException;
 
 /*
 * ViewModel UI 관련 데이터 보관, 관리
@@ -38,13 +42,15 @@ public class HomeViewModel extends ViewModel {
 //    public float waterPer;
 //    public CalendarFragment calendarFragment;
 
-    AppDatabase appDatabase;
     public CalendarDay calendarDay;
+    public PdRepository pdRepository;
+
 
 
     public MutableLiveData<Integer> livePee;
     public MutableLiveData<Integer> livefeces;
-    private AppDatabase db;
+
+    public PdApplication pdApplication;
 
     public HomeViewModel() {
 //        db = MainActivity.db;
@@ -52,16 +58,19 @@ public class HomeViewModel extends ViewModel {
         txtWaterAmount = new MutableLiveData<>();
         waterState = new String();
         peeCount = 6;   //디비에서 받아오기
-        calendarDay = CalendarDay.today();
-//        peeCount = db.pdDao().getPeeCnt(calendarDay.getDate().toString());   //repository로 데이터에 접근
+//        calendarDay = CalendarDay.today();
 
-//        Log.d("DB", "HomeViewModel: "+peeCount);
-
-
+        pdApplication = new PdApplication().getAppInstance();
+        pdRepository = new PdRepository(pdApplication);
 
 
-        Log.d("DB", "HomeViewModel: "+calendarDay.getDate().toString());    //2021-05-11 형태
+        String today = CalendarDay.today().getDate().toString();
+        checkDate(today);
 
+        Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
+
+
+//        fecesCount = pdRepository.getWater(today);
         fecesCount = 2; //디비에서 대변 받아오기
         waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
@@ -138,6 +147,20 @@ public class HomeViewModel extends ViewModel {
     public void subFeces(){
         fecesCount--;
         //db에 저장
+    }
+
+    public void checkDate(String date) {
+        try{
+            if(pdRepository.checkDate("2021-05-21") == true) {  //true이면 없는거임.
+                Log.d("DB", "checkDate: if");
+                pdRepository.insertInitDate("2021-05-21");
+                Log.d("DB", "checkDate: insert완료");
+            }
+            Log.d("DB", "checkDate: ");
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -14,6 +14,16 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 /*
 * ViewModel UI 관련 데이터 보관, 관리
 * */
+
+//‘// ---------------------------------------------------------------------------------------
+//        ‘// 형태	: Object 종류 (Event, Function, Method, Property …)
+//        ‘// 소유자	: ObjectID (Object 소속위치)
+//        ‘// 반환값	: ADODB.Connection (String, Long, Iteger, Double, Object, Boolean, …)
+//        '// 최초생성일	: 2017/03/21 18:35:22 (최초작성자)
+//        ‘// 최종수정일	: 2017/03/24 19:23:41 (수정자)
+//        '// 설명	: Return DBConnectiion of current session
+//        '---------------------------------------------------------------------------------------
+
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> txtProgress;

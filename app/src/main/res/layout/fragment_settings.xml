@@ -18,7 +18,7 @@
             android:id="@+id/tv_lockSetting"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/settings_layout_margin_left"
             android:text="앱 잠금"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/settings_layout_margin_left"
             android:text="체중"
             android:textSize="18dp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="59dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="@dimen/settings_layout_margin_right"
             android:ems="10"
             android:inputType="number" />
 
@@ -88,7 +88,7 @@
         <TextView
             android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/settings_layout_margin_left"
             android:text="컵 용량"
             android:textSize="18dp" />
 
@@ -96,7 +96,7 @@
             android:id="@+id/et_waterCup"
             android:layout_width="59dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="@dimen/settings_layout_margin_right"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number" />

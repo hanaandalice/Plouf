@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public String dSelectItem;
     public String water, coffee, tea;
 
-    public AppDatabase db;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,10 +53,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         root = inflater.inflate(R.layout.fragment_home, container, false);
         context = container.getContext();
 
-
         initHome();
-//        dbTestInit();
-
 
 
         homeViewModel.getProgressTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -67,13 +63,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             }
         });
 
-        //db에서 숫자 받아와서 변경. view 모델에서 데이터 받아오기
 
 
         tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
         tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
         tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
-
 
 
         img_water.setOnClickListener(this);
@@ -85,7 +79,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_pee.setOnLongClickListener((View.OnLongClickListener) this);
         img_feces.setOnLongClickListener((View.OnLongClickListener) this);
         img_water.setOnLongClickListener((View.OnLongClickListener) this);
-
 
         return root;
     }
@@ -99,25 +92,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 tv_waterState.setText(homeViewModel.getWaterState());
                 Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                 setImg_water();
-//                dbTestInsert();
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
                 tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
-                Log.d(TAG, "setOnClick: "+img_pee);
-//                dbTestUpdate();
                 break;
             case R.id.img_feces :
                 homeViewModel.addFeces();
                 tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
-                Log.d(TAG, "setOnClick: "+img_feces);
-//                dbTestDelete("2021-05-10");
                 break;
             case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
                 Toast.makeText(context, "drink", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "setOnClick: "+img_drink);
                 break;
-
         }
 
     }
@@ -211,39 +198,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
-//    public void dbTestInit() {
-////        db = db.getInstance(context);   //TODO : AsyncTask를 사용하여 백그라운드에서 디비 가져오게끔 구현
-////        db = Room.databaseBuilder(MainActivity.getContext(), AppDatabase.class, "TEST").allowMainThreadQueries().build();
-//        db = MainActivity.db;
-//        Log.d("DB", "dbTestInit:  성공");
-//
-//    }
-//
-//    public void dbTestInsert(){
-//        db.pdDao().insertTest();
-//
-//        Log.d("DB", "dbTestInsert:  성공");
-//
-//    }
-//
-//    public void dbTestUpdate(){
-//        PdEntity pdEntity = new PdEntity();
-//        pdEntity.setDate("2021-05-10");
-//        pdEntity.setWater(1200);
-//        pdEntity.setCoffee(470);
-//        pdEntity.setTea(200);
-//        pdEntity.setPeeCnt(7);
-//        pdEntity.setFecesCnt(1);
-//        pdEntity.setWaterAc(1);
-//        pdEntity.setAcCnt(4);
-//        db.pdDao().insert(pdEntity);
-//
-//        Log.d("DB", "dbTestUpdate: 업데이트 성공");
-//    }
-//
-//    public void dbTestDelete(String date){
-//        db.pdDao().deleteByDate(date);
-//        Log.d("DB", "dbTestDelete: 삭제 성공");
-//    }
 
 }

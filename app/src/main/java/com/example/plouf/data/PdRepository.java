@@ -11,12 +11,17 @@ import java.util.concurrent.ExecutionException;
 public class PdRepository {
     private  PdDao pdDao;
     PdEntity pdEntity;
+    GetIntData getIntData;
 
 
     public PdRepository(Application application) {
         pdDao = AppDatabase.getInstance(application).pdDao();
         pdEntity = new PdEntity();
         Log.d("DB", "PdRepository: 초기화");
+    }
+
+    public PdDao getPdDao(){
+        return pdDao;
     }
 
     public List<PdEntity> getAllPds() {
@@ -32,7 +37,7 @@ public class PdRepository {
     public boolean checkDate(String date) {
         boolean result = false;
         try{
-            result = new GetPdByDate(pdDao, date).execute().get();
+            result = new CheckPdByDate(pdDao, date).execute().get();
             return result;
         } catch(ExecutionException | InterruptedException e){
             e.printStackTrace();
@@ -52,8 +57,13 @@ public class PdRepository {
         update(pdEntity);
     }
 
-    public Integer getWater(String date) {
-        return pdDao.getWater(date);
+    public Integer getIntData(String date, String columnName) {
+        try{
+            return new GetIntData(pdDao, columnName, date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Integer getPeeCnt(String date) {
@@ -106,26 +116,30 @@ public class PdRepository {
         Log.d("DB", "insertInitDate: 완"+pdEntity);
     }
 
+    // TODO : AsyncTask 식으로 다 만들기
     public void updateWater(String date) {
-        pdEntity = pdDao.getPdByDate(date);
-        Integer water = pdEntity.getWater();
-        Integer cup=473;    // cup sharedPreferences에서 가져오기
-        pdEntity.setWater(water+cup);
-        pdDao.update(pdEntity);
+        try{
+            Log.d("DB", "updateWater: 전");
+            new UpdateIntData(pdDao, date,"water").execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateWater: 완");
+
     }
 
     public void updateCoffee(String date) {
         pdEntity = pdDao.getPdByDate(date);
-        Integer coffee = pdEntity.getCoffee();
         Integer cup = 473;   //cup SharedPreferences에서 가져오기
+        Integer coffee = pdEntity.getCoffee();
         pdEntity.setTea(coffee+cup);
         pdDao.update(pdEntity);
     }
 
     public void updateTea(String date) {
         pdEntity = pdDao.getPdByDate(date);
-        Integer tea = pdEntity.getTea();
         Integer cup = 473;   //cup SharedPreferences에서 가져오기
+        Integer tea = pdEntity.getTea();
         pdEntity.setTea(tea+cup);
         pdDao.update(pdEntity);
     }
@@ -157,11 +171,11 @@ public class PdRepository {
         }
     }
 
-    public static class GetPdByDate extends AsyncTask<Void, Void, Boolean> {
+    public static class CheckPdByDate extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         private String date;
 
-        GetPdByDate(PdDao pdAsyncTaskDao, String date) {
+        CheckPdByDate(PdDao pdAsyncTaskDao, String date) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.date = date;
         }
@@ -201,6 +215,94 @@ public class PdRepository {
             Log.d("DB", "doInBackground: 2");
             pdAsyncTaskDao.insert(pdEntity);
             return  true;
+        }
+    }
+
+    public static class GetIntData extends AsyncTask<Void, Void, Integer> {
+        private PdDao pdAsyncTaskDao;
+        String columnName;
+        String date;
+        GetIntData(PdDao pdAsyncTaskDao, String columnName, String date) {
+            this.pdAsyncTaskDao = pdAsyncTaskDao;
+            this.columnName = columnName;
+            this.date = date;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            switch (columnName) {
+                case "water" :
+                    return pdAsyncTaskDao.getWater(date);
+                case "coffee" :
+                    return pdAsyncTaskDao.getCoffee(date);
+                case "tea" :
+                    return pdAsyncTaskDao.getTea(date);
+                case "peeCnt" :
+                    return pdAsyncTaskDao.getPeeCnt(date);
+                case "fecesCnt" :
+                    return pdAsyncTaskDao.getFecesCnt(date);
+                case "peeAvg" :
+                    return pdAsyncTaskDao.getPeeAvg();
+                case "fecesAvg":
+                    return pdAsyncTaskDao.getFecesAvg();
+            }
+
+            return null;
+        }
+    }
+
+    public static class UpdateIntData extends AsyncTask<Void, Void, Boolean> {
+        private PdDao pdAsyncTaskDao;
+        String columnName;
+        PdEntity pdEntity;
+        String date;
+        Integer cup;
+        Integer data;
+
+        UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName) {
+            this.pdAsyncTaskDao = pdAsyncTaskDao;
+            this.columnName = columnName;
+            cup = 473;
+            data = 0;
+            //TODO : CUP sharedPreferences에서 가져오기
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try{
+                this.pdEntity = pdAsyncTaskDao.getPdByDate(date);   //이게 제대로 안됨
+                Log.d("DB", "doInBackground: pdEntity load");
+                switch (columnName) {
+                    case "water" :
+                        data = pdEntity.getWater();
+                        pdEntity.setWater(data+cup);
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                    case "coffee" :
+                        data = pdEntity.getCoffee();
+                        pdEntity.setCoffee(data+cup);
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                    case "tea" :
+                        data = pdEntity.getTea();
+                        pdEntity.setTea(data+cup);
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                    case "peeCnt" :
+                        data = pdEntity.getPeeCnt();
+                        pdEntity.setPeeCnt(++data);
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                    case "fecesCnt" :
+                        data = pdEntity.getFecesCnt();
+                        pdEntity.setFecesCnt(++data);
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 

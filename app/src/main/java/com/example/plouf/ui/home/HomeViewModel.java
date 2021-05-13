@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.plouf.MainActivity;
 import com.example.plouf.PdApplication;
+import com.example.plouf.R;
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PdDao;
 import com.example.plouf.data.PdRepository;
@@ -42,8 +43,9 @@ public class HomeViewModel extends ViewModel {
 //    public float waterPer;
 //    public CalendarFragment calendarFragment;
 
-    public CalendarDay calendarDay;
+    public String today;
     public PdRepository pdRepository;
+    public String columnName;
 
 
 
@@ -64,7 +66,7 @@ public class HomeViewModel extends ViewModel {
         pdRepository = new PdRepository(pdApplication);
 
 
-        String today = CalendarDay.today().getDate().toString();
+        today = CalendarDay.today().getDate().toString();
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
@@ -75,7 +77,9 @@ public class HomeViewModel extends ViewModel {
         waterCnt = 4;   //디비에서 물 연속 성취일수 받아오기 PD_01.ACHIEVE_CNT
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
         waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
-        waterAmount = 0; //디비에서 물 양 받아오기 PD_01.WATER
+//        waterAmount = 0; //디비에서 물 양 받아오기 PD_01.WATER
+        waterAmount = pdRepository.getIntData(today, "water");
+
         waterState = waterAmount+"/"+waterNeed+"ml";
 
 
@@ -121,6 +125,13 @@ public class HomeViewModel extends ViewModel {
     public void addWater() {
         waterAmount+=cup;
         waterState = waterAmount+"/"+waterNeed+"ml";
+        try{
+            Log.d("DB", "addWater: 전");
+            pdRepository.updateWater(today);
+            Log.d("DB", "addWater: 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //db에 물 섭취량 저장
     }
 
@@ -151,10 +162,9 @@ public class HomeViewModel extends ViewModel {
 
     public void checkDate(String date) {
         try{
-            if(pdRepository.checkDate("2021-05-21") == true) {  //true이면 없는거임.
-                Log.d("DB", "checkDate: if");
-                pdRepository.insertInitDate("2021-05-21");
-                Log.d("DB", "checkDate: insert완료");
+            if(pdRepository.checkDate(date) == true) {  //true이면 없는거임.
+                pdRepository.insertInitDate(date);
+                Log.d("DB", "checkDate: insert완료"+date);
             }
             Log.d("DB", "checkDate: ");
         }catch(Exception e) {

@@ -6,6 +6,11 @@
     <string name="drink_water_korean">물</string>
     <string name="drink_coffee_korean">커피</string>
     <string name="drink_tea_korean">차</string>
-
-
+    <string name="column_water">water</string>
+    <string name="column_coffee">coffee</string>
+    <string name="column_tea">tea</string>
+    <string name="column_peeCnt">peeCnt</string>
+    <string name="column_fecesCnt">fecesCnt</string>
+    <string name="column_peeAvg">peeAvg</string>
+    <string name="column_fecesAvg">fecesAvg</string>
 </resources>

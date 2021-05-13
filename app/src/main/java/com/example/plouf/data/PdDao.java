@@ -25,6 +25,12 @@ public interface PdDao {
    @Query("SELECT WATER FROM PD_01 WHERE RECORD_DATE = :date")
    Integer getWater(String date);
 
+   @Query("SELECT COFFEE FROM PD_01 WHERE RECORD_DATE = :date")
+   Integer getCoffee(String date);
+
+   @Query("SELECT TEA FROM PD_01 WHERE RECORD_DATE = :date")
+   Integer getTea(String date);
+
    //날짜에 따른 소변 횟수
    @Query("SELECT PEE_CNT FROM PD_01 WHERE RECORD_DATE = :date")
    Integer getPeeCnt(String date);

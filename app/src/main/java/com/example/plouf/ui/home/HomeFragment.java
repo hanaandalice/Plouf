@@ -167,6 +167,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         if(homeViewModel.getWaterNeed(context)!= null){
             waterNeed = homeViewModel.getWaterNeed(context);
             homeViewModel.setWaterNeed(waterNeed);
+            homeViewModel.setCup(homeViewModel.getCup(context));
         } else {
             homeViewModel.setWaterNeed(0);
         }

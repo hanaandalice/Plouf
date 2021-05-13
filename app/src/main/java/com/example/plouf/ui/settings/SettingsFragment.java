@@ -46,7 +46,7 @@ public class SettingsFragment extends Fragment {
         if(settingsViewModel.getCup(context) != null){
             et_waterCup.setText(settingsViewModel.getCup(context).toString());
         } else {
-            settingsViewModel.setCup(context,0);
+            settingsViewModel.setCup(context,473);
             et_waterCup.setText(settingsViewModel.getCup(context).toString());
         }
 

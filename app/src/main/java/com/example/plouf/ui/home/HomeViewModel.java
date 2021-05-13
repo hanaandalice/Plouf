@@ -16,14 +16,15 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 * ViewModel UI 관련 데이터 보관, 관리
 * */
 
-//‘// ---------------------------------------------------------------------------------------
-//        ‘// 형태	: Object 종류 (Event, Function, Method, Property …)
-//        ‘// 소유자	: ObjectID (Object 소속위치)
-//        ‘// 반환값	: ADODB.Connection (String, Long, Iteger, Double, Object, Boolean, …)
-//        '// 최초생성일	: 2017/03/21 18:35:22 (최초작성자)
-//        ‘// 최종수정일	: 2017/03/24 19:23:41 (수정자)
-//        '// 설명	: Return DBConnectiion of current session
-//        '---------------------------------------------------------------------------------------
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : HomeViewModel
+ * 설명 : Home 화면 ViewModel
+ * 네트워크연결확인
+ * 설치버전확인
+ * DB에 저장된 영양성분명 가져와서 프레퍼런스에 저장(유의성분설정시 필요)
+ * */
 
 public class HomeViewModel extends ViewModel {
 
@@ -51,7 +52,7 @@ public class HomeViewModel extends ViewModel {
         preferencesManager = new PreferencesManager();
 
         today = CalendarDay.today().getDate().toString();
-        today = "2021-05-14";
+//        today = "2021-05-14";
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
@@ -80,7 +81,8 @@ public class HomeViewModel extends ViewModel {
     public String getWaterState() {  return waterState;} //물 총량 대비 마신 상태
     public float getWaterPer() {
         Log.d("pref", "getWaterPer: waterNeed"+waterNeed);
-        return ((float)waterAmount/(float)waterNeed)*100;}
+        return ((float)waterAmount/(float)waterNeed)*100;
+    }
 
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}
@@ -88,10 +90,19 @@ public class HomeViewModel extends ViewModel {
         return  preferencesManager.getWaterNeed(context);
     }
 
+    public Integer getCup(Context context) {
+        return  preferencesManager.getCup(context);
+    }
+
     public void setWaterNeed(Integer waterNeed) {
         this.waterNeed = waterNeed;
         waterState = waterAmount+"/"+waterNeed+"ml";
     }
+
+    public void setCup(Integer cup) {
+        this.cup = cup;
+    }
+
 
     private Integer getNeed(){
         return waterNeed;

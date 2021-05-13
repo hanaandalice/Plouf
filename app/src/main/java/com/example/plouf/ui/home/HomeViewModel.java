@@ -1,5 +1,6 @@
 package com.example.plouf.ui.home;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.plouf.PdApplication;
 import com.example.plouf.data.PdRepository;
+import com.example.plouf.data.PreferencesManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 /*
@@ -26,7 +28,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> txtProgress;
-    public MutableLiveData<String> txtWaterAmount;
     public Integer acCnt;
     public Integer waterAmount;
     public Integer peeCnt;
@@ -38,15 +39,16 @@ public class HomeViewModel extends ViewModel {
     public String today;
     public PdRepository pdRepository;
     public PdApplication pdApplication;
+    private PreferencesManager preferencesManager;
+
 
     public HomeViewModel() {
         txtProgress = new MutableLiveData<>();
-        txtWaterAmount = new MutableLiveData<>();
         waterState = new String();
 
         pdApplication = new PdApplication().getAppInstance();
         pdRepository = new PdRepository(pdApplication);
-
+        preferencesManager = new PreferencesManager();
 
         today = CalendarDay.today().getDate().toString();
         checkDate(today);
@@ -59,7 +61,8 @@ public class HomeViewModel extends ViewModel {
         waterAmount = pdRepository.getWater(today);
 
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
-        waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
+        waterNeed = 0;
+        ;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
         waterState = waterAmount+"/"+waterNeed+"ml";
 
         txtProgress.setValue(acCnt +" 일째 물 마시기 도전 중");
@@ -75,6 +78,18 @@ public class HomeViewModel extends ViewModel {
 
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}
+    public Integer getWaterNeed(Context context) {
+        return  preferencesManager.getWaterNeed(context);
+    }
+
+    public void setWaterNeed(Integer waterNeed) {
+        this.waterNeed = waterNeed;
+        waterState = waterAmount+"/"+waterNeed+"ml";
+    }
+
+    private Integer getNeed(){
+        return waterNeed;
+    }
 
 
     //add data
@@ -144,6 +159,7 @@ public class HomeViewModel extends ViewModel {
             e.printStackTrace();
         }
     }
+
     public void subPee(){
         peeCnt--;
         try{

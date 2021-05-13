@@ -19,7 +19,7 @@
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/settings_layout_margin_left"
-            android:text="앱 잠금"
+            android:text="@string/lock_Setting_txt"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sw_lock"

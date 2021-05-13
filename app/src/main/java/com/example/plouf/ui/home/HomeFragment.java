@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public AlertDialog.Builder dDialog;
     public String dSelectItem;
     public String water, coffee, tea;
+    public Integer waterNeed;
 
 
 
@@ -47,10 +48,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
+        Log.d("pref", "onCreateView: waterNeed 전");
         context = container.getContext();
 
         initHome();
-
+        Log.d("pref", "onCreateView: init 후");
 
         homeViewModel.getProgressTxt().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -58,7 +60,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 tv_progress.setText(s);
             }
         });
-
 
 
         tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
@@ -158,6 +159,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         dItems = new CharSequence[]{water, coffee, tea};
         dSelectItem = new String();
+        setImg_water();
+        waterNeed = homeViewModel.getWaterNeed(context);
+        homeViewModel.setWaterNeed(waterNeed);
+
     }
 
 
@@ -192,6 +197,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 img_drink.setImageResource(R.drawable.drink_water);
                 break;
         }
+    }
+
+    public Context getContext(){
+        return context;
     }
 
 

@@ -131,7 +131,7 @@ public class PdRepository {
 
 
     //초기 데이터 삽입. home에서 제일 먼저 date 있나 확인 하고 없으면 실행 시키기
-    public void insertInitDate(String date) {   //AsyncTask로 구현 하기
+    public void insertInitDate(String date) {
         Log.d("DB", "insertInitDate: 진입");
         pdEntity.setDate(date);
         pdEntity.setWater(0);

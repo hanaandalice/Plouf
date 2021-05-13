@@ -1,5 +1,6 @@
 package com.example.plouf.ui.settings;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ public class SettingsFragment extends Fragment {
     //TODO: SharedPreference 로  몸무게, 컵 무게, 잠금 설정 여부 저장 하는 부분 만들기
 
     private SettingsViewModel settingsViewModel;
+    Context context;
+    EditText et_waterCup;
+    EditText et_weight;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -26,20 +30,41 @@ public class SettingsFragment extends Fragment {
                 new ViewModelProvider(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
         final TextView textView = root.findViewById(R.id.tv_lockSetting);
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        context = root.getContext();
 
-        EditText et_waterCup = root.findViewById(R.id.et_waterCup);
-        EditText et_weight = root.findViewById(R.id.et_weight);
 
-        et_waterCup.setText(et_waterCup.getText().toString());
-        et_weight.setText(et_waterCup.getText().toString());
+        et_waterCup = root.findViewById(R.id.et_waterCup);
+        et_weight = root.findViewById(R.id.et_weight);
+
+
+
+        if(settingsViewModel.getCup(context) != null){
+            et_waterCup.setText(settingsViewModel.getCup(context).toString());
+        } else {
+            settingsViewModel.setCup(context,0);
+            et_waterCup.setText(settingsViewModel.getCup(context).toString());
+        }
+
+
+       if(settingsViewModel.getWeight(context) != null){
+           et_weight.setText(settingsViewModel.getWeight(context).toString());
+       } else {
+           settingsViewModel.setWeight(context, 0);
+           et_waterCup.setText(settingsViewModel.getWeight(context).toString());
+       }
+
+
 
         return root;
     }
 
+//물컵 세팅
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        settingsViewModel.setCup(context, Integer.parseInt(et_waterCup.getText().toString()));
+        settingsViewModel.setWeight(context, Integer.parseInt(et_weight.getText().toString()));
+
+    }
 }

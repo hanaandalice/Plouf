@@ -11,12 +11,13 @@ import java.util.concurrent.ExecutionException;
 public class PdRepository {
     private  PdDao pdDao;
     PdEntity pdEntity;
-    GetIntData getIntData;
+    private static Integer UPDATE_MODE_ADD = 1;
+    private static Integer UPDATE_MODE_SUB = 0;
+
 
 
     public PdRepository(Application application) {
         pdDao = AppDatabase.getInstance(application).pdDao();
-        pdEntity = new PdEntity();
         Log.d("DB", "PdRepository: 초기화");
     }
 
@@ -81,6 +82,14 @@ public class PdRepository {
     public Integer getFecesAvg() {
         return pdDao.getFecesAvg();
     }
+//    public Integer getAcCnt(String date, ) {
+//        try{
+//            return new GetIntData(pdDao, columnName, date).execute().get();
+//        } catch(ExecutionException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 
 
@@ -117,10 +126,10 @@ public class PdRepository {
     }
 
     // TODO : AsyncTask 식으로 다 만들기
-    public void updateWater(String date) {
+    public void addWater(String date) {
         try{
             Log.d("DB", "updateWater: 전");
-            new UpdateIntData(pdDao, date,"water").execute().get();
+            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_ADD).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -128,35 +137,99 @@ public class PdRepository {
 
     }
 
-    public void updateCoffee(String date) {
-        pdEntity = pdDao.getPdByDate(date);
-        Integer cup = 473;   //cup SharedPreferences에서 가져오기
-        Integer coffee = pdEntity.getCoffee();
-        pdEntity.setTea(coffee+cup);
-        pdDao.update(pdEntity);
+    public void subWater(String date) {
+        try{
+            Log.d("DB", "updateWater: 전");
+            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateWater: 완");
+
     }
 
-    public void updateTea(String date) {
-        pdEntity = pdDao.getPdByDate(date);
-        Integer cup = 473;   //cup SharedPreferences에서 가져오기
-        Integer tea = pdEntity.getTea();
-        pdEntity.setTea(tea+cup);
-        pdDao.update(pdEntity);
+    public void addCoffee(String date) {
+        try{
+            Log.d("DB", "updateCoffee: 전");
+            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_ADD).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateCoffee: 완");
     }
 
-    public void updatePeeCnt(String date) {
-        pdEntity = pdDao.getPdByDate(date);
-        Integer peeCnt = pdEntity.getPeeCnt();
-        pdEntity.setTea(peeCnt++);
-        pdDao.update(pdEntity);
+    public void subCoffee(String date) {
+        try{
+            Log.d("DB", "updateCoffee: 전");
+            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateCoffee: 완");
     }
 
-    public void updateFecesCnt(String date) {
-        pdEntity = pdDao.getPdByDate(date);
-        Integer fecesCnt = pdEntity.getFecesCnt();
-        pdEntity.setTea(fecesCnt++);
-        pdDao.update(pdEntity);
+    public void addTea(String date) {
+        try{
+            Log.d("DB", "updateTea: 전");
+            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_ADD).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateTea: 완");
     }
+
+    public void subTea(String date) {
+        try{
+            Log.d("DB", "updateTea: 전");
+            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateTea: 완");
+    }
+
+
+    public void addPeeCnt(String date) {
+        try{
+            Log.d("DB", "updatePeeCnt: 전");
+            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_ADD).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updatePeeCnt: 완");
+    }
+
+
+    public void subPeeCnt(String date) {
+        try{
+            Log.d("DB", "updatePeeCnt: 전");
+            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updatePeeCnt: 완");
+    }
+
+    public void addFecesCnt(String date) {
+        try{
+            Log.d("DB", "updateFecesCnt: 전");
+            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_ADD).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateFecesCnt: 완");
+    }
+
+    public void subFecesCnt(String date) {
+        try{
+            Log.d("DB", "updateFecesCnt: 전");
+            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateFecesCnt: 완");
+    }
+
 
     private static class GetAllPdsAsyncTask extends AsyncTask<Void, Void, List<PdEntity>> {
         private PdDao pdAsyncTaskDao;
@@ -197,7 +270,7 @@ public class PdRepository {
         InsertInitDate(PdDao pdAsyncTaskDao, PdEntity pdEntity) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.pdEntity = pdEntity;
-            Log.d("DB", "InsertInitDate: 입장");
+//            Log.d("DB", "InsertInitDate: 입장");
         }
 
         @Override
@@ -209,10 +282,10 @@ public class PdRepository {
                 pastAcCnt = pdAsyncTaskDao.getAcCnt();
             }
 
-            Log.d("DB", "doInBackground: 1");
+//            Log.d("DB", "doInBackground: 1");
 //            Integer pastAcCnt = 1;
             pdEntity.setAcCnt(pastAcCnt+1);
-            Log.d("DB", "doInBackground: 2");
+//            Log.d("DB", "doInBackground: 2");
             pdAsyncTaskDao.insert(pdEntity);
             return  true;
         }
@@ -241,6 +314,10 @@ public class PdRepository {
                     return pdAsyncTaskDao.getPeeCnt(date);
                 case "fecesCnt" :
                     return pdAsyncTaskDao.getFecesCnt(date);
+                case "waterAc" :
+                    return pdAsyncTaskDao.getWaterAc();
+                case "acCnt" :
+                    return pdAsyncTaskDao.getAcCnt();
                 case "peeAvg" :
                     return pdAsyncTaskDao.getPeeAvg();
                 case "fecesAvg":
@@ -256,12 +333,15 @@ public class PdRepository {
         String columnName;
         PdEntity pdEntity;
         String date;
+        Integer mode;
         Integer cup;
         Integer data;
 
-        UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName) {
+        UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName, Integer mode) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.columnName = columnName;
+            this.date = date;
+            this.mode = mode;
             cup = 473;
             data = 0;
             //TODO : CUP sharedPreferences에서 가져오기
@@ -270,32 +350,52 @@ public class PdRepository {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try{
-                this.pdEntity = pdAsyncTaskDao.getPdByDate(date);   //이게 제대로 안됨
+                pdEntity = pdAsyncTaskDao.getPdByDate(date);//이게 제대로 안됨
                 Log.d("DB", "doInBackground: pdEntity load");
                 switch (columnName) {
                     case "water" :
                         data = pdEntity.getWater();
-                        pdEntity.setWater(data+cup);
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setWater(data+cup);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setWater(data-cup);
+                        }
                         pdAsyncTaskDao.update(pdEntity);
                         break;
                     case "coffee" :
                         data = pdEntity.getCoffee();
-                        pdEntity.setCoffee(data+cup);
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setCoffee(data+cup);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setCoffee(data-cup);
+                        }
                         pdAsyncTaskDao.update(pdEntity);
                         break;
                     case "tea" :
                         data = pdEntity.getTea();
-                        pdEntity.setTea(data+cup);
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setTea(data+cup);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setTea(data-cup);
+                        }
                         pdAsyncTaskDao.update(pdEntity);
                         break;
                     case "peeCnt" :
                         data = pdEntity.getPeeCnt();
-                        pdEntity.setPeeCnt(++data);
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setPeeCnt(++data);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setPeeCnt(--data);
+                        }
                         pdAsyncTaskDao.update(pdEntity);
                         break;
                     case "fecesCnt" :
                         data = pdEntity.getFecesCnt();
-                        pdEntity.setFecesCnt(++data);
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setFecesCnt(++data);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setFecesCnt(--data);
+                        }
                         pdAsyncTaskDao.update(pdEntity);
                         break;
                 }

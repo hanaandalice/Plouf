@@ -17,14 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
 
-import com.example.plouf.MainActivity;
 import com.example.plouf.R;
-import com.example.plouf.data.AppDatabase;
-import com.example.plouf.data.PdEntity;
-import com.example.plouf.data.PdRepository;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import static android.content.ContentValues.TAG;
 
@@ -67,8 +61,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
 
 
-        tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
-        tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
+        tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
+        tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
         tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
 
 
@@ -97,11 +91,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
-                tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
+                tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
                 break;
             case R.id.img_feces :
                 homeViewModel.addFeces();
-                tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
+                tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
                 break;
             case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
                 Toast.makeText(context, "drink", Toast.LENGTH_SHORT).show();
@@ -122,11 +116,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subPee();
-                tv_peeCnt.setText(homeViewModel.getPeeCount().toString());
+                tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
                 break;
             case R.id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subFeces();
-                tv_fecesCnt.setText(homeViewModel.getFecesCount().toString());
+                tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
                 break;
             case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
                 dDialog = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);

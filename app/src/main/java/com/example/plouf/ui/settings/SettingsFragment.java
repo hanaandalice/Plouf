@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ public class SettingsFragment extends Fragment {
     Context context;
     EditText et_waterCup;
     EditText et_weight;
+    Switch switch_lock;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class SettingsFragment extends Fragment {
 
         et_waterCup = root.findViewById(R.id.et_waterCup);
         et_weight = root.findViewById(R.id.et_weight);
+        switch_lock = root.findViewById(R.id.switch_lock);
+
+        switch_lock.setChecked(settingsViewModel.getLockSetting(context));
 
 
 
@@ -53,6 +59,16 @@ public class SettingsFragment extends Fragment {
            et_waterCup.setText(settingsViewModel.getWeight(context).toString());
        }
 
+       switch_lock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if(isChecked) {
+                   settingsViewModel.setLockSetting(context, isChecked);
+               } else {
+                   settingsViewModel.setLockSetting(context, isChecked);
+               }
+           }
+       });
 
 
         return root;

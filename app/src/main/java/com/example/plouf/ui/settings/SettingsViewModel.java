@@ -35,6 +35,10 @@ public class SettingsViewModel extends ViewModel {
         preferencesManager.setWeight(context, weight);
     }
 
+    public void setLockSetting(Context context, Boolean lockSetting){
+        preferencesManager.setLockSetting(context, lockSetting);
+    }
+
 
     public Integer getCup(Context context) {
         return preferencesManager.getCup(context);

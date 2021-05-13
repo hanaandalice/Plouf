@@ -18,40 +18,6 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppDatabase db;
-        db = AppDatabase.getInstance(getApplicationContext());
-
-//        Log.d(TAG, "onCreate: ");
-
-//        try{
-//            GetDbResource getDbResource = new GetDbResource(getApplicationContext());
-//            getDbResource.execute();
-//        }catch(Exception e){
-//            e.printStackTrace();    //배포시 없애기
-//        }
     }
 
-
-//     static abstract class GetDbResource extends AsyncTask<void,void, void> {
-//        AppDatabase db;
-//        private Context mContext;
-//
-//        public GetDbResource (Context context){
-//            mContext = context;
-//        }
-//
-//
-//         @Override
-//         protected void doInBackground() {
-//
-//            try{
-//                db = AppDatabase.getInstance(mContext);
-//            }catch(Exception e){
-//            }
-//         }
-//
-//
-//
-//
-//     }
 }

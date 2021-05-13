@@ -51,14 +51,18 @@ public class HomeViewModel extends ViewModel {
         preferencesManager = new PreferencesManager();
 
         today = CalendarDay.today().getDate().toString();
+        today = "2021-05-14";
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
 
-        peeCnt = pdRepository.getPeeCnt(today);   //디비에서 받아오기
-        fecesCnt = pdRepository.getFecesCnt(today);
+        peeCnt = pdRepository.getPeeCnt(today);
+        fecesCnt = pdRepository.getFecesCnt(today);//디비에서 받아오기
         acCnt = pdRepository.getAcCnt(today);
         waterAmount = pdRepository.getWater(today);
+
+
+        Log.d("pref", "HomeViewModel: amount 초기화후"+waterAmount);
 
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
         waterNeed = 0;
@@ -74,7 +78,9 @@ public class HomeViewModel extends ViewModel {
     public Integer getWaterAmount() { return waterAmount;} //물 섭취량 보내기
     public Integer getWaterNeed() { return waterNeed;} //필요 물 량 보내기
     public String getWaterState() {  return waterState;} //물 총량 대비 마신 상태
-    public float getWaterPer() {  return ((float)waterAmount/(float)waterNeed)*100;}
+    public float getWaterPer() {
+        Log.d("pref", "getWaterPer: waterNeed"+waterNeed);
+        return ((float)waterAmount/(float)waterNeed)*100;}
 
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}

@@ -34,7 +34,7 @@ public class PreferencesManager{
     public Integer getCup(Context context) {
         Log.d("pref", "getCup: PreferencesManager");
         SharedPreferences preferences = getPreferences(context);
-        cup = preferences.getInt("cup", 0);
+        cup = preferences.getInt("cup", 473);
         Log.d("pref", "getCup: 성공"+cup);
         return cup;
     }

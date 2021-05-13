@@ -37,15 +37,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
 
     }
 

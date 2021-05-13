@@ -18,6 +18,7 @@ public class PdRepository {
 
     public PdRepository(Application application) {
         pdDao = AppDatabase.getInstance(application).pdDao();
+        pdEntity = new PdEntity();
         Log.d("DB", "PdRepository: 초기화");
     }
 

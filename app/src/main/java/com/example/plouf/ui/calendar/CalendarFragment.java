@@ -70,9 +70,12 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList);
         cv_calendar.addDecorator(eventDecorator);
 
+
         CalendarDay day = CalendarDay.today();
         eventDecorator.shouldDecorate(day);
-        onDateSelected(cv_calendar,CalendarDay.today(),true);
+        if(cv_calendar.getSelectedDate() !=null ){
+            onDateSelected(cv_calendar,cv_calendar.getSelectedDate(),true);
+        }
 
 
 
@@ -82,7 +85,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
     @Override
     public void onDateLongClick(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date) {
-
+        Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

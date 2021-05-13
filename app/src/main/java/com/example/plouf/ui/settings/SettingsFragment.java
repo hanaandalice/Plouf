@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.plouf.R;
 
 public class SettingsFragment extends Fragment {
-    //TODO: SharedPreference 로  몸무게, 컵 무게, 잠금 설정 여부 저장 하는 부분 만들기
 
     private SettingsViewModel settingsViewModel;
     Context context;

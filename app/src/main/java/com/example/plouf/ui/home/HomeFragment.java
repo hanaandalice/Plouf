@@ -64,7 +64,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
         tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
-        tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
+        if(homeViewModel.waterNeed == 0){
+            tv_waterState.setText("설정에서 체중과 컵 용량을 입력하세요.");
+        } else{
+            tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
+        }
 
 
         img_water.setOnClickListener(this);
@@ -159,9 +163,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
         dItems = new CharSequence[]{water, coffee, tea};
         dSelectItem = new String();
+
+        if(homeViewModel.getWaterNeed(context)!= null){
+            waterNeed = homeViewModel.getWaterNeed(context);
+            homeViewModel.setWaterNeed(waterNeed);
+        } else {
+            homeViewModel.setWaterNeed(0);
+        }
+
+
         setImg_water();
-        waterNeed = homeViewModel.getWaterNeed(context);
-        homeViewModel.setWaterNeed(waterNeed);
+
 
     }
 
@@ -169,7 +181,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     //물 양에 따른 물방울 이미지 변경
     public void setImg_water(){
         // TODO : 물 양에 따른 물방울 이미지 변화 케이스 구체화 하기
-        Float waterPer = homeViewModel.getWaterPer();
+        Float waterPer  = 0.0f;
+        if(homeViewModel.getWaterNeed() != null) {
+            waterPer = homeViewModel.getWaterPer();
+        }
         Log.d(TAG, "setImg_water: "+waterPer);
         if(waterPer<30) {
             img_water.setImageResource(R.drawable.hungry_0_30);
@@ -185,6 +200,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     }
 
     //drink Image 변경
+    //TODO : drinktype 받아와서 커피랑 차도 입력하게 하기
     public void setImg_drink(String dSelectItem) {
         switch (dSelectItem) {
             case "커피":

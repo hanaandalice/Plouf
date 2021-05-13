@@ -21,10 +21,6 @@ public class PdRepository {
         Log.d("DB", "PdRepository: 초기화");
     }
 
-    public PdDao getPdDao(){
-        return pdDao;
-    }
-
     public List<PdEntity> getAllPds() {
         List<PdEntity> pds = null;
         try{
@@ -58,9 +54,11 @@ public class PdRepository {
         update(pdEntity);
     }
 
-    public Integer getIntData(String date, String columnName) {
+
+    //getData
+    public Integer getWater(String date) {
         try{
-            return new GetIntData(pdDao, columnName, date).execute().get();
+            return new GetIntData(pdDao, "water", date).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,28 +66,58 @@ public class PdRepository {
     }
 
     public Integer getPeeCnt(String date) {
-        return pdDao.getPeeCnt(date);
+        try{
+            return new GetIntData(pdDao, "peeCnt", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Integer getFecesCnt(String date) {
-        return pdDao.getFecesCnt(date);
+        try{
+            return new GetIntData(pdDao, "fecesCnt", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;    }
+
+
+    public Integer getWaterAc(String date) {
+        try{
+            return new GetIntData(pdDao, "waterAc", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Integer getPeeAvg() {
-        return pdDao.getPeeAvg();
+    public Integer getAcCnt(String date) {
+        try{
+            return new GetIntData(pdDao, "acCnt", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Integer getFecesAvg() {
-        return pdDao.getFecesAvg();
+    public Integer getPeeAvg(String date) {
+        try{
+            return new GetIntData(pdDao, "pddAvg", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-//    public Integer getAcCnt(String date, ) {
-//        try{
-//            return new GetIntData(pdDao, columnName, date).execute().get();
-//        } catch(ExecutionException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+
+    public Integer getFecesAvg(String date) {
+        try{
+            return new GetIntData(pdDao, "peeCnt", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 
@@ -99,7 +127,7 @@ public class PdRepository {
 
     public void deleteByDate(String date) {
         pdDao.deleteByDate(date);
-    }
+    }   //TODO : delete 기능 구현..?
 
 
     //초기 데이터 삽입. home에서 제일 먼저 date 있나 확인 하고 없으면 실행 시키기
@@ -125,7 +153,7 @@ public class PdRepository {
         Log.d("DB", "insertInitDate: 완"+pdEntity);
     }
 
-    // TODO : AsyncTask 식으로 다 만들기
+    // Update data : add, sub
     public void addWater(String date) {
         try{
             Log.d("DB", "updateWater: 전");
@@ -231,6 +259,7 @@ public class PdRepository {
     }
 
 
+    //AsyncTask
     private static class GetAllPdsAsyncTask extends AsyncTask<Void, Void, List<PdEntity>> {
         private PdDao pdAsyncTaskDao;
 
@@ -244,6 +273,7 @@ public class PdRepository {
         }
     }
 
+    //그날의 기록 있는지 체크
     public static class CheckPdByDate extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         private String date;
@@ -291,6 +321,7 @@ public class PdRepository {
         }
     }
 
+    //int 타입 데이터 가져오기
     public static class GetIntData extends AsyncTask<Void, Void, Integer> {
         private PdDao pdAsyncTaskDao;
         String columnName;
@@ -328,6 +359,7 @@ public class PdRepository {
         }
     }
 
+    //Int type data 업데이트
     public static class UpdateIntData extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         String columnName;

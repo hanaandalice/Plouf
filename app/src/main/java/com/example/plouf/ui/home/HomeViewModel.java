@@ -27,7 +27,7 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> txtProgress;
     public MutableLiveData<String> txtWaterAmount;
-    public Integer waterAcCnt;
+    public Integer acCnt;
     public Integer waterAmount;
     public Integer peeCnt;
     public Integer fecesCnt;
@@ -53,16 +53,16 @@ public class HomeViewModel extends ViewModel {
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
 
-        peeCnt = pdRepository.getIntData(today, "peeCnt");   //디비에서 받아오기
-        fecesCnt = pdRepository.getIntData(today, "fecesCnt");
-        waterAcCnt = pdRepository.getIntData(today, "acCnt");
-        waterAmount = pdRepository.getIntData(today, "water");
+        peeCnt = pdRepository.getPeeCnt(today);   //디비에서 받아오기
+        fecesCnt = pdRepository.getFecesCnt(today);
+        acCnt = pdRepository.getAcCnt(today);
+        waterAmount = pdRepository.getWater(today);
 
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
         waterNeed = 2400;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
         waterState = waterAmount+"/"+waterNeed+"ml";
 
-        txtProgress.setValue(waterAcCnt +" 일째 물 마시기 도전 중");
+        txtProgress.setValue(acCnt +" 일째 물 마시기 도전 중");
 
     }
 

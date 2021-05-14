@@ -171,9 +171,7 @@ public class HomeViewModel extends ViewModel {
     public void addPee() {
         peeCnt++;
         try{
-//            Log.d("DB", "addPee: 전");
             pdRepository.addPeeCnt(today);
-//            Log.d("DB", "addPee: 완료");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,9 +187,7 @@ public class HomeViewModel extends ViewModel {
     public void addFeces(){
         fecesCnt++;;
         try{
-//            Log.d("DB", "addFeces: 전");
             pdRepository.addFecesCnt(today);
-//            Log.d("DB", "addFeces: 완료");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,15 +202,16 @@ public class HomeViewModel extends ViewModel {
      * 설명 : 마신 물 량 컵 용량 만큼 감소.
      *        디비에 오늘 날짜의 마신 물 량 저장.
      */
-    public void subWater(){
-        waterAmount-=cup;
-        waterState = waterAmount+"/"+waterNeed+"ml";
-        try{
-//            Log.d("DB", "subWater: 전");
-            pdRepository.subWater(today);
-//            Log.d("DB", "subWater: 완료");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void subWater() {
+        if(waterAmount > 0) {
+            waterAmount-=cup;
+            waterState = waterAmount+"/"+waterNeed+"ml";
+            try{
+                pdRepository.subWater(today);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -225,14 +222,14 @@ public class HomeViewModel extends ViewModel {
      * 설명 : 소변횟수 1 감소.
      *        디비에 오늘 날짜의 소변 횟수 저장.
      */
-    public void subPee(){
-        peeCnt--;
-        try{
-//            Log.d("DB", "subpee: 전");
-            pdRepository.subPeeCnt(today);
-//            Log.d("DB", "subPee: 완료");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void subPee() {
+        if(peeCnt > 0) {
+            peeCnt--;
+            try{
+                pdRepository.subPeeCnt(today);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -244,14 +241,16 @@ public class HomeViewModel extends ViewModel {
      * 설명 : 대변횟수 1 감소.
      *        디비에 오늘 날짜의 대변 횟수 저장.
      */
-    public void subFeces(){
-        fecesCnt--;
-        try{
+    public void subFeces() {
+        if(fecesCnt > 0) {
+            fecesCnt--;
+            try{
 //            Log.d("DB", "subFeces: 전");
-            pdRepository.subFecesCnt(today);
+                pdRepository.subFecesCnt(today);
 //            Log.d("DB", "subFeces: 완료");
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -280,7 +279,7 @@ public class HomeViewModel extends ViewModel {
      * 반환값 : 없음
      * 설명 : 오늘날짜의 waterAC 디비 저장.
      */
-    public void setWaterAC(Integer waterAc){
+    public void setWaterAC(Integer waterAc) {
         try{
             pdRepository.setWaterAc(today, waterAc);
             Log.d("DB", "setWaterAC: homeView "+waterAc);

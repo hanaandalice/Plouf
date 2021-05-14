@@ -13,6 +13,11 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import java.util.List;
 
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : AppDatabase
+ * 설명 : db 생성
+ * */
 @Database(entities = PdEntity.class, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PdDao pdDao();

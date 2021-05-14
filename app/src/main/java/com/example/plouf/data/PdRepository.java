@@ -7,14 +7,19 @@ import android.util.Log;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-//여기서 pd db에 대한 접근, 데이터 추가, 제거, 등등 관리
+
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : PdRepository
+ * 설명 : pd db에 대한 접근, 데이터 추가, 제거 관리
+ * */
+
 public class PdRepository {
     private  PdDao pdDao;
     PdEntity pdEntity;
     private static Integer UPDATE_MODE_ADD = 1;
     private static Integer UPDATE_MODE_SUB = 0;
-
-
 
     public PdRepository(Application application) {
         pdDao = AppDatabase.getInstance(application).pdDao();
@@ -22,6 +27,12 @@ public class PdRepository {
         Log.d("DB", "PdRepository: 초기화");
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : List<PdEntity>
+     * 설명 : pd 데이터 전체 반환
+     */
     public List<PdEntity> getAllPds() {
         List<PdEntity> pds = null;
         try{
@@ -32,6 +43,12 @@ public class PdRepository {
         return pds;
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : boolean
+     * 설명 : 해당 날짜의 데이터가 있는지 체크 요청하고 결과 리턴
+     */
     public boolean checkDate(String date) {
         boolean result = false;
         try{
@@ -43,6 +60,12 @@ public class PdRepository {
         return false;
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : 없음
+     * 설명 : pdEntity 값 삽입, 삭제, 업데이트
+     */
     public void insert(PdEntity pdEntity) {
         pdDao.insert(pdEntity);
     }
@@ -56,7 +79,14 @@ public class PdRepository {
     }
 
 
-    //getData
+
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : Integer
+     * 설명 : GetIntData 수행 요청
+     */
     public Integer getWater(String date) {
         try{
             return new GetIntData(pdDao, "water", date).execute().get();
@@ -131,7 +161,12 @@ public class PdRepository {
     }   //TODO : delete 기능 구현..?
 
 
-    //초기 데이터 삽입. home에서 제일 먼저 date 있나 확인 하고 없으면 실행 시키기
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : 없음
+     * 설명 : 초기 데이터 삽입
+     */
     public void insertInitDate(String date) {
         Log.d("DB", "insertInitDate: 진입");
         pdEntity.setDate(date);
@@ -154,22 +189,17 @@ public class PdRepository {
         Log.d("DB", "insertInitDate: 완"+pdEntity);
     }
 
-    // Update data : add, sub
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : 없음
+     * 설명 : update - 증가 수행
+     */
     public void addWater(String date) {
         try{
             Log.d("DB", "updateWater: 전");
             new UpdateIntData(pdDao, date,"water", UPDATE_MODE_ADD).execute().get();
-        } catch(ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d("DB", "updateWater: 완");
-
-    }
-
-    public void subWater(String date) {
-        try{
-            Log.d("DB", "updateWater: 전");
-            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_SUB).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -187,16 +217,6 @@ public class PdRepository {
         Log.d("DB", "updateCoffee: 완");
     }
 
-    public void subCoffee(String date) {
-        try{
-            Log.d("DB", "updateCoffee: 전");
-            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_SUB).execute().get();
-        } catch(ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d("DB", "updateCoffee: 완");
-    }
-
     public void addTea(String date) {
         try{
             Log.d("DB", "updateTea: 전");
@@ -207,32 +227,10 @@ public class PdRepository {
         Log.d("DB", "updateTea: 완");
     }
 
-    public void subTea(String date) {
-        try{
-            Log.d("DB", "updateTea: 전");
-            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_SUB).execute().get();
-        } catch(ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d("DB", "updateTea: 완");
-    }
-
-
     public void addPeeCnt(String date) {
         try{
             Log.d("DB", "updatePeeCnt: 전");
             new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_ADD).execute().get();
-        } catch(ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d("DB", "updatePeeCnt: 완");
-    }
-
-
-    public void subPeeCnt(String date) {
-        try{
-            Log.d("DB", "updatePeeCnt: 전");
-            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -249,6 +247,55 @@ public class PdRepository {
         Log.d("DB", "updateFecesCnt: 완");
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : 없음
+     * 설명 : update - 감소 수행
+     */
+    public void subWater(String date) {
+        try{
+            Log.d("DB", "updateWater: 전");
+            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateWater: 완");
+
+    }
+
+    public void subCoffee(String date) {
+        try{
+            Log.d("DB", "updateCoffee: 전");
+            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateCoffee: 완");
+    }
+
+    public void subTea(String date) {
+        try{
+            Log.d("DB", "updateTea: 전");
+            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updateTea: 완");
+    }
+
+    public void subPeeCnt(String date) {
+        try{
+            Log.d("DB", "updatePeeCnt: 전");
+            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("DB", "updatePeeCnt: 완");
+    }
+
+
+
     public void subFecesCnt(String date) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
@@ -260,7 +307,11 @@ public class PdRepository {
     }
 
 
-    //AsyncTask
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : GetAllPdsAsyncTask
+     * 설명 : pd값 다 들고와서 리스트 형태로 반환
+     * */
     private static class GetAllPdsAsyncTask extends AsyncTask<Void, Void, List<PdEntity>> {
         private PdDao pdAsyncTaskDao;
 
@@ -274,7 +325,11 @@ public class PdRepository {
         }
     }
 
-    //그날의 기록 있는지 체크
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : CheckPdByDate
+     * 설명 : 해당 date의 기록 있는지 체크
+     * */
     public static class CheckPdByDate extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         private String date;
@@ -293,8 +348,12 @@ public class PdRepository {
         }
     }
 
-    //초기 데이터 입력
-    public static class InsertInitDate extends AsyncTask<Void, Void, Boolean> {
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : InsertInitDate
+     * 설명 : 초기 물 연속 달성일 데이터 입력
+     * */
+    private static class InsertInitDate extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         private PdEntity pdEntity;
 
@@ -304,6 +363,13 @@ public class PdRepository {
 //            Log.d("DB", "InsertInitDate: 입장");
         }
 
+
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : InsertInitDate
+         * 반환값 : Boolean
+         * 설명 : 물 연속 달성일 세팅
+         */
         @Override
         protected Boolean doInBackground(Void... voids) {
             Integer pastAcCnt = 0;
@@ -322,8 +388,13 @@ public class PdRepository {
         }
     }
 
-    //int 타입 데이터 가져오기
-    public static class GetIntData extends AsyncTask<Void, Void, Integer> {
+
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : GetIntData
+     * 설명 : int 타입 데이터 가져오기
+     * */
+    private static class GetIntData extends AsyncTask<Void, Void, Integer> {
         private PdDao pdAsyncTaskDao;
         String columnName;
         String date;
@@ -333,6 +404,12 @@ public class PdRepository {
             this.date = date;
         }
 
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : UpdateIntData
+         * 반환값 : Integer
+         * 설명 : 물, 커피, 차, 소변, 대변 케이스 별로 값 가져오기
+         */
         @Override
         protected Integer doInBackground(Void... voids) {
             switch (columnName) {
@@ -360,8 +437,12 @@ public class PdRepository {
         }
     }
 
-    //Int type data 업데이트
-    public static class UpdateIntData extends AsyncTask<Void, Void, Boolean> {
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : UpdateIntData
+     * 설명 : Int type data 업데이트
+     * */
+    private static class UpdateIntData extends AsyncTask<Void, Void, Boolean> {
         private PdDao pdAsyncTaskDao;
         String columnName;
         PdEntity pdEntity;
@@ -370,6 +451,12 @@ public class PdRepository {
         Integer cup;
         Integer data;
 
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : UpdateIntData
+         * 반환값 : 없음
+         * 설명 : 변수 초기화
+         */
         UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName, Integer mode) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.columnName = columnName;
@@ -380,6 +467,13 @@ public class PdRepository {
             //TODO : CUP sharedPreferences에서 가져오기
         }
 
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : UpdateIntData
+         * 반환값 : Boolean
+         * 설명 : 물, 커피, 차, 소변, 대변 케이스 별로 값 가져오고 해당 날짜 엔티티 가져와서
+         *        엔티티 설정 후 업데이트(증가, 감소)
+         */
         @Override
         protected Boolean doInBackground(Void... voids) {
             try{

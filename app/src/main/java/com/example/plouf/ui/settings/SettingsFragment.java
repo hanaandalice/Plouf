@@ -18,6 +18,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.plouf.R;
 
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : SettingsFragment
+ * 설명 : Settings UI
+ * SharedPreferences 값 저장 요청(컵 용량, 몸무게, 잠금 설정 여부)
+ * SharedPrefeences 저장할 값 입력받음
+ * */
+
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;
@@ -73,8 +82,12 @@ public class SettingsFragment extends Fragment {
         return root;
     }
 
-//물컵 세팅
-
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : SettingsFragment
+     * 반환값 : 없음
+     * 설명 : SharedPreferences 값 저장 요청(컵 용량, 몸무게, 잠금 설정 여부)
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

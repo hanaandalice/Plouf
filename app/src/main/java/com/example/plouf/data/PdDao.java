@@ -5,7 +5,11 @@ import androidx.room.*;
 
 import java.util.List;
 
-
+/*####################################################################################
+ *형태 : Interface
+ * 모듈ID : PdDao
+ * 설명 : pd db SQL 쿼리 설정
+ * */
 @Dao
 public interface PdDao {
    @Insert()

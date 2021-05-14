@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plouf.data.AppDatabase;
 
-//시작 액티비티
-
-//백그라운드에서 디비 getInstance하고 오늘의 기록사항 디비에서 가져와서 데이터 HomeViewModel에 보내주기
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : LaunchActivity
+ * 설명 : 잡금 화면으로 갈 것인지 MainActivity로 갈것인지 분기 수행
+ * */
 public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

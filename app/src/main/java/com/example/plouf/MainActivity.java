@@ -12,6 +12,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : MainActivity
+ * 설명 : NavigationView Control
+ * */
 // TODO : 옆으로 슬라이드 했을때 메뉴 변경되게 만들기
 public class MainActivity extends AppCompatActivity {
 

@@ -12,18 +12,15 @@ import com.example.plouf.data.PdRepository;
 import com.example.plouf.data.PreferencesManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-/*
-* ViewModel UI 관련 데이터 보관, 관리
-* */
 
 
 /*####################################################################################
  *형태 : Class
  * 모듈ID : HomeViewModel
- * 설명 : Home 화면 ViewModel
- * 네트워크연결확인
- * 설치버전확인
- * DB에 저장된 영양성분명 가져와서 프레퍼런스에 저장(유의성분설정시 필요)
+ * 설명 :  HomeFragment 데이터 관리
+ * 오늘 날짜 데이터 디비에 있는지 확인
+ * 물, 화장실 관련 데이터 증가, 감소
+ * 필요 물량, 물 총량대비 마신 상태 초기화, cup 용량 초기화
  * */
 
 public class HomeViewModel extends ViewModel {
@@ -74,42 +71,50 @@ public class HomeViewModel extends ViewModel {
 
     }
 
-    //get data
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : LiveData<String>, Integer, String, float
+     * 설명 : 진행상황, 물 섭취량, 필요 물 량, 물 총량 대비 마신 상태, 물 섭취 퍼센트, 소변 횟수, 대변 횟수, 컵 용량을 반환함.
+     */
     public LiveData<String> getProgressTxt() { return txtProgress; }
     public Integer getWaterAmount() { return waterAmount;} //물 섭취량 보내기
-    public Integer getWaterNeed() { return waterNeed;} //필요 물 량 보내기
+//    public Integer getWaterNeed() { return waterNeed;} //필요 물 량 보내기
     public String getWaterState() {  return waterState;} //물 총량 대비 마신 상태
     public float getWaterPer() {
-        Log.d("pref", "getWaterPer: waterNeed"+waterNeed);
+//        Log.d("pref", "getWaterPer: waterNeed"+waterNeed);
         return ((float)waterAmount/(float)waterNeed)*100;
     }
-
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}
-    public Integer getWaterNeed(Context context) {
-        return  preferencesManager.getWaterNeed(context);
-    }
+    public Integer getWaterNeed(Context context) { return  preferencesManager.getWaterNeed(context); }
+    public Integer getCup(Context context) { return  preferencesManager.getCup(context); }
 
-    public Integer getCup(Context context) {
-        return  preferencesManager.getCup(context);
-    }
 
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 필요 물량, 물 총량대비 마신 상태 초기화, cup 용량 초기화
+     */
     public void setWaterNeed(Integer waterNeed) {
         this.waterNeed = waterNeed;
         waterState = waterAmount+"/"+waterNeed+"ml";
     }
-
-    public void setCup(Integer cup) {
-        this.cup = cup;
-    }
+    public void setCup(Integer cup) { this.cup = cup; }
 
 
-    private Integer getNeed(){
-        return waterNeed;
-    }
 
 
-    //add data
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 마신 물량 컵용량만큼 더하고 총량대비 마신상태 초기화.
+     *        디비에 오늘 날짜의 마신 물 량 저장.
+     */
     public void addWater() {
         waterAmount+=cup;
         waterState = waterAmount+"/"+waterNeed+"ml";
@@ -122,7 +127,14 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public void addCoffee() {   //fragment에서 입력모드(물, 녹차, 커피)확인 하고 실행해주기
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 마신 커피량 컵용량만큼 더함.
+     *        디비에 오늘 날짜의 마신 커피 량 저장.
+     */
+    public void addCoffee() {   //TODO : fragment에서 입력모드(물, 녹차, 커피)확인 하고 실행해주기
         try{
             Log.d("DB", "addCoffee: 전");
             pdRepository.addCoffee(today);
@@ -132,6 +144,13 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 마신 차 량 컵용량만큼 더함.
+     *        디비에 오늘 날짜의 마신 차 량 저장.
+     */
     public void addTea() {
         try{
             Log.d("DB", "addTea: 전");
@@ -142,6 +161,13 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 소변횟수 1 증가.
+     *        디비에 오늘 날짜의 소변 횟수 저장.
+     */
     public void addPee() {
         peeCnt++;
         try{
@@ -153,6 +179,13 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 대변 횟수 1 증가.
+     *        디비에 오늘 날짜의 대변 횟수 저장.
+     */
     public void addFeces(){
         fecesCnt++;;
         try{
@@ -164,7 +197,15 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+
     //subtract data
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 마신 물 량 컵 용량 만큼 감소.
+     *        디비에 오늘 날짜의 마신 물 량 저장.
+     */
     public void subWater(){
         waterAmount-=cup;
         waterState = waterAmount+"/"+waterNeed+"ml";
@@ -177,6 +218,13 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 소변횟수 1 감소.
+     *        디비에 오늘 날짜의 소변 횟수 저장.
+     */
     public void subPee(){
         peeCnt--;
         try{
@@ -187,6 +235,15 @@ public class HomeViewModel extends ViewModel {
             e.printStackTrace();
         }
     }
+
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 대변횟수 1 감소.
+     *        디비에 오늘 날짜의 대변 횟수 저장.
+     */
     public void subFeces(){
         fecesCnt--;
         try{
@@ -196,9 +253,15 @@ public class HomeViewModel extends ViewModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //db에 저장
     }
 
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 오늘날짜의 데이터 디비에 있나 확인하고 없으면 초기 데이터 저장.
+     */
     public void checkDate(String date) {
         try{
             if(pdRepository.checkDate(date) == true) {  //true이면 없는거임.
@@ -209,7 +272,6 @@ public class HomeViewModel extends ViewModel {
         }catch(Exception e) {
             e.printStackTrace();
         }
-
     }
 
 }

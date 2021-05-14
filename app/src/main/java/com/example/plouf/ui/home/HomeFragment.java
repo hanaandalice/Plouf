@@ -22,6 +22,14 @@ import com.example.plouf.R;
 
 import static android.content.ContentValues.TAG;
 
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : HomeFragment
+ * 설명 : Home UI
+ * 물, 소변, 대변, 작은 물방울 이미지 onClick, longClick 이벤트 수행
+ * 물방울 이미지 세팅 실행
+ * */
+
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener{
 
     private HomeViewModel homeViewModel;
@@ -84,7 +92,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         return root;
     }
 
-    //onclick event
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 물, 소변, 대변, 작은 물방울 이미지 onClick 이벤트
+     */
     @Override
     public void onClick(View v) {
        switch (v.getId()){
@@ -110,6 +123,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : boolean
+     * 설명 : 물, 소변, 대변, 작은 물방울 이미지 LongClick 이벤트
+     */
     @Override
     public boolean onLongClick(View v) {
         switch (v.getId()){
@@ -145,7 +164,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         return true;    //onClick 동시 실행 안됨
     }
 
-    // 초기화
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeFragment
+     * 반환값 : 없음
+     * 설명 : 변수 초기화. 필요 물 량 가지고 오기
+     *      물방울 이미지 세팅 실행
+     */
     public void initHome(){
         tv_progress = root.findViewById(R.id.tv_progress);
         tv_waterState = root.findViewById(R.id.tv_waterAmount);
@@ -171,19 +196,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         } else {
             homeViewModel.setWaterNeed(0);
         }
-
-
         setImg_water();
-
-
     }
 
 
-    //물 양에 따른 물방울 이미지 변경
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 물 량에 따른 물방울 이미지 변경
+     */
     public void setImg_water(){
-        // TODO : 물 양에 따른 물방울 이미지 변화 케이스 구체화 하기
+        // TODO : 물방울 이미지 30_40 하나 만들기
         Float waterPer  = 0.0f;
-        if(homeViewModel.getWaterNeed() != null) {
+        if(homeViewModel.getWaterNeed(context) != null) {
             waterPer = homeViewModel.getWaterPer();
         }
         Log.d(TAG, "setImg_water: "+waterPer);
@@ -200,7 +226,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
-    //drink Image 변경
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 음료 이미지 변경
+     */
     //TODO : drinktype 받아와서 커피랑 차도 입력하게 하기
     public void setImg_drink(String dSelectItem) {
         switch (dSelectItem) {
@@ -216,11 +247,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : context
+     * 설명 : context 반환
+     */
     public Context getContext(){
         return context;
     }
-
-
-
 
 }

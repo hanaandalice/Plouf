@@ -7,6 +7,11 @@ import androidx.room.PrimaryKey;
 
 import kotlin.random.Random;
 
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : PdEntity
+ * 설명 : PdEntity 정의
+ * */
 @Entity(tableName = "PD_01")
 public class PdEntity {
     @NonNull

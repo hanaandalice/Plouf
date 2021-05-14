@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-//SharedPreferences 관리
-//앱 잠금 설정 세팅값, 체중, 컵 용량, 권장 물 섭취량 저장하고 가져오기 수행
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : PreferencesManager
+ * 설명 : SharedPreferences 관리
+ * 앱 잠금 설정 세팅값, 체중, 컵 용량, 권장 물 섭취량 저장하고 가져오기 수행
+ * */
 public class PreferencesManager{
     private Boolean lockSetting;
     private Integer weight;
@@ -17,7 +21,13 @@ public class PreferencesManager{
         return context.getSharedPreferences(shared, Context.MODE_PRIVATE);
     }
 
-    //get pref
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PreferencesManager
+     * 반환값 : Boolean, Integer
+     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량 SharedPreferences 값 반환 수행
+     */
     public Boolean getLockSetting(Context context) {
         SharedPreferences preferences = getPreferences(context);
         lockSetting = preferences.getBoolean("lockSetting", false);
@@ -45,7 +55,13 @@ public class PreferencesManager{
         return waterNeed;
     }
 
-    //set pref
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PreferencesManager
+     * 반환값 : Boolean, Integer
+     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량 SharedPreferences 값 세팅 수행
+     */
     public void setLockSetting(Context context, Boolean lockSetting) {
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();

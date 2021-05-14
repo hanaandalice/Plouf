@@ -269,7 +269,22 @@ public class HomeViewModel extends ViewModel {
 //                Log.d("DB", "checkDate: insert완료"+date);
             }
 //            Log.d("DB", "checkDate: ");
-        }catch(Exception e) {
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeViewModel
+     * 반환값 : 없음
+     * 설명 : 오늘날짜의 waterAC 디비 저장.
+     */
+    public void setWaterAC(Integer waterAc){
+        try{
+            pdRepository.setWaterAc(today, waterAc);
+            Log.d("DB", "setWaterAC: homeView "+waterAc);
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

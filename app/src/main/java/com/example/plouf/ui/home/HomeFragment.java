@@ -137,6 +137,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 tv_waterState.setText(homeViewModel.getWaterState());
                 Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                 setImg_water();
+                setWaterAC();
                 break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subPee();
@@ -197,6 +198,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             homeViewModel.setWaterNeed(0);
         }
         setImg_water();
+        setWaterAC();
     }
 
 
@@ -255,6 +257,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      */
     public Context getContext(){
         return context;
+    }
+
+
+    private void setWaterAC(){
+        Float waterPer  = 0.0f;
+        if(homeViewModel.getWaterNeed(context) != null) {
+            waterPer = homeViewModel.getWaterPer();
+        }
+        if(waterPer<20) {
+            homeViewModel.setWaterAC(1);
+            //viewmodel에서 waterAc Setting
+        } else if(waterPer>=20 && waterPer<40) {
+            homeViewModel.setWaterAC(2);
+        } else if(waterPer>=40 && waterPer<60) {
+            homeViewModel.setWaterAC(3);
+        } else if(waterPer>=60 && waterPer<100) {
+            homeViewModel.setWaterAC(4);
+        } else {
+            homeViewModel.setWaterAC(5);
+        }
     }
 
 }

@@ -34,7 +34,13 @@ import java.util.List;
 import org.threeten.bp.LocalDate;
 
 //TODO : 캘린더 기능 넣기(날짜 선택시 클릭 이벤트 만들기, 점으로 이벤트 표시
-//TODO : 디비에 그 날짜에 별 몇개인지도 저장 해야할듯.
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : CalendarFragment
+ * 설명 : Calendar UI
+ * 캘린더 점 있는 애들 점 찍기.(waterAc 사용해서
+ * */
 
 public class CalendarFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener {
 
@@ -66,17 +72,16 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         calendarDayList.add(CalendarDay.today());
         calendarDayList.add(CalendarDay.from(2020, 11, 25));
 
-//        Toast.makeText(context, cv_calendar.getSelectedDate().toString(), Toast.LENGTH_SHORT).show();
         EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList);
         cv_calendar.addDecorator(eventDecorator);
 
 
         CalendarDay day = CalendarDay.today();
         eventDecorator.shouldDecorate(day);
-        if(cv_calendar.getSelectedDate() !=null ){
-            onDateSelected(cv_calendar,cv_calendar.getSelectedDate(),true);
-        }
 
+
+        cv_calendar.setOnDateChangedListener(this);
+        cv_calendar.setOnDateLongClickListener(this);
 
 
         return root;
@@ -85,7 +90,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
     @Override
     public void onDateLongClick(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date) {
-        Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "This is "+date.getDate().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

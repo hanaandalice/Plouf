@@ -1,6 +1,7 @@
 package com.example.plouf.data;
 
 import android.app.Application;
+import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -247,6 +248,7 @@ public class PdRepository {
         Log.d("DB", "updateFecesCnt: 완");
     }
 
+
     /*-------------------------------------------------
      *형태 : Method
      * 소유자 : PdRepository
@@ -294,8 +296,6 @@ public class PdRepository {
         Log.d("DB", "updatePeeCnt: 완");
     }
 
-
-
     public void subFecesCnt(String date) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
@@ -304,6 +304,21 @@ public class PdRepository {
             e.printStackTrace();
         }
         Log.d("DB", "updateFecesCnt: 완");
+    }
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : 없음
+     * 설명 : 물 섭취 달성도 설정 요청
+     */
+    public void setWaterAc(String date, Integer waterAc) {
+        try{
+            new SetWaterAc(pdDao, date, waterAc).execute().get();
+            Log.d("DB", "setWaterAc: 완");
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -347,6 +362,7 @@ public class PdRepository {
             return false;
         }
     }
+
 
     /*####################################################################################
      *형태 : Class
@@ -530,6 +546,35 @@ public class PdRepository {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+
+
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : SetWaterAc
+     * 설명 : 물 성취량 디비에 저장(Calendar에서 날짜별로 별 찍을때 사용)
+     * */
+    private class SetWaterAc extends AsyncTask<Void,Void, Boolean> {
+        private PdDao pdAsyncTaskDao;
+        private String date;
+        private Integer waterAc;
+        private PdEntity pdEntity;
+        SetWaterAc(PdDao pdAsyncTaskDao, String date, Integer waterAc) {
+            this.pdAsyncTaskDao = pdAsyncTaskDao;
+            this.date = date;
+            this.waterAc = waterAc;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            pdEntity = pdAsyncTaskDao.getPdByDate(date);
+            pdEntity.setWaterAc(waterAc);
+            pdAsyncTaskDao.update(pdEntity);
+            Log.d("DB", "doInBackground: waterAC Set");
+
+            return true;
         }
     }
 

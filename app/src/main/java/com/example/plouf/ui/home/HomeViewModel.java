@@ -48,8 +48,8 @@ public class HomeViewModel extends ViewModel {
         pdRepository = new PdRepository(pdApplication);
         preferencesManager = new PreferencesManager();
 
-        today = CalendarDay.today().getDate().toString();
-//        today = "2021-05-14";
+//        today = CalendarDay.today().getDate().toString();
+        today = "2021-05-17";
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태

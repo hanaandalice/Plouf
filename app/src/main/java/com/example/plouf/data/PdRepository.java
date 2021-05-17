@@ -388,16 +388,13 @@ public class PdRepository {
          */
         @Override
         protected Boolean doInBackground(Void... voids) {
-            Integer pastAcCnt = 0;
+            Integer pastAcCnt = 1;
             Integer pastWaterAc = 0;
-            if(pdAsyncTaskDao.getWaterAc() == null || pdAsyncTaskDao.getWaterAc() == 0){    //null이거나 0이면 past 는 0
-                pastAcCnt = 1;
-            } else {
-                pastAcCnt = pdAsyncTaskDao.getAcCnt();
-                pastWaterAc = pdAsyncTaskDao.getWaterAc();
-            }
+
+            pastWaterAc = pdAsyncTaskDao.getWaterAc();
 
             if(pastWaterAc == 5){
+                pastAcCnt = pdAsyncTaskDao.getAcCnt();
                 pdEntity.setAcCnt(pastAcCnt+1);
             } else {
                 pdEntity.setAcCnt(pastAcCnt);

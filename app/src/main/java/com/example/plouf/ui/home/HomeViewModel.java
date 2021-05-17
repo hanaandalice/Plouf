@@ -49,7 +49,7 @@ public class HomeViewModel extends ViewModel {
         preferencesManager = new PreferencesManager();
 
 //        today = CalendarDay.today().getDate().toString();
-        today = "2021-05-17";
+        today = "2021-05-20";
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태
@@ -64,7 +64,6 @@ public class HomeViewModel extends ViewModel {
 
         cup = 473;  //SharedPreferences에서 컵용량 받아오기
         waterNeed = 0;
-        ;  //SharedPreferences에서 몸무게 가져와서 마셔야할 물 양 계산해서 워터 need에
         waterState = waterAmount+"/"+waterNeed+"ml";
 
         txtProgress.setValue(acCnt +" 일째 물 마시기 도전 중");

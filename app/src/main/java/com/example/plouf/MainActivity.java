@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.CustomActionBarTheme);
         super.onCreate(savedInstanceState);
-
 
         db = AppDatabase.getInstance(getApplicationContext());
         Log.d("DB", "onCreate: db getInstance");

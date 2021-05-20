@@ -561,6 +561,7 @@ public class PdRepository {
         private String date;
         private Integer waterAc;
         private PdEntity pdEntity;
+
         SetWaterAc(PdDao pdAsyncTaskDao, String date, Integer waterAc) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.date = date;

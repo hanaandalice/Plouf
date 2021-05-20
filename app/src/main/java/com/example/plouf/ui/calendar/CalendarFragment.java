@@ -1,5 +1,6 @@
 package com.example.plouf.ui.calendar;
 
+import android.content.AsyncQueryHandler;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -57,7 +58,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         calendarViewModel =
                 new ViewModelProvider(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
-        final TextView textView = root.findViewById(R.id.text_calendar);
+        final TextView textView = root.findViewById(R.id.tv_calendar);
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -69,10 +70,12 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         cv_calendar  = root.findViewById(R.id.cv_calendar);
 
         ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
+        //TODO : 디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
         calendarDayList.add(CalendarDay.today());
         calendarDayList.add(CalendarDay.from(2020, 11, 25));
 
-        EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList);
+
+        EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList, getContext(), 1);
         cv_calendar.addDecorator(eventDecorator);
 
 
@@ -102,4 +105,26 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
     public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
 
     }
+
+    //디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
+    private class AddDecorate extends AsyncTask<Void, Void, Boolean> {
+
+        AddDecorate() {
+            ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
+            //TODO : 디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
+            calendarDayList.add(CalendarDay.today());
+            calendarDayList.add(CalendarDay.from(2020, 11, 25));EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList, getContext(), 1);
+            cv_calendar.addDecorator(eventDecorator);
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+
+
+            return null;
+        }
+    }
+
 }

@@ -5,6 +5,9 @@ import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -322,6 +325,18 @@ public class PdRepository {
     }
 
 
+    public List<String> getCalendarDay(String dateMonth, Integer waterAc) {
+        try{
+            Log.d("DB", "getCalendarDay: hey");
+            return new GetCalendarDay(pdDao, dateMonth, waterAc).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("DB", "getCalendarDay: catch");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     /*####################################################################################
      *형태 : Class
      * 모듈ID : GetAllPdsAsyncTask
@@ -422,7 +437,7 @@ public class PdRepository {
 
         /*-------------------------------------------------
          *형태 : Method
-         * 소유자 : UpdateIntData
+         * 소유자 : GetIntData
          * 반환값 : Integer
          * 설명 : 물, 커피, 차, 소변, 대변 케이스 별로 값 가져오기
          */
@@ -576,6 +591,40 @@ public class PdRepository {
             Log.d("DB", "doInBackground: waterAC Set");
 
             return true;
+        }
+    }
+
+
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : GetCalendarDay
+     * 설명 : 해당 월의 waterAc 별 캘린더 데이 갖고 와서 정리하고 반환
+     * */
+    private class GetCalendarDay extends AsyncTask<Void, Void, List<String>> {
+        private PdDao pdAsyncTaskDao;
+        private String dateMonth;
+        private String waterAc;
+        private List<String> calendarDays;
+
+        GetCalendarDay(PdDao pdAsyncTaskDao, String dateMonth, Integer waterAc){
+            this.pdAsyncTaskDao = pdAsyncTaskDao;
+            this.dateMonth = dateMonth;
+            this.waterAc = Integer.toString(waterAc);
+            Log.d("DB", "GetCalendarDay: 진입");
+        }
+
+
+        @Override
+        protected List<String> doInBackground(Void... voids) {
+            Log.d("DB", "doInBackground: calendarDays 전");
+            try{
+                calendarDays = pdAsyncTaskDao.getDatebyWaterAc(waterAc, dateMonth);
+                Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                return calendarDays;
+            } catch(Exception e){
+                Log.d("DB", "doInBackground: calendarDays catch");
+                return null;
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plouf.data.AppDatabase;
 import com.example.plouf.data.PreferencesManager;
+import com.example.plouf.ui.lock.LockActivity;
 
 /*####################################################################################
  *형태 : Class
@@ -28,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
 
 //        db = AppDatabase.getInstance(getApplicationContext());
         Intent intentMain = new Intent(this, MainActivity.class);
+        Intent intentLock = new Intent(this, LockActivity.class);
+
 //
 //        if(db != null){
 //           try{
@@ -41,7 +44,8 @@ public class SplashActivity extends AppCompatActivity {
 
         preferencesManager = new PreferencesManager();
         if(preferencesManager.getLockSetting(getApplicationContext()) == true){
-
+            startActivity(intentLock);
+            finish();
         } else {
             startActivity(intentMain);
             finish();

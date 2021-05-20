@@ -3,6 +3,11 @@ package com.example.plouf.data;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /*####################################################################################
@@ -44,11 +49,11 @@ public interface PdDao {
    Integer getFecesCnt(String date);
 
    //소변 전체 평균
-   @Query("SELECT AVG(PEE_CNT) FROM PD_01")
+   @Query("SELECT AVG(PEE_CNT) FROM PD_01 GROUP BY RECORD_DATE")
    Integer getPeeAvg();
 
    //대변 전체 평균
-   @Query("SELECT AVG(FECES_CNT) FROM PD_01")
+   @Query("SELECT AVG(FECES_CNT) FROM PD_01 GROUP BY RECORD_DATE")
    Integer getFecesAvg();
 
    //테스트 데이터 삽입
@@ -67,5 +72,9 @@ public interface PdDao {
 
    @Query("SELECT WATER_ACHIEVE FROM PD_01 ORDER BY RECORD_DATE DESC LIMIT 1")
    Integer getWaterAc();
+
+   //waterAc 별로 해당 월의 날짜 구하기
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE WATER_ACHIEVE LIKE :waterAc AND RECORD_DATE LIKE '____-'+:dateMonth+'__' ")
+   List<String> getDatebyWaterAc(String waterAc, String dateMonth);
 
 }

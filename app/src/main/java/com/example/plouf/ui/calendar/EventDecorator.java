@@ -15,13 +15,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class EventDecorator implements DayViewDecorator {
-    private final int color;
     private final HashSet<CalendarDay> dates;
     private Context context;
     private Integer dotNum;
 
-    public EventDecorator(int color, Collection<CalendarDay> dates, Context context, Integer waterAc) {
-        this.color = color;
+    public EventDecorator( Collection<CalendarDay> dates, Context context, Integer waterAc) {
         this.dates = new HashSet<>(dates);
         this.context = context;
         dotNum = waterAc;
@@ -54,7 +52,7 @@ public class EventDecorator implements DayViewDecorator {
                 break;
 
             case 5 :
-                drawable = ContextCompat.getDrawable(context, R.drawable.temp_waterac_5);
+                drawable = ContextCompat.getDrawable(context, R.drawable.temp_waterac_5);    //TODO : 별 5개 이미지는 두개가 연결되는 느낌으로 만들기.
                 view.setBackgroundDrawable(drawable);
                 break;
         }

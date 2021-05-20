@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,12 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import org.threeten.bp.LocalDate;
@@ -69,18 +73,10 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
         cv_calendar  = root.findViewById(R.id.cv_calendar);
 
-        ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
-        //TODO : 디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
-        calendarDayList.add(CalendarDay.today());
-        calendarDayList.add(CalendarDay.from(2020, 11, 25));
+
+        new AddDecorate().execute();    //캘린더뷰에 waterAc 별로 별 찍기
 
 
-        EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList, getContext(), 1);
-        cv_calendar.addDecorator(eventDecorator);
-
-
-        CalendarDay day = CalendarDay.today();
-        eventDecorator.shouldDecorate(day);
 
 
         cv_calendar.setOnDateChangedListener(this);
@@ -110,18 +106,47 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
     private class AddDecorate extends AsyncTask<Void, Void, Boolean> {
 
         AddDecorate() {
-            ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
-            //TODO : 디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
-            calendarDayList.add(CalendarDay.today());
-            calendarDayList.add(CalendarDay.from(2020, 11, 25));EventDecorator eventDecorator = new EventDecorator(android.R.color.darker_gray, calendarDayList, getContext(), 1);
-            cv_calendar.addDecorator(eventDecorator);
+
         }
 
-
+        //TODO : 디비에서 해당 월 날짜 정보 가져와서 캘린더 리스트에 add 하고 EventDecorater에 추가하는 부분 비동기 식으로 클래스 작성하기
         @Override
         protected Boolean doInBackground(Void... voids) {
+            ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
+            ArrayList<String> tempCalendarDayList = new ArrayList<>();
+            calendarDayList.add(CalendarDay.today());
+//            for(String s : tempCalendarDayList){//왜 안되나요?
+//                Log.d("DB", "doInBackground: for 문 tempcalendar");
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                Calendar calendar = Calendar.getInstance();
+//                try {
+//                    Date date = formatter.parse(s);
+//                    calendar.setTime(date);
+//                    CalendarDay day = CalendarDay.today();
+//                    calendarDayList.add(day);
+//                    Log.d("DB", "doInBackground: day"+day);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+            calendarDayList.add(CalendarDay.from(2021,5,16)); // 이런식으로 년 일월 하나하나 다 넣어야 함.
+            //TODO :  for 문으로 day만 가져와서 for문 돌리면서 넣기
 
 
+            calendarDayList.add(CalendarDay.from(2020, 11, 25));
+            EventDecorator eventDecorator = new EventDecorator(calendarDayList, getContext(), 1);
+            cv_calendar.addDecorator(eventDecorator);
+            calendarDayList.clear();    //하면 지워짐. 한 종류 끝나면 clear 하고 add 하면 됨.
+            calendarDayList.add(CalendarDay.from(2021, 5, 13));
+            calendarDayList.add(CalendarDay.from(2021,5,1));
+            cv_calendar.addDecorators(new EventDecorator( calendarDayList, getContext(), 3));
+            calendarDayList.clear();
+            calendarDayList.add(CalendarDay.from(2021, 5, 2));
+            calendarDayList.add(CalendarDay.from(2021,5,3));
+            cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), 5));
+//            tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), 1);    //이방법 시간이 너무 오래걸림 렉걸린다.
+            //dayList 에서 day만 가지고 와서 쓰기. Int 형 어레이로 가져와서 바로 포문에서 돌리면서 넣을 수 있도록 하기.
 
             return null;
         }

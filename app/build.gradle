@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -68,6 +69,8 @@ dependencies {
 
     //db debug
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 
 

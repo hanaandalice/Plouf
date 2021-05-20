@@ -9,6 +9,7 @@ import androidx.room.DatabaseConfiguration;
 import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  * 설명 : db 생성
  * */
 @Database(entities = PdEntity.class, version = 1)
+@TypeConverters(TypeConvertor.class)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PdDao pdDao();
     private static AppDatabase mDb;

@@ -231,10 +231,10 @@ public class PdRepository {
      * 반환값 : 없음
      * 설명 : update - 증가 수행
      */
-    public void addWater(String date) {
+    public void addWater(String date, Integer cup) {
         try{
             Log.d("DB", "updateWater: 전");
-            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_ADD).execute().get();
+            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_ADD, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -242,40 +242,40 @@ public class PdRepository {
 
     }
 
-    public void addCoffee(String date) {
+    public void addCoffee(String date, Integer cup) {
         try{
             Log.d("DB", "updateCoffee: 전");
-            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_ADD).execute().get();
+            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_ADD, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updateCoffee: 완");
     }
 
-    public void addTea(String date) {
+    public void addTea(String date, Integer cup) {
         try{
             Log.d("DB", "updateTea: 전");
-            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_ADD).execute().get();
+            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_ADD, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updateTea: 완");
     }
 
-    public void addPeeCnt(String date) {
+    public void addPeeCnt(String date, Integer cup) {
         try{
             Log.d("DB", "updatePeeCnt: 전");
-            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_ADD).execute().get();
+            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_ADD, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updatePeeCnt: 완");
     }
 
-    public void addFecesCnt(String date) {
+    public void addFecesCnt(String date, Integer cup) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
-            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_ADD).execute().get();
+            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_ADD, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -289,10 +289,10 @@ public class PdRepository {
      * 반환값 : 없음
      * 설명 : update - 감소 수행
      */
-    public void subWater(String date) {
+    public void subWater(String date, Integer cup) {
         try{
             Log.d("DB", "updateWater: 전");
-            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_SUB).execute().get();
+            new UpdateIntData(pdDao, date,"water", UPDATE_MODE_SUB, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -300,40 +300,40 @@ public class PdRepository {
 
     }
 
-    public void subCoffee(String date) {
+    public void subCoffee(String date, Integer cup) {
         try{
             Log.d("DB", "updateCoffee: 전");
-            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_SUB).execute().get();
+            new UpdateIntData(pdDao, date,"coffee", UPDATE_MODE_SUB, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updateCoffee: 완");
     }
 
-    public void subTea(String date) {
+    public void subTea(String date, Integer cup) {
         try{
             Log.d("DB", "updateTea: 전");
-            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_SUB).execute().get();
+            new UpdateIntData(pdDao, date,"tea", UPDATE_MODE_SUB, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updateTea: 완");
     }
 
-    public void subPeeCnt(String date) {
+    public void subPeeCnt(String date, Integer cup) {
         try{
             Log.d("DB", "updatePeeCnt: 전");
-            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB).execute().get();
+            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updatePeeCnt: 완");
     }
 
-    public void subFecesCnt(String date) {
+    public void subFecesCnt(String date, Integer cup) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
-            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_SUB).execute().get();
+            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_SUB, cup).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -510,14 +510,14 @@ public class PdRepository {
          * 반환값 : 없음
          * 설명 : 변수 초기화
          */
-        UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName, Integer mode) {
+        UpdateIntData(PdDao pdAsyncTaskDao, String date, String columnName, Integer mode, Integer cup) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.columnName = columnName;
             this.date = date;
             this.mode = mode;
-            cup = 473;
+            this.cup = cup;
             data = 0;
-            //TODO : CUP sharedPreferences에서 가져오기
+            //TODO : CUP sharedPreferences에서 가져오기 걍 cup도 외부에서 받자.
         }
 
         /*-------------------------------------------------

@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private CharSequence[] dItems;
     public AlertDialog.Builder dDialog;
     public String dSelectItem;
+    public Integer intSelectItem = 0;
     public String water, coffee, tea;
     public Integer waterNeed;
 
@@ -89,6 +90,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_feces.setOnLongClickListener((View.OnLongClickListener) this);
         img_water.setOnLongClickListener((View.OnLongClickListener) this);
 
+        Log.d(TAG, "onCreateView: selectItem"+intSelectItem);
+
         return root;
     }
 
@@ -100,12 +103,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      */
     @Override
     public void onClick(View v) {
-       switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
-                homeViewModel.addWater();
-                tv_waterState.setText(homeViewModel.getWaterState());
-                Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
-                setImg_water();
+                if (intSelectItem == 0 ) {
+                    homeViewModel.addWater();
+                    tv_waterState.setText(homeViewModel.getWaterState());
+                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
+                    setImg_water();
+                } else if (intSelectItem == 1) {
+                    homeViewModel.addCoffee();
+                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
+
+                } else if (intSelectItem == 2) {
+                    homeViewModel.addTea();
+                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+
                 break;
             case R.id.img_pee :
                 homeViewModel.addPee();
@@ -116,7 +130,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
                 break;
             case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
-                Toast.makeText(context, "drink", Toast.LENGTH_SHORT).show();
+                if (intSelectItem == 0 ) {
+                    Toast.makeText(context, "물", Toast.LENGTH_SHORT).show();
+                } else if (intSelectItem == 1 ) {
+                    Toast.makeText(context, "커피", Toast.LENGTH_SHORT).show();
+                } else if (intSelectItem == 2 ) {
+                    Toast.makeText(context, "차", Toast.LENGTH_SHORT).show();
+                }
                 Log.d(TAG, "setOnClick: "+img_drink);
                 break;
         }
@@ -131,13 +151,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      */
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
-                homeViewModel.subWater();
-                tv_waterState.setText(homeViewModel.getWaterState());
-                Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
-                setImg_water();
-                setWaterAC();
+                if (intSelectItem == 0) {
+                    homeViewModel.subWater();
+                    tv_waterState.setText(homeViewModel.getWaterState());
+                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
+                    setImg_water();
+                    setWaterAC();
+                } else if (intSelectItem == 1) {
+                    homeViewModel.subCoffee();
+                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
+                } else if (intSelectItem == 2) {
+                    homeViewModel.subTea();
+                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                 homeViewModel.subPee();
@@ -156,12 +185,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                                 dSelectItem = dItems[which].toString();
                                 Toast.makeText(context,dItems[which], Toast.LENGTH_SHORT).show();
                                 setImg_drink(dSelectItem);
+//                                intSelectItem = which;
+                                Log.d(TAG, "onClick: int selectItem = "+intSelectItem);
+                                setIntSelectItem(which);
                             }
                         })
                         .setCancelable(true)
                         .show();
+//                Log.d(TAG, "onLongClick: selectItem"+intSelectItem);
                 break;
         }
+//                        Log.d(TAG, "onLongClick: selectItem"+intSelectItem);
+
         return true;    //onClick 동시 실행 안됨
     }
 
@@ -234,7 +269,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      * 반환값 : 없음
      * 설명 : 음료 이미지 변경
      */
-    //TODO : drinktype 받아와서 커피랑 차도 입력하게 하기
     public void setImg_drink(String dSelectItem) {
         switch (dSelectItem) {
             case "커피":
@@ -277,6 +311,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         } else {
             homeViewModel.setWaterAC(5);
         }
+    }
+
+    private void setIntSelectItem(Integer which) {
+        intSelectItem = which;
     }
 
 }

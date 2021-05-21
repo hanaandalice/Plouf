@@ -74,7 +74,7 @@ public interface PdDao {
    Integer getWaterAc();
 
    //waterAc 별로 해당 월의 날짜들 구하기
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE WATER_ACHIEVE LIKE :waterAc AND RECORD_DATE LIKE '____-'+:dateMonth+'__' ")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE WATER_ACHIEVE LIKE :waterAc AND RECORD_DATE LIKE '____-' + :dateMonth + '__'")
    List<String> getDatebyWaterAc(String waterAc, String dateMonth);
 
 }

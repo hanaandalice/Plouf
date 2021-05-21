@@ -146,8 +146,15 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             calendarDayList.add(CalendarDay.from(2021, 5, 2));
             calendarDayList.add(CalendarDay.from(2021,5,3));
             cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), 5));
-            tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), 5);    //이방법 시간이 너무 오래걸림 렉걸린다.
-            Log.d("DB", "doInBackground: 리스트  "+tempCalendarDayList);
+
+            if(CalendarDay.today().getMonth() < 10){    //2021-05-22 이런 형태 맞춰주기
+                tempCalendarDayList = calendarViewModel.getCalendarDayList("0"+Integer.toString(CalendarDay.today().getMonth()), 5);    //이방법 시간이 너무 오래걸림 렉걸린다.
+                Log.d("DB", "doInBackground: 리스트  "+tempCalendarDayList);
+            } else {
+                tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), 5);    //이방법 시간이 너무 오래걸림 렉걸린다.
+                Log.d("DB", "doInBackground: 리스트  "+tempCalendarDayList);
+            }
+
             //dayList 에서 day만 가지고 와서 쓰기. Int 형 어레이로 가져와서 바로 포문에서 돌리면서 넣을 수 있도록 하기.
 
             return null;

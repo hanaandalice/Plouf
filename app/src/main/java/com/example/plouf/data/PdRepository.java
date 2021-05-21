@@ -100,6 +100,26 @@ public class PdRepository {
         return null;
     }
 
+    public Integer getCoffee(String date) {
+        try{
+            return new GetIntData(pdDao, "coffee", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Integer getTea(String date) {
+        try{
+            return new GetIntData(pdDao, "tea", date).execute().get();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     public Integer getPeeCnt(String date) {
         try{
             return new GetIntData(pdDao, "peeCnt", date).execute().get();
@@ -152,6 +172,17 @@ public class PdRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<String> getCalendarDay(String dateMonth, Integer waterAc) {
+        try{
+            Log.d("DB", "getCalendarDay: hey");
+            return new GetCalendarDay(pdDao, dateMonth, waterAc).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("DB", "getCalendarDay: catch");
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -325,16 +356,7 @@ public class PdRepository {
     }
 
 
-    public List<String> getCalendarDay(String dateMonth, Integer waterAc) {
-        try{
-            Log.d("DB", "getCalendarDay: hey");
-            return new GetCalendarDay(pdDao, dateMonth, waterAc).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.d("DB", "getCalendarDay: catch");
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 
 
     /*####################################################################################

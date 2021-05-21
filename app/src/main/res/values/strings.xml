@@ -14,4 +14,5 @@
     <string name="column_peeAvg">peeAvg</string>
     <string name="column_fecesAvg">fecesAvg</string>
     <string name="lock_Setting_txt">앱 잠금 설정</string>
+    <string name="chart_name">일일 음수량 그래프</string>
 </resources>

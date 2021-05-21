@@ -28,6 +28,8 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<String> txtProgress;
     public Integer acCnt;
     public Integer waterAmount;
+    public Integer coffee;
+    public Integer tea;
     public Integer peeCnt;
     public Integer fecesCnt;
     public Integer waterNeed;
@@ -58,6 +60,8 @@ public class HomeViewModel extends ViewModel {
         fecesCnt = pdRepository.getFecesCnt(today);//디비에서 받아오기
         acCnt = pdRepository.getAcCnt(today);
         waterAmount = pdRepository.getWater(today);
+        coffee = pdRepository.getCoffee(today);
+        tea = pdRepository.getTea(today);
 
 
         Log.d("pref", "HomeViewModel: amount 초기화후"+waterAmount);
@@ -89,6 +93,8 @@ public class HomeViewModel extends ViewModel {
     public Integer getFecesCnt() { return fecesCnt;}
     public Integer getWaterNeed(Context context) { return  preferencesManager.getWaterNeed(context); }
     public Integer getCup(Context context) { return  preferencesManager.getCup(context); }
+    public Integer getCoffee() { return coffee;}
+    public Integer getTea() { return tea;}
 
 
 
@@ -134,6 +140,7 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 커피 량 저장.
      */
     public void addCoffee() {   //TODO : fragment에서 입력모드(물, 녹차, 커피)확인 하고 실행해주기
+        coffee += cup;
         try{
             Log.d("DB", "addCoffee: 전");
             pdRepository.addCoffee(today);
@@ -151,6 +158,7 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 차 량 저장.
      */
     public void addTea() {
+        tea += cup;
         try{
             Log.d("DB", "addTea: 전");
             pdRepository.addTea(today);
@@ -207,6 +215,30 @@ public class HomeViewModel extends ViewModel {
             waterState = waterAmount+"/"+waterNeed+"ml";
             try{
                 pdRepository.subWater(today);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void subCoffee() {
+        if(coffee > 0) {
+            coffee-=cup;
+            try{
+                pdRepository.subCoffee(today);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void subTea() {
+        if(tea > 0) {
+            tea-=cup;
+            try{
+                pdRepository.subTea(today);
 
             } catch (Exception e) {
                 e.printStackTrace();

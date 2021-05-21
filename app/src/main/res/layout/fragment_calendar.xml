@@ -31,12 +31,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="14dp"
             app:layout_constraintVertical_bias="0.0" />
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:paddingBottom="6dp"
+            android:background="@color/gray_line"/>
+
         <!--        일자별 그래프-->
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/waterChart"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
 
     </LinearLayout>
 

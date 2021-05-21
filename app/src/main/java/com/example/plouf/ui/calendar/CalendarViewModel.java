@@ -98,7 +98,7 @@ public class CalendarViewModel extends ViewModel {
         try {
             peeAvg =  pdRepository.getPeeAvg(today);    //null이라는데 왜?
             Log.d("DB", "setToiletAvgResult: "+peeAvg);
-            feceAvg = pdRepository.getFecesAvg(today);  //이 값도 이상함.
+            feceAvg = pdRepository.getFecesAvg(today);  //왜 feces 평균이 아니라 pee 평균 그것도 그날 것만?.
             Log.d("DB", "setToiletAvgResult: feces"+feceAvg);
             toiletAvgResult = "일 평균 소변 횟수 : "+peeAvg+" 회\t 일 평균 대변 횟수 : "+feceAvg+" 회";
             mText.setValue(toiletAvgResult);

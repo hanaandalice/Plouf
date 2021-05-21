@@ -10,6 +10,8 @@ import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import java.util.List;
@@ -36,6 +38,9 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return (AppDatabase) mDb;
     }
+
+
+
 
     @NonNull
     @Override

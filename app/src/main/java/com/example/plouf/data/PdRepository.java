@@ -138,7 +138,7 @@ public class PdRepository {
 
     public Integer getPeeAvg(String date) {
         try{
-            return new GetIntData(pdDao, "pddAvg", date).execute().get();
+            return new GetIntData(pdDao, "peeAvg", date).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -147,7 +147,7 @@ public class PdRepository {
 
     public Integer getFecesAvg(String date) {
         try{
-            return new GetIntData(pdDao, "peeCnt", date).execute().get();
+            return new GetIntData(pdDao, "fecesAvg", date).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -328,7 +328,7 @@ public class PdRepository {
     public List<String> getCalendarDay(String dateMonth, Integer waterAc) {
         try{
             Log.d("DB", "getCalendarDay: hey");
-            return new GetCalendarDay(pdDao, dateMonth, waterAc).execute().get();
+            return new GetCalendarDay(pdDao, dateMonth, waterAc).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
         } catch (InterruptedException | ExecutionException e) {
             Log.d("DB", "getCalendarDay: catch");
             e.printStackTrace();
@@ -625,6 +625,12 @@ public class PdRepository {
                 Log.d("DB", "doInBackground: calendarDays catch");
                 return null;
             }
+        }
+
+        @Override
+        protected void onPostExecute(List<String> calendarDays) {
+            Log.d("DB", "onPostExecute: 결과 보내기");
+            super.onPostExecute(calendarDays);
         }
     }
 

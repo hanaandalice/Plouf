@@ -71,6 +71,9 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation 'com.google.code.gson:gson:2.8.5'
+    //graph
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
 
 

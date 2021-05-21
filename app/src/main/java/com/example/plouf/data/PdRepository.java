@@ -517,7 +517,6 @@ public class PdRepository {
             this.mode = mode;
             this.cup = cup;
             data = 0;
-            //TODO : CUP sharedPreferences에서 가져오기 걍 cup도 외부에서 받자.
         }
 
         /*-------------------------------------------------
@@ -640,7 +639,7 @@ public class PdRepository {
         protected List<String> doInBackground(Void... voids) {
             Log.d("DB", "doInBackground: calendarDays 전");
             try{
-                calendarDays = pdAsyncTaskDao.getDatebyWaterAc(waterAc, dateMonth);
+                calendarDays = pdAsyncTaskDao.getDatebyWaterAc(waterAc  , dateMonth);
                 Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
                 return calendarDays;
             } catch(Exception e){

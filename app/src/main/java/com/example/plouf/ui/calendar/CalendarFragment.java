@@ -116,46 +116,53 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             ArrayList<CalendarDay> calendarDayList = new ArrayList<>();
             ArrayList<String> tempCalendarDayList = new ArrayList<>();
             calendarDayList.add(CalendarDay.today());
-//            for(String s : tempCalendarDayList){//왜 안되나요?
-//                Log.d("DB", "doInBackground: for 문 tempcalendar");
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//                Calendar calendar = Calendar.getInstance();
-//                try {
-//                    Date date = formatter.parse(s);
-//                    calendar.setTime(date);
-//                    CalendarDay day = CalendarDay.today();
-//                    calendarDayList.add(day);
-//                    Log.d("DB", "doInBackground: day"+day);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//            }
 
-            calendarDayList.add(CalendarDay.from(2021,5,16)); // 이런식으로 년 일월 하나하나 다 넣어야 함.
-            //TODO :  for 문으로 day만 가져와서 for문 돌리면서 넣기
+            //테스트용
+//            calendarDayList.add(CalendarDay.from(2021,5,16)); // 이런식으로 년 일월 하나하나 다 넣어야 함.
+//
+//
+//            calendarDayList.add(CalendarDay.from(2020, 11, 25));
+//            EventDecorator eventDecorator = new EventDecorator(calendarDayList, getContext(), 1);
+//            cv_calendar.addDecorator(eventDecorator);
+//            calendarDayList.clear();    //하면 지워짐. 한 종류 끝나면 clear 하고 add 하면 됨.
+//            calendarDayList.add(CalendarDay.from(2021, 5, 13));
+//            calendarDayList.add(CalendarDay.from(2021,5,1));
+//            cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), 3));
+//            calendarDayList.clear();
+//            calendarDayList.add(CalendarDay.from(2021, 5, 2));
+//            calendarDayList.add(CalendarDay.from(2021,5,3));
+//            cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), 5));
 
 
-            calendarDayList.add(CalendarDay.from(2020, 11, 25));
-            EventDecorator eventDecorator = new EventDecorator(calendarDayList, getContext(), 1);
-            cv_calendar.addDecorator(eventDecorator);
-            calendarDayList.clear();    //하면 지워짐. 한 종류 끝나면 clear 하고 add 하면 됨.
-            calendarDayList.add(CalendarDay.from(2021, 5, 13));
-            calendarDayList.add(CalendarDay.from(2021,5,1));
-            cv_calendar.addDecorators(new EventDecorator( calendarDayList, getContext(), 3));
-            calendarDayList.clear();
-            calendarDayList.add(CalendarDay.from(2021, 5, 2));
-            calendarDayList.add(CalendarDay.from(2021,5,3));
-            cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), 5));
 
-            if(CalendarDay.today().getMonth() < 10){    //2021-05-22 이런 형태 맞춰주기
-                tempCalendarDayList = calendarViewModel.getCalendarDayList("0"+Integer.toString(CalendarDay.today().getMonth()), 5);    //이방법 시간이 너무 오래걸림 렉걸린다.
-                Log.d("DB", "doInBackground: 리스트  "+tempCalendarDayList);
+            if(CalendarDay.today().getMonth() < 10){    //2021-05-22  형태 맞춰주기
+                for(int waterAc = 1; waterAc <6; waterAc++) {
+                    tempCalendarDayList = calendarViewModel.getCalendarDayList("0"+Integer.toString(CalendarDay.today().getMonth()), waterAc);    //이방법 시간이 너무 오래걸림 렉걸린다.
+                    Log.d("DB", "doInBackground: 리스트1  "+tempCalendarDayList);
+                    for(String day : tempCalendarDayList) {
+                        //캘린더 데이 리스트에 넣기
+                        String days[] = day.split("-");
+                        Integer d = Integer.parseInt(days[2]);
+                        calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
+                    }
+                    cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));
+                    calendarDayList.clear();
+                }
             } else {
-                tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), 5);    //이방법 시간이 너무 오래걸림 렉걸린다.
-                Log.d("DB", "doInBackground: 리스트  "+tempCalendarDayList);
+                for(int waterAc = 1; waterAc <6; waterAc++) {   //1부터 5까지 검색해서 받아오고 각각 CalendarDayList에 넣기 이중포문 사용하여
+                    tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), waterAc);    //이방법 시간이 너무 오래걸림 렉걸린다.
+                    Log.d("DB", "doInBackground: 리스트2  " + tempCalendarDayList);
+                    for(String day : tempCalendarDayList) {
+                        //캘린더 데이 리스트에 넣기
+                        String days[] = day.split("-");
+                        Integer d = Integer.parseInt(days[2]);  //일자 값
+                        calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
+                    }
+                    cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));
+                    calendarDayList.clear();
+                }
             }
 
-            //dayList 에서 day만 가지고 와서 쓰기. Int 형 어레이로 가져와서 바로 포문에서 돌리면서 넣을 수 있도록 하기.
 
             return null;
         }

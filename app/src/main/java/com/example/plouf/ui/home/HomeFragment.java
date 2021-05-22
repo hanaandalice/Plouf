@@ -30,6 +30,8 @@ import static android.content.ContentValues.TAG;
  * 물방울 이미지 세팅 실행
  * */
 
+//TODO : 다른 종류 음료 입력할때 그 음료 마신 양 보여주는 tv 추가하기
+
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener{
 
     private HomeViewModel homeViewModel;

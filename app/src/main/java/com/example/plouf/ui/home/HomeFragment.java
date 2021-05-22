@@ -30,8 +30,6 @@ import static android.content.ContentValues.TAG;
  * 물방울 이미지 세팅 실행
  * */
 
-//TODO : 다른 종류 음료 입력할때 그 음료 마신 양 보여주는 tv 추가하기
-
 public class HomeFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener{
 
     private HomeViewModel homeViewModel;
@@ -42,6 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public TextView tv_progress;
     public TextView tv_peeCnt;
     public TextView tv_fecesCnt;
+    public TextView tv_drink;
     private Context context;
     public TextView tv_waterState;
     private View root;
@@ -72,12 +71,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             }
         });
 
+        if (intSelectItem == 0) {
+            tv_drink.setVisibility(View.INVISIBLE);
+        } else if (intSelectItem == 1) {
+            tv_drink.setVisibility(View.INVISIBLE);
+            tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+        } else if (intSelectItem == 2) {
+            tv_drink.setVisibility(View.VISIBLE);
+            tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+        }
+
 
         tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
         tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
-        if(homeViewModel.waterNeed == 0){
+        if (homeViewModel.waterNeed == 0) {
             tv_waterState.setText("설정에서 체중과 컵 용량을 입력하세요.");
-        } else{
+        } else {
             tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
         }
 
@@ -110,15 +119,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 if (intSelectItem == 0 ) {
                     homeViewModel.addWater();
                     tv_waterState.setText(homeViewModel.getWaterState());
-                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                     setImg_water();
                 } else if (intSelectItem == 1) {
                     homeViewModel.addCoffee();
-                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
+                    tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+//                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
 
                 } else if (intSelectItem == 2) {
                     homeViewModel.addTea();
-                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
+                    tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+//                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -158,15 +169,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 if (intSelectItem == 0) {
                     homeViewModel.subWater();
                     tv_waterState.setText(homeViewModel.getWaterState());
-                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                     setImg_water();
                     setWaterAC();
                 } else if (intSelectItem == 1) {
                     homeViewModel.subCoffee();
-                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
+                    tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
                 } else if (intSelectItem == 2) {
                     homeViewModel.subTea();
-                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
+                    tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
                 }
 
                 break;
@@ -185,11 +195,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dSelectItem = dItems[which].toString();
-                                Toast.makeText(context,dItems[which], Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context,dItems[which], Toast.LENGTH_SHORT).show();
                                 setImg_drink(dSelectItem);
-//                                intSelectItem = which;
                                 Log.d(TAG, "onClick: int selectItem = "+intSelectItem);
                                 setIntSelectItem(which);
+
                             }
                         })
                         .setCancelable(true)
@@ -214,6 +224,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_waterState = root.findViewById(R.id.tv_waterAmount);
         tv_peeCnt = root.findViewById(R.id.tv_peeCnt);
         tv_fecesCnt = root.findViewById(R.id.tv_fecesCnt);
+        tv_drink = root.findViewById(R.id.tv_drink);
 
         img_water = root.findViewById(R.id.img_water);
         img_drink = root.findViewById(R.id.img_drink);
@@ -241,7 +252,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     /*-------------------------------------------------
      *형태 : Method
-     * 소유자 : HomeViewModel
+     * 소유자 : HomeFragment
      * 반환값 : 없음
      * 설명 : 물 량에 따른 물방울 이미지 변경
      */
@@ -267,7 +278,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     /*-------------------------------------------------
      *형태 : Method
-     * 소유자 : HomeViewModel
+     * 소유자 : HomeFragment
      * 반환값 : 없음
      * 설명 : 음료 이미지 변경
      */
@@ -287,7 +298,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     /*-------------------------------------------------
      *형태 : Method
-     * 소유자 : HomeViewModel
+     * 소유자 : HomeFragment
      * 반환값 : context
      * 설명 : context 반환
      */
@@ -295,7 +306,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         return context;
     }
 
-
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeFragment
+     * 반환값 : 없음
+     * 설명 : 마신 물 량 퍼센트별 waterAC 설정
+     */
     private void setWaterAC(){
         Float waterPer  = 0.0f;
         if(homeViewModel.getWaterNeed(context) != null) {
@@ -316,8 +332,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
     }
 
-    private void setIntSelectItem(Integer which) {
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : HomeFragment
+     * 반환값 : 없음
+     * 설명 : IntSelectItem을 세팅하고 텍스트뷰 설정
+     */
+    private void setIntSelectItem(Integer which)
+    {
         intSelectItem = which;
+        if (intSelectItem == 0) {
+            tv_drink.setVisibility(View.INVISIBLE);
+        } else if (intSelectItem == 1) {
+            tv_drink.setVisibility(View.VISIBLE);
+            tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+        } else if (intSelectItem == 2) {
+            tv_drink.setVisibility(View.VISIBLE);
+            tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+        }
+
     }
 
 }

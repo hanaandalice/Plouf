@@ -135,32 +135,17 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
 
 
-            if(CalendarDay.today().getMonth() < 10){    //2021-05-22  형태 맞춰주기
-                for(int waterAc = 1; waterAc <6; waterAc++) {
-                    tempCalendarDayList = calendarViewModel.getCalendarDayList("0"+Integer.toString(CalendarDay.today().getMonth()), waterAc);    //이방법 시간이 너무 오래걸림 렉걸린다.
-                    Log.d("DB", "doInBackground: 리스트1  "+tempCalendarDayList);
-                    for(String day : tempCalendarDayList) {
-                        //캘린더 데이 리스트에 넣기
-                        String days[] = day.split("-");
-                        Integer d = Integer.parseInt(days[2]);
-                        calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
-                    }
-                    cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));
-                    calendarDayList.clear();
+            for(int waterAc = 1; waterAc <6; waterAc++) {
+                tempCalendarDayList = calendarViewModel.getCalendarDayList(CalendarDay.today().getMonth(), waterAc);
+                Log.d("DB", "doInBackground: 리스트1  "+tempCalendarDayList);
+                for(String day : tempCalendarDayList) {
+                    //캘린더 데이 리스트에 넣기
+                    String days[] = day.split("-");
+                    Integer d = Integer.parseInt(days[2]);
+                    calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
                 }
-            } else {
-                for(int waterAc = 1; waterAc <6; waterAc++) {   //1부터 5까지 검색해서 받아오고 각각 CalendarDayList에 넣기 이중포문 사용하여
-                    tempCalendarDayList = calendarViewModel.getCalendarDayList(Integer.toString(CalendarDay.today().getMonth()), waterAc);    //이방법 시간이 너무 오래걸림 렉걸린다.
-                    Log.d("DB", "doInBackground: 리스트2  " + tempCalendarDayList);
-                    for(String day : tempCalendarDayList) {
-                        //캘린더 데이 리스트에 넣기
-                        String days[] = day.split("-");
-                        Integer d = Integer.parseInt(days[2]);  //일자 값
-                        calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
-                    }
-                    cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));
-                    calendarDayList.clear();
-                }
+                cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));
+                calendarDayList.clear();
             }
 
 

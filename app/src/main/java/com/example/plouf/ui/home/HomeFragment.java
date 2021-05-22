@@ -299,17 +299,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         if(homeViewModel.getWaterNeed(context) != null) {
             waterPer = homeViewModel.getWaterPer();
         }
-        if(waterPer<20) {
-            homeViewModel.setWaterAC(1);
-            //viewmodel에서 waterAc Setting
-        } else if(waterPer>=20 && waterPer<40) {
-            homeViewModel.setWaterAC(2);
-        } else if(waterPer>=40 && waterPer<60) {
-            homeViewModel.setWaterAC(3);
-        } else if(waterPer>=60 && waterPer<100) {
-            homeViewModel.setWaterAC(4);
-        } else {
-            homeViewModel.setWaterAC(5);
+        if(waterPer>0) {
+            if(waterPer<20) {
+                homeViewModel.setWaterAC(1);
+            } else if(waterPer>=20 && waterPer<40) {
+                homeViewModel.setWaterAC(2);
+            } else if(waterPer>=40 && waterPer<60) {
+                homeViewModel.setWaterAC(3);
+            } else if(waterPer>=60 && waterPer<100) {
+                homeViewModel.setWaterAC(4);
+            } else {
+                homeViewModel.setWaterAC(5);
+            }
         }
     }
 

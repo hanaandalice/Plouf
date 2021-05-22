@@ -51,7 +51,7 @@ public class HomeViewModel extends ViewModel {
         preferencesManager = new PreferencesManager();
 
         today = CalendarDay.today().getDate().toString();
-//        today = "2021-06-29";
+//        today = "2021-05-25";
         checkDate(today);
 
         Log.d("DB", "HomeViewModel: "+today);    //2021-05-11 형태

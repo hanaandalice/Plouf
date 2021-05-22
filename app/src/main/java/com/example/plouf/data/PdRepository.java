@@ -135,7 +135,8 @@ public class PdRepository {
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;    }
+        return null;
+    }
 
 
     public Integer getWaterAc(String date) {
@@ -174,7 +175,14 @@ public class PdRepository {
         return null;
     }
 
-    public List<String> getCalendarDay(String dateMonth, Integer waterAc) {
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : PdRepository
+     * 반환값 : List<String>
+     * 설명 : waterAc 별 해당 월 데이터 반환
+     */
+    public List<String> getCalendarDay(Integer dateMonth, Integer waterAc) {
         try{
             Log.d("DB", "getCalendarDay: hey");
             return new GetCalendarDay(pdDao, dateMonth, waterAc).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
@@ -193,7 +201,7 @@ public class PdRepository {
 
     public void deleteByDate(String date) {
         pdDao.deleteByDate(date);
-    }   //TODO : delete 기능 구현..?
+    }
 
 
     /*-------------------------------------------------
@@ -297,7 +305,6 @@ public class PdRepository {
             e.printStackTrace();
         }
         Log.d("DB", "updateWater: 완");
-
     }
 
     public void subCoffee(String date, Integer cup) {
@@ -430,12 +437,16 @@ public class PdRepository {
 
             pastWaterAc = pdAsyncTaskDao.getWaterAc();
 
-            if(pastWaterAc == 5){
+            if (pastWaterAc == null){
+                pdEntity.setAcCnt(pastAcCnt);
+            }
+            else if(pastWaterAc == 5){   //TODO : fix 아예 새로 실행 시키는 경우 없는 경우 null point exception 뜸
                 pastAcCnt = pdAsyncTaskDao.getAcCnt();
                 pdEntity.setAcCnt(pastAcCnt+1);
             } else {
                 pdEntity.setAcCnt(pastAcCnt);
             }
+            pdEntity.setWaterAc(0);
             pdAsyncTaskDao.insert(pdEntity);
             return  true;
         }
@@ -623,11 +634,11 @@ public class PdRepository {
      * */
     private class GetCalendarDay extends AsyncTask<Void, Void, List<String>> {
         private PdDao pdAsyncTaskDao;
-        private String dateMonth;
+        private Integer dateMonth;
         private String waterAc;
         private List<String> calendarDays;
 
-        GetCalendarDay(PdDao pdAsyncTaskDao, String dateMonth, Integer waterAc){
+        GetCalendarDay(PdDao pdAsyncTaskDao, Integer dateMonth, Integer waterAc) {
             this.pdAsyncTaskDao = pdAsyncTaskDao;
             this.dateMonth = dateMonth;
             this.waterAc = Integer.toString(waterAc);
@@ -639,10 +650,58 @@ public class PdRepository {
         protected List<String> doInBackground(Void... voids) {
             Log.d("DB", "doInBackground: calendarDays 전");
             try{
-                calendarDays = pdAsyncTaskDao.getDatebyWaterAc(waterAc  , dateMonth);
-                Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                switch (dateMonth) {
+                    case 1 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_1(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 2:
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_2(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 3:
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_3(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 4 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_4(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 5 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_5(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 6 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_6(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 7 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_7(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 8 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_8(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 9 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_9(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 10 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_10(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 11 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_11(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                    case 12 :
+                        calendarDays = pdAsyncTaskDao.getDatebyWaterAc_12(waterAc);
+                        Log.d("DB", "doInBackground: calendarDays return"+calendarDays);
+                        break;
+                }
                 return calendarDays;
-            } catch(Exception e){
+            } catch(Exception e) {
                 Log.d("DB", "doInBackground: calendarDays catch");
                 return null;
             }

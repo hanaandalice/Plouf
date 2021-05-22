@@ -56,7 +56,7 @@ public class CalendarViewModel extends ViewModel {
      * 반환값 : ArrayList<CalendarDay>
      * 설명 : 디비에서 CalendarDay 리스트 가져오기
      */
-    public ArrayList<String> getCalendarDayList(String todayMonth, Integer waterAc) {// 비동기식으로 작성하기
+    public ArrayList<String> getCalendarDayList(Integer todayMonth, Integer waterAc) {// 비동기식으로 작성하기
         ArrayList<String> calendarDays = new ArrayList<>();
         try {
             Log.d("DB", "getCalendarDayList: "+todayMonth+" "+waterAc);
@@ -70,20 +70,6 @@ public class CalendarViewModel extends ViewModel {
 
 
 
-
-    // 디비에서 waterAc 별(case 나누기) 캘린더 데이  갖고 와서 정리하고 보내주기.
-    private class GetCalendarDay extends AsyncTask<Void, Void, Boolean> {
-
-        GetCalendarDay(){
-
-        }
-
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            return null;
-        }
-    }
 
 
     /*-------------------------------------------------

@@ -10,14 +10,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  *형태 : Class
  * 모듈ID : PreferencesManager
  * 설명 : SharedPreferences 관리
- * 앱 잠금 설정 세팅값, 체중, 컵 용량, 권장 물 섭취량 저장하고 가져오기 수행
+ * 앱 잠금 설정 세팅값, 체중, 컵 용량, 권장 물 섭취량, password 저장하고 가져오기 수행
  * */
 public class PreferencesManager{
     private Boolean lockSetting;
     private Integer weight;
     private Integer cup;
     private Integer waterNeed;
-    private Integer pass;
+    private String pass;
     private static String shared ="shared";
 
     private static SharedPreferences getPreferences(Context context) {
@@ -29,7 +29,7 @@ public class PreferencesManager{
      *형태 : Method
      * 소유자 : PreferencesManager
      * 반환값 : Boolean, Integer
-     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량 SharedPreferences 값 반환 수행
+     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 반환 수행
      */
     public Boolean getLockSetting(Context context) {
         SharedPreferences preferences = getPreferences(context);
@@ -58,9 +58,9 @@ public class PreferencesManager{
         return waterNeed;
     }
 
-    public Integer getPass(Context context) {
+    public String getPass(Context context) {
         SharedPreferences preferences = getPreferences(context);
-        pass = preferences.getInt("pass", 0);
+        pass = preferences.getString("pass", null); //password 가 0000인 경우 있을 수 있음.
         return pass;
     }
 
@@ -70,7 +70,7 @@ public class PreferencesManager{
      *형태 : Method
      * 소유자 : PreferencesManager
      * 반환값 : Boolean, Integer
-     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량 SharedPreferences 값 세팅 수행
+     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 세팅 수행
      */
     public void setLockSetting(Context context, Boolean lockSetting) {
         SharedPreferences preferences = getPreferences(context);
@@ -99,7 +99,12 @@ public class PreferencesManager{
 
     }
 
-    public void setPass(Context context) {
+    public void setPass(Context context, String pass) {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        this.pass = pass;
+        editor.putString("pass", pass);
+        editor.commit();
 
     }
 

@@ -18,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.plouf.R;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 /*####################################################################################
  *형태 : Class
@@ -73,9 +77,13 @@ public class SettingsFragment extends Fragment {
                if(isChecked) {
                    settingsViewModel.setLockSetting(context, isChecked);
                    // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
+                   //입력받은 패스워드 Integer 값들 하나하나씩 String으로 바꿔서 다 붙여주기 1 2 3 4 => 1234
+                   String pass = md5(/*입력 받은 패스워드*/ "1234");
+                   settingsViewModel.setPass(context, pass);
+
                } else {
                    settingsViewModel.setLockSetting(context, isChecked);
-                   //TODO : 패스워드 삭제하기. SET NULL;
+                   settingsViewModel.setPass(context, null);
                }
            }
        });
@@ -96,5 +104,28 @@ public class SettingsFragment extends Fragment {
         settingsViewModel.setCup(context, Integer.parseInt(et_waterCup.getText().toString()));
         settingsViewModel.setWeight(context, Integer.parseInt(et_weight.getText().toString()));
 
+    }
+
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : SettingsFragment
+     * 반환값 : String
+     * 설명 : 입력받은 값 md5 암호화 후 반환
+     */
+    public static String md5(String str){
+        String MD5 = "";
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(str.getBytes("UTF-8"));
+            byte byteData[] = md.digest();
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++)
+                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+            MD5 = sb.toString();
+        }
+        catch(NoSuchAlgorithmException e) { e.printStackTrace(); MD5 = null; }
+        catch (UnsupportedEncodingException e) { e.printStackTrace(); MD5 = null; }
+        return MD5;
     }
 }

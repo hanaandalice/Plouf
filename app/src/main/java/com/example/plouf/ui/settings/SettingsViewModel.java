@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -34,14 +35,18 @@ public class SettingsViewModel extends ViewModel {
      * 반환값 : 없음
      * 설명 : SharedPreferences 값 저장(컵 용량, 몸무게, 잠금 설정 여부)
      */
-    public void setCup(Context context, Integer waterCup){
+    public void setCup(Context context, Integer waterCup) {
         preferencesManager.setCup(context, waterCup);
     }
-    public void setWeight(Context context, Integer weight){
+    public void setWeight(Context context, Integer weight) {
         preferencesManager.setWeight(context, weight);
     }
-    public void setLockSetting(Context context, Boolean lockSetting){
+    public void setLockSetting(Context context, Boolean lockSetting) {
         preferencesManager.setLockSetting(context, lockSetting);
+    }
+
+    public void setPass(Context context, String pass) {
+        preferencesManager.setPass(context, pass);
     }
 
 
@@ -55,11 +60,14 @@ public class SettingsViewModel extends ViewModel {
         return preferencesManager.getCup(context);
     }
     public Integer getWeight(Context context) {
-        Log.d("pref", "getWeight: settings");
         return preferencesManager.getWeight(context);   //단위 자르기
     }
     public Boolean getLockSetting(Context context) {
         return preferencesManager.getLockSetting(context);
+    }
+
+    public String getPass(Context context) {
+        return preferencesManager.getPass(context);
     }
 
 }

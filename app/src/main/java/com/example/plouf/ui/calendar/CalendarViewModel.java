@@ -73,9 +73,13 @@ public class CalendarViewModel extends ViewModel {
         return calendarDays;
     }
 
-
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : CalendarViewModel
+     * 반환값 : ArrayList<Integer>
+     * 설명 : 원하는 날의 물, 커피, 차, 소변, 대변 데이터 보내기.
+     */
     public ArrayList<Integer> getData(String date) {
-        //TODO : 캘린더에서 선택한  날짜 받아와서 그날의 물, 커피, 차 그래프로 보여주고(Fragment) 그날의 소변 대변 상태도 보여주기
         ArrayList<Integer> data = new ArrayList<>();
         if(pdRepository.getWater(date) != null) {
             data.add(pdRepository.getWater(date));
@@ -93,7 +97,7 @@ public class CalendarViewModel extends ViewModel {
 
     /*-------------------------------------------------
      *형태 : Method
-     * 소유자 : setToiletAvgResult
+     * 소유자 : CalendarViewModel
      * 반환값 : 없음
      * 설명 : 평균 소변, 대변 횟수 디비에서 가지고 와서 텍스트 세팅.
      */

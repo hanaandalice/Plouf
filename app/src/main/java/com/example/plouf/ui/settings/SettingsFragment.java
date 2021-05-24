@@ -72,8 +72,10 @@ public class SettingsFragment extends Fragment {
            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                if(isChecked) {
                    settingsViewModel.setLockSetting(context, isChecked);
+                   // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
                } else {
                    settingsViewModel.setLockSetting(context, isChecked);
+                   //TODO : 패스워드 삭제하기. SET NULL;
                }
            }
        });

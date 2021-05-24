@@ -440,7 +440,7 @@ public class PdRepository {
             if (pastWaterAc == null){
                 pdEntity.setAcCnt(pastAcCnt);
             }
-            else if(pastWaterAc == 5){   //TODO : fix 아예 새로 실행 시키는 경우 없는 경우 null point exception 뜸
+            else if(pastWaterAc == 5){
                 pastAcCnt = pdAsyncTaskDao.getAcCnt();
                 pdEntity.setAcCnt(pastAcCnt+1);
             } else {

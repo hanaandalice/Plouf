@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.plouf.R;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -36,7 +38,6 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO : 캘린더 기능 넣기(날짜 선택시 클릭 이벤트 만들기, 점으로 이벤트 표시
 
 /*####################################################################################
  *형태 : Class
@@ -50,6 +51,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
     public MaterialCalendarView cv_calendar;
     public TextView tv_dailyToilet;
     public TextView tv_chart;
+    public TextView tv_tip;
     private Context context;
     public HorizontalBarChart chart;
     private String today;
@@ -75,6 +77,9 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         tv_chart = root.findViewById(R.id.tv_chart);
         tv_chart.setText("일일 음수량 그래프  ("+today+")");
 
+        tv_tip = root.findViewById(R.id.tv_tip);
+        tv_tip.setVisibility(View.INVISIBLE);
+
         context = container.getContext();
 
         cv_calendar  = root.findViewById(R.id.cv_calendar);
@@ -84,7 +89,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         new AddDecorate().execute();    //캘린더뷰에 waterAc 별로 별 찍기 실행
 
         chart = root.findViewById(R.id.waterChart);
-        chart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
+        chart.setOnChartValueSelectedListener(this);
 
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
@@ -99,6 +104,24 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
 
+        XAxis xl = chart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.setDrawAxisLine(true);
+        xl.setDrawGridLines(false);
+        xl.setGranularity(10f);
+
+        YAxis yl = chart.getAxisLeft();
+        yl.setDrawAxisLine(true);
+        yl.setDrawGridLines(true);
+        yl.setAxisMinimum(0f);
+
+        YAxis yr = chart.getAxisRight();
+        yr.setDrawAxisLine(true);
+        yr.setDrawGridLines(false);
+        yr.setAxisMinimum(0f);
+
+        chart.setFitBars(true);
+
 
         setChart(today);   //기본 차트 설정 : 오늘 일자
 
@@ -109,7 +132,6 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
 
         //캘린더 기본 선택 오늘 날짜
-        //ODO : 그래프 설명 옆에 날짜 텍스트 넣기 | 일일 음수량 그래프 (2021-05-21) 이런식
 
 
         return root;
@@ -197,9 +219,13 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             tv_dailyToilet.setText("해당 일자의 데이터가 없습니다.");
             tv_chart.setText("해당 일자의 데이터가 없습니다.");
             chart.setVisibility(View.INVISIBLE);
+            tv_tip.setVisibility(View.INVISIBLE);
+
 
         } else {
             chart.setVisibility(View.VISIBLE);
+            tv_tip.setVisibility(View.VISIBLE);
+            tv_tip.setText("커피는 섭취량의 2배 차는 1.5배의 수분을 배출시킵니다.");
             datas.add(new BarEntry(0, temp.get(0)));
             datas.add(new BarEntry(1, temp.get(1)));
             datas.add(new BarEntry(2, temp.get(2)));
@@ -217,7 +243,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
                 chart.getData().notifyDataChanged();
                 chart.notifyDataSetChanged();
             } else {
-                set1 = new BarDataSet(datas, "일일 음수량");
+                set1 = new BarDataSet(datas, "파랑 : 물 | 노랑 : 커피 | 초록 : 차");
 
                 set1.setDrawIcons(false);
 

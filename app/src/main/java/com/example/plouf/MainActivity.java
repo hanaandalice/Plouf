@@ -11,6 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 /*####################################################################################
  *형태 : Class
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static AppDatabase db;
+    public BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_calendar, R.id.navigation_settings)
@@ -50,5 +52,14 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
     }
+
+//    private class ViewPagerAdapter extends ViewPager2.OnPageChangeCallback {
+//        @Override
+//        public void onPageSelected(int position) {
+//            super.onPageSelected(position);
+//            navView.selectedI
+//
+//        }
+//    }
 
 }

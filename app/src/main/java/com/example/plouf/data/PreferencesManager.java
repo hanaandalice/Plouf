@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 /*####################################################################################
  *형태 : Class
  * 모듈ID : PreferencesManager
@@ -15,6 +17,7 @@ public class PreferencesManager{
     private Integer weight;
     private Integer cup;
     private Integer waterNeed;
+    private Integer pass;
     private static String shared ="shared";
 
     private static SharedPreferences getPreferences(Context context) {
@@ -55,6 +58,13 @@ public class PreferencesManager{
         return waterNeed;
     }
 
+    public Integer getPass(Context context) {
+        SharedPreferences preferences = getPreferences(context);
+        pass = preferences.getInt("pass", 0);
+        return pass;
+    }
+
+
 
     /*-------------------------------------------------
      *형태 : Method
@@ -86,6 +96,10 @@ public class PreferencesManager{
         this.cup = cup;
         editor.putInt("cup", cup);
         editor.commit();
+
+    }
+
+    public void setPass(Context context) {
 
     }
 

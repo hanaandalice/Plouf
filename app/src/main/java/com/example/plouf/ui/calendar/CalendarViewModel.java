@@ -24,7 +24,8 @@ import java.util.List;
 
 public class CalendarViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private MutableLiveData<String> avgText;
+    private MutableLiveData<String> dailyText;
     ArrayList<CalendarDay> calendarDayList;
     PdRepository pdRepository;
     PdApplication pdApplication;
@@ -33,7 +34,8 @@ public class CalendarViewModel extends ViewModel {
 
 
     public CalendarViewModel() {
-        mText = new MutableLiveData<>();
+        avgText = new MutableLiveData<>();
+        dailyText = new MutableLiveData<>();
         calendarDayList = new ArrayList<>();
         pdApplication = new PdApplication().getAppInstance();
         pdRepository = new PdRepository(pdApplication);
@@ -41,13 +43,16 @@ public class CalendarViewModel extends ViewModel {
         todayMonth = Integer.toString(CalendarDay.today().getMonth());
 
 
-        mText.setValue("일 평균 소변 횟수 : ? 회         일 평균 대변 횟수 : ? 회");
+        avgText.setValue("일 평균 소변 횟수 : ? 회         일 평균 대변 횟수 : ? 회");
         setToiletAvgResult();//디비에서 평균데이터 받아와서 수정해주기.
+        dailyText.setValue("일일 소변 횟수 : ? 회         일일 대변 횟수 : ? 회");
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<String> getAvgText() {
+        return avgText;
     }
+    public LiveData<String> getDailyText() { return  dailyText;}
 
 
     /*-------------------------------------------------
@@ -69,6 +74,20 @@ public class CalendarViewModel extends ViewModel {
     }
 
 
+    public ArrayList<Integer> getData(String date) {
+        //TODO : 캘린더에서 선택한  날짜 받아와서 그날의 물, 커피, 차 그래프로 보여주고(Fragment) 그날의 소변 대변 상태도 보여주기
+        ArrayList<Integer> data = new ArrayList<>();
+        if(pdRepository.getWater(date) != null) {
+            data.add(pdRepository.getWater(date));
+            data.add(pdRepository.getCoffee(date));
+            data.add(pdRepository.getTea(date));
+            data.add(pdRepository.getPeeCnt(date));
+            data.add(pdRepository.getFecesCnt(date));
+
+            return data;
+        }
+        return null;
+    }
 
 
 
@@ -78,7 +97,7 @@ public class CalendarViewModel extends ViewModel {
      * 반환값 : 없음
      * 설명 : 평균 소변, 대변 횟수 디비에서 가지고 와서 텍스트 세팅.
      */
-    private void setToiletAvgResult(){
+    private void setToiletAvgResult() {
         Integer peeAvg,  feceAvg;
         String toiletAvgResult;
         try {
@@ -87,11 +106,12 @@ public class CalendarViewModel extends ViewModel {
             feceAvg = pdRepository.getFecesAvg(today);  //왜 feces 평균이 아니라 pee 평균 그것도 그날 것만?.
             Log.d("DB", "setToiletAvgResult: feces"+feceAvg);
             toiletAvgResult = "일 평균 소변 횟수 : "+peeAvg+" 회\t 일 평균 대변 횟수 : "+feceAvg+" 회";
-            mText.setValue(toiletAvgResult);
+            avgText.setValue(toiletAvgResult);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
 }

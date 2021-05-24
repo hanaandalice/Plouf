@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="visible"
+            android:paddingBottom="20dp"
             app:mcv_selectionColor="#BDD7EE"
             app:mcv_selectionMode="single" />
 
@@ -27,11 +28,21 @@
             android:background="@color/gray_line"/>
 
         <TextView
-            android:id="@+id/tv_calendar"
+            android:id="@+id/tv_avgToilet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="6dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_dailyToilet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="20dp"
             android:gravity="center"
             android:textSize="14dp"
             app:layout_constraintVertical_bias="0.0" />
@@ -40,7 +51,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="20dp"
             android:background="@color/gray_line"/>
 
         <!--        일자별 그래프-->
@@ -50,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="20dp"
             android:paddingLeft="@dimen/settings_layout_margin_left"
             android:gravity="left"
             android:text="@string/chart_name"
@@ -58,10 +69,18 @@
             app:layout_constraintVertical_bias="0.0" />
 <!--        텍스트뷰 없앨수도 있음-->
 
-        <com.github.mikephil.charting.charts.BarChart
+        <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/waterChart"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="200dp"
+            android:paddingBottom="20dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingBottom="6dp" />
+
 
     </LinearLayout>
 

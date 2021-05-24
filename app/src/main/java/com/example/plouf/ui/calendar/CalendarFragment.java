@@ -1,8 +1,6 @@
 package com.example.plouf.ui.calendar;
 
-import android.content.AsyncQueryHandler;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,29 +12,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.plouf.R;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateLongClickListener;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import org.threeten.bp.LocalDate;
 
 //TODO : 캘린더 기능 넣기(날짜 선택시 클릭 이벤트 만들기, 점으로 이벤트 표시
 
@@ -46,12 +44,15 @@ import org.threeten.bp.LocalDate;
  * 설명 : Calendar UI
  * waterAc 사용해서 캘린더 점 있는 애들 점 찍기.
  * */
-public class CalendarFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener {
+public class CalendarFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener, OnChartValueSelectedListener {
 
     private CalendarViewModel calendarViewModel;
     public MaterialCalendarView cv_calendar;
+    public TextView tv_dailyToilet;
+    public TextView tv_chart;
     private Context context;
-    public EventDecorator eventDecorator;
+    public HorizontalBarChart chart;
+    private String today;
 
 
 
@@ -61,24 +62,54 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         calendarViewModel =
                 new ViewModelProvider(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
-        final TextView textView = root.findViewById(R.id.tv_calendar);
-        calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView tv_avgToilet = root.findViewById(R.id.tv_avgToilet);
+        calendarViewModel.getAvgText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                tv_avgToilet.setText(s);
             }
         });
+        tv_dailyToilet = root.findViewById(R.id.tv_dailyToilet);
+        tv_dailyToilet.setVisibility(View.INVISIBLE);
+
+        tv_chart = root.findViewById(R.id.tv_chart);
+        tv_chart.setText("일일 음수량 그래프  ("+today+")");
+
         context = container.getContext();
 
         cv_calendar  = root.findViewById(R.id.cv_calendar);
+        today = CalendarDay.today().getDate().toString();
 
 
         new AddDecorate().execute();    //캘린더뷰에 waterAc 별로 별 찍기 실행
 
+        chart = root.findViewById(R.id.waterChart);
+        chart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
+
+        chart.setDrawBarShadow(false);
+        chart.setDrawValueAboveBar(true);
+
+        chart.getDescription().setEnabled(false);
+        chart.setMaxVisibleValueCount(3);
+
+        Legend l = chart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setFormSize(8f);
+        l.setXEntrySpace(4f);
+
+
+        setChart(today);   //기본 차트 설정 : 오늘 일자
 
 
         cv_calendar.setOnDateChangedListener(this);
         cv_calendar.setOnDateLongClickListener(this);
+
+
+
+        //캘린더 기본 선택 오늘 날짜
+        //TODO : 그래프 설명 옆에 날짜 텍스트 넣기 | 일일 음수량 그래프 (2021-05-21) 이런식
 
 
         return root;
@@ -100,8 +131,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
-        //TODO : 여기에 그래프 가져와서 그래프 보여주는 부분 작성.
-
+        setChart(date.getDate().toString());
 
     }
 
@@ -110,6 +140,15 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
     }
 
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
+    }
 
 
     /*####################################################################################
@@ -139,6 +178,70 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             }
 
             return null;
+        }
+    }
+
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : CalendarFragment
+     * 반환값 : 없음
+     * 설명 : 차트 데이터 설정
+     */
+    private void setChart(String today) {
+        ArrayList<BarEntry> datas = new ArrayList<>();
+        ArrayList<Integer> temp = calendarViewModel.getData(today);
+        tv_chart.setText("일일 음수량 그래프  ("+today+")");
+        if(temp == null) {
+            tv_dailyToilet.setVisibility(View.VISIBLE);
+            tv_dailyToilet.setText("해당 일자의 데이터가 없습니다.");
+            tv_chart.setText("해당 일자의 데이터가 없습니다.");
+            chart.setVisibility(View.INVISIBLE);
+
+        } else {
+            chart.setVisibility(View.VISIBLE);
+            datas.add(new BarEntry(0, temp.get(0)));
+            datas.add(new BarEntry(1, temp.get(1)));
+            datas.add(new BarEntry(2, temp.get(2)));
+            tv_dailyToilet.setVisibility(View.VISIBLE);
+            tv_dailyToilet.setText("일일 소변 횟수 : " + temp.get(3) + " 회         일일 대변 횟수 : " + temp.get(4) + " 회");
+
+
+            BarDataSet set1;
+
+
+            if (chart.getData() != null &&
+                    chart.getData().getDataSetCount() > 0) {
+                set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+                set1.setValues(datas);
+                chart.getData().notifyDataChanged();
+                chart.notifyDataSetChanged();
+            } else {
+                set1 = new BarDataSet(datas, "일일 음수량");
+
+                set1.setDrawIcons(false);
+
+                int color1 = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light); //물
+                int color2 = ContextCompat.getColor(getContext(), android.R.color.holo_orange_light);    //커피
+                int color3 = ContextCompat.getColor(getContext(), android.R.color.holo_green_light);    //차
+
+                List<Fill> gradientFills = new ArrayList<>();
+                gradientFills.add(new Fill(color1));
+                gradientFills.add(new Fill(color2));
+                gradientFills.add(new Fill(color3));
+
+                set1.setColors(color1, color2, color3);
+
+                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                dataSets.add(set1);
+
+                BarData data = new BarData(dataSets);
+                data.setValueTextSize(10f);
+                data.setBarWidth(0.4f);
+
+                chart.setData(data);
+            }
+
         }
     }
 

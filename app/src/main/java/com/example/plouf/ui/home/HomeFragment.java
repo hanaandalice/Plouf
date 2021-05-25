@@ -119,17 +119,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                 if (intSelectItem == 0 ) {
                     homeViewModel.addWater();
                     tv_waterState.setText(homeViewModel.getWaterState());
-//                    Toast.makeText(context, homeViewModel.getWaterAmount().toString(), Toast.LENGTH_SHORT).show();
                     setImg_water();
                 } else if (intSelectItem == 1) {
                     homeViewModel.addCoffee();
                     tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
-//                    Toast.makeText(context, homeViewModel.getCoffee().toString(), Toast.LENGTH_SHORT).show();
 
                 } else if (intSelectItem == 2) {
                     homeViewModel.addTea();
                     tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
-//                    Toast.makeText(context, homeViewModel.getTea().toString(), Toast.LENGTH_SHORT).show();
 
                 }
 

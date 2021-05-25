@@ -14,6 +14,12 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import java.util.Collection;
 import java.util.HashSet;
 
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : EventDecorator
+ * 설명 : dotNum 별로 다른 drawable 뷰에 데코레이트 해줌
+ * */
 public class EventDecorator implements DayViewDecorator {
     private final HashSet<CalendarDay> dates;
     private Context context;
@@ -30,6 +36,13 @@ public class EventDecorator implements DayViewDecorator {
         return dates.contains(day);
     }
 
+
+    /*-------------------------------------------------
+     *형태 : Method
+     * 소유자 : EventDecorator
+     * 반환값 : 없음
+     * 설명 : dotNum 별로 drawable 세팅.
+     */
     @Override
     public void decorate(DayViewFacade view) {
         Drawable drawable;

@@ -43,7 +43,7 @@ import java.util.List;
  *형태 : Class
  * 모듈ID : CalendarFragment
  * 설명 : Calendar UI
- * waterAc 사용해서 캘린더 점 있는 애들 점 찍기.
+ * waterAc 사용해서 캘린더 점 있는 날짜에 점 찍기.
  * */
 public class CalendarFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener, OnChartValueSelectedListener {
 
@@ -154,22 +154,18 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
         setChart(date.getDate().toString());
-
     }
 
     @Override
     public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-
     }
 
     @Override
     public void onNothingSelected() {
-
     }
 
 

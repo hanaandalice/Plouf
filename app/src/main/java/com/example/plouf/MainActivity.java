@@ -53,13 +53,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private class ViewPagerAdapter extends ViewPager2.OnPageChangeCallback {
-//        @Override
-//        public void onPageSelected(int position) {
-//            super.onPageSelected(position);
-//            navView.selectedI
-//
-//        }
-//    }
-
 }

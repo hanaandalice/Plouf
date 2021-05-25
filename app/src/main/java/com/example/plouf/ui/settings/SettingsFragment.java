@@ -46,15 +46,15 @@ public class SettingsFragment extends Fragment {
         settingsViewModel =
                 new ViewModelProvider(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.tv_lockSetting);
+//        final TextView textView = root.findViewById(R.id.tv_lockSetting);
         context = root.getContext();
 
 
         et_waterCup = root.findViewById(R.id.et_waterCup);
         et_weight = root.findViewById(R.id.et_weight);
-        switch_lock = root.findViewById(R.id.switch_lock);
+//        switch_lock = root.findViewById(R.id.switch_lock);
 
-        switch_lock.setChecked(settingsViewModel.getLockSetting(context));
+//        switch_lock.setChecked(settingsViewModel.getLockSetting(context));
 
 
 
@@ -73,25 +73,25 @@ public class SettingsFragment extends Fragment {
            et_waterCup.setText(settingsViewModel.getWeight(context).toString());
        }
 
-       switch_lock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-           @Override
-           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if(isChecked) {
+//       switch_lock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//           @Override
+//           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//               if(isChecked) {
+////                   settingsViewModel.setLockSetting(context, isChecked);
+////                   // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
+////                   //입력받은 패스워드 Integer 값들 하나하나씩 String으로 바꿔서 다 붙여주기 1 2 3 4 => 1234
+////                   String pass = md5(/*입력 받은 패스워드*/ "1234");
+////                   settingsViewModel.setPass(context, pass);
+//
+//                   Intent intent = new Intent(context, LockSettingActivity.class);
+//                   startActivity(intent);
+//
+//               } else {
 //                   settingsViewModel.setLockSetting(context, isChecked);
-//                   // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
-//                   //입력받은 패스워드 Integer 값들 하나하나씩 String으로 바꿔서 다 붙여주기 1 2 3 4 => 1234
-//                   String pass = md5(/*입력 받은 패스워드*/ "1234");
-//                   settingsViewModel.setPass(context, pass);
-
-                   Intent intent = new Intent(context, LockSettingActivity.class);
-                   startActivity(intent);
-
-               } else {
-                   settingsViewModel.setLockSetting(context, isChecked);
-                   settingsViewModel.setPass(context, null);
-               }
-           }
-       });
+//                   settingsViewModel.setPass(context, null);
+//               }
+//           }
+//       });
 
 
         return root;

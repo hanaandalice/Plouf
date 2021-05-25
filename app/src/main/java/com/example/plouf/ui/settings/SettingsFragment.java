@@ -1,6 +1,7 @@
 package com.example.plouf.ui.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.plouf.R;
+import com.example.plouf.ui.lock.LockSettingActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -75,11 +77,14 @@ public class SettingsFragment extends Fragment {
            @Override
            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                if(isChecked) {
-                   settingsViewModel.setLockSetting(context, isChecked);
-                   // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
-                   //입력받은 패스워드 Integer 값들 하나하나씩 String으로 바꿔서 다 붙여주기 1 2 3 4 => 1234
-                   String pass = md5(/*입력 받은 패스워드*/ "1234");
-                   settingsViewModel.setPass(context, pass);
+//                   settingsViewModel.setLockSetting(context, isChecked);
+//                   // TODO : 패스워드 설정하고 SharedPreferences 에 패스워드 저장하기
+//                   //입력받은 패스워드 Integer 값들 하나하나씩 String으로 바꿔서 다 붙여주기 1 2 3 4 => 1234
+//                   String pass = md5(/*입력 받은 패스워드*/ "1234");
+//                   settingsViewModel.setPass(context, pass);
+
+                   Intent intent = new Intent(context, LockSettingActivity.class);
+                   startActivity(intent);
 
                } else {
                    settingsViewModel.setLockSetting(context, isChecked);

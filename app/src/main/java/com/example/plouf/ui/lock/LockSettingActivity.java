@@ -1,6 +1,5 @@
 package com.example.plouf.ui.lock;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,7 +7,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.plouf.MainActivity;
 import com.example.plouf.R;
 import com.example.plouf.data.PreferencesManager;
+import com.example.plouf.ui.settings.SettingsFragment;
 
-import org.w3c.dom.Text;
-
-public class LockActivity extends AppCompatActivity {
+public class LockSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +30,9 @@ public class LockActivity extends AppCompatActivity {
 
         String[] pass = new String[4];
         StringBuilder stringBuilder = new StringBuilder();
-        String passResult;
+        StringBuilder stringTemp = new StringBuilder();
+        String temp = null;
 
-        //intent 값 받아서 패스워드 해제 모드, 설정 모드 설정.
 
         et_password1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -46,7 +43,11 @@ public class LockActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pass[0] = et_password1.getText().toString();
                 Log.d("DB", "onTextChanged: "+pass[0]);
-                stringBuilder.append(pass[0]);
+                if(stringTemp.toString().length() < 5) {
+                    stringTemp.append(pass[0]);
+                } else {
+                    stringBuilder.append(pass[0]);
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -62,7 +63,11 @@ public class LockActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pass[1] = et_password2.getText().toString();
                 Log.d("DB", "onTextChanged: "+pass[1]);
-                stringBuilder.append(pass[1]);
+                if(stringTemp.toString().length() < 5) {
+                    stringTemp.append(pass[1]);
+                } else {
+                    stringBuilder.append(pass[1]);
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -78,7 +83,11 @@ public class LockActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pass[2] = et_password3.getText().toString();
                 Log.d("DB", "onTextChanged: "+pass[2]);
-                stringBuilder.append(pass[2]);
+                if(stringTemp.toString().length() < 5) {
+                    stringTemp.append(pass[2]);
+                } else {
+                    stringBuilder.append(pass[2]);
+                }
 
             }
 
@@ -96,43 +105,42 @@ public class LockActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pass[3] = et_password4.getText().toString();
                 Log.d("DB", "onTextChanged: "+pass[3]);
-                stringBuilder.append(pass[3]);
-                Log.d("DB", "onTextChanged: "+stringBuilder);
-                if("1234".equals(stringBuilder.toString())){
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                if(stringTemp.toString().length() < 5) {
+                    stringTemp.append(pass[3]);
                 } else {
-                    tv_passInfo.setText("패스워드가 일치하지 않습니다.");
+                    stringBuilder.append(pass[3]);
                 }
+                Log.d("DB", "onTextChanged: "+stringBuilder);
+                if(stringTemp != null) {
+                    if(stringBuilder != null && stringTemp.equals(stringBuilder.toString())){  //무한 루프 걸림.. 왜..??
+                        PreferencesManager preferencesManager = new PreferencesManager();
+                        preferencesManager.setPass(getBaseContext(), stringTemp.toString());
+                        tv_passInfo.setText("패스워드가 설정되었습니다.");
+                        Intent intent = new Intent(getBaseContext(), SettingsFragment.class);
+                        startActivity(intent);
+                        finish();
+                    } else if(stringBuilder != null) {
+                        tv_passInfo.setText("패스워드가 일치하지 않습니다.");
+                        stringTemp.setLength(0);    //초기화
+                        stringBuilder.setLength(0);
 
+                        et_password1.setText(null);
+                        et_password2.setText(null);
+                        et_password3.setText(null);
+                        et_password4.setText(null);
+                    } else {
+                        tv_passInfo.setText("한번 더 입력하세요.");
+                        et_password1.setText(null);
+                        et_password2.setText(null);
+                        et_password3.setText(null);
+                        et_password4.setText(null);
+                    }
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        switch(requestCode) {
-//            case AppLock.REQUEST_CODE_LOCK_CREATION :
-//                if (requestCode == Activity.RESULT_OK){
-//                    Toast.makeText(this, "Lock Created", Toast.LENGTH_SHORT).show();
-//                }
-//        }
-//
-//    }
-
-    public void lockSetting() {
-        //패스워드 설정.
-
-    }
-
-
-
 }

@@ -75,8 +75,7 @@ dependencies {
     //graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-    //lock
-    implementation 'com.guardanis:applock:3.0.1'
+
 
     //ViewPager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'

@@ -69,5 +69,6 @@ public class SettingsViewModel extends ViewModel {
     public String getPass(Context context) {
         return preferencesManager.getPass(context);
     }
+    public Integer getWaterNeed(Context context) { return preferencesManager.getWaterNeed(context);}
 
 }

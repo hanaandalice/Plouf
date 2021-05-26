@@ -58,7 +58,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
 
 
-
+//TODO : 그래프 가로지르는 물 용량 가이드선 하나 주기.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel =
@@ -131,7 +131,6 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
 
 
-        //캘린더 기본 선택 오늘 날짜
 
 
         return root;

@@ -60,7 +60,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:paddingBottom="40dp"
+            android:paddingBottom="30dp"
             android:background="@color/gray_line"/>
 
         <!--        일자별 그래프-->
@@ -69,14 +69,13 @@
             android:id="@+id/tv_chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="30dp"
+            android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingLeft="@dimen/settings_layout_margin_left"
             android:gravity="left"
             android:text="@string/chart_name"
             android:textSize="17dp"
             app:layout_constraintVertical_bias="0.0" />
-<!--        텍스트뷰 없앨수도 있음-->
 
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/waterChart"

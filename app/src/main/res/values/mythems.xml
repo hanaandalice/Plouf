@@ -27,8 +27,10 @@
         <!-- The textColor property is backward compatible with the Support Library -->
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name = "android:windowBackground">@drawable/splash</item>
+    </style>
+    <style name="ChipTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
     </style>
 
 

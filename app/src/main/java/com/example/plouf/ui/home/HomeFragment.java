@@ -260,15 +260,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         }
         Log.d(TAG, "setImg_water: "+waterPer);
         if(waterPer<20) {
-            img_water.setImageResource(R.drawable.hungry_0_30);
+//            img_water.setImageResource(R.drawable.hungry_0_30);
+            img_water.setImageResource(R.drawable.hungry_0_30_light);
         } else if(waterPer>=20 && waterPer<50) {
-            img_water.setImageResource(R.drawable.normal_filled_30_50);
+//            img_water.setImageResource(R.drawable.normal_filled_30_50);
+            img_water.setImageResource(R.drawable.normal_30_50_filled_light);
         } else if(waterPer>=50 && waterPer<70) {
-            img_water.setImageResource(R.drawable.pleased_filled_50_80);
+//            img_water.setImageResource(R.drawable.pleased_filled_50_80);
+            img_water.setImageResource(R.drawable.pleased_50_80_filled_light);
         } else if(waterPer>=70 && waterPer<90) {
-            img_water.setImageResource(R.drawable.excited_filled2_80);
+//            img_water.setImageResource(R.drawable.excited_filled2_80);
+            img_water.setImageResource(R.drawable.excited_80_filled_light);
         } else {
-            img_water.setImageResource(R.drawable.veryhappy_filled_100);
+            //          img_water.setImageResource(R.drawable.veryhappy_filled_100);
+            if( waterPer <= 100){
+                img_water.setImageResource(R.drawable.veryhappy_100_light);
+            } else if(waterPer > 100) {
+                Log.d(TAG, "setImg_water: thread 전");
+                try{
+                    Log.d(TAG, "setImg_water: thread");
+                    img_water.setImageResource(R.drawable.over_100);    //왜 안돼?
+                    Log.d(TAG, "setImg_water: thread water 후");
+                    Thread.sleep(1000);
+                    img_water.setImageResource(R.drawable.veryhappy_100_light);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

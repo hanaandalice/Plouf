@@ -87,17 +87,93 @@
         android:layout_height="2dp"
         android:background="@color/gray_line"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:text="컵 사이즈 선택"
+        android:textSize="18dp"
+        android:paddingLeft="@dimen/settings_vertical_margin"/>
+
+
     <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
         android:layout_width="match_parent"
-        android:layout_height="72dp">
+        android:layout_height="91dp"
+        android:layout_marginBottom="@dimen/settings_vertical_margin"
+        android:paddingLeft="@dimen/settings_vertical_margin"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_paperCup_normal"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paperCup_normal" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_paperCup_large"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paperCup_large" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_small"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_small" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_regular"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_regular" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_tall"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_tall" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_grande"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_grande" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_benti"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_benti" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_cup_liter"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cup_liter" />
+
 
     </com.google.android.material.chip.ChipGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_line"
+        android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/tv_waterNeed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:textSize="16dp"
         android:text="TextView" />
 

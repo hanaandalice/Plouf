@@ -4,17 +4,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.plouf.R;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 
 /*####################################################################################
@@ -32,6 +36,8 @@ public class SettingsFragment extends Fragment {
     EditText et_waterCup;
     EditText et_weight;
     TextView tv_waterNeed;
+    ChipGroup chipGroup;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class SettingsFragment extends Fragment {
         tv_waterNeed = root.findViewById(R.id.tv_waterNeed);
         tv_waterNeed.setVisibility(View.INVISIBLE);
 
-
+        chipGroup = root.findViewById(R.id.chip_group);
 
         if(settingsViewModel.getCup(context) != null){
             et_waterCup.setText(settingsViewModel.getCup(context).toString());
@@ -99,6 +105,58 @@ public class SettingsFragment extends Fragment {
            settingsViewModel.setWeight(context, 0);
            et_waterCup.setText(settingsViewModel.getWeight(context).toString());
        }
+
+       chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(ChipGroup group, int checkedId) {
+               Chip chip = group.findViewById(checkedId);
+               Log.d("chip", "onCheckedChanged: chip"+chip.getText().toString());
+               String selectedCup = chip.getText().toString();
+               switch (selectedCup) {
+                   case "종이컵(소)" :
+                       settingsViewModel.setCup(context, 180);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "종이컵(대)" :
+                       settingsViewModel.setCup(context, 360);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "스몰 사이즈" :
+                       settingsViewModel.setCup(context, 240);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "레귤러 사이즈" :
+                       settingsViewModel.setCup(context, 300);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "톨 사이즈" :
+                       settingsViewModel.setCup(context, 255);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "그란데 사이즈" :
+                       settingsViewModel.setCup(context, 473);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "벤티 사이즈" :
+                       settingsViewModel.setCup(context, 591);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+                   case "리터" :
+                       settingsViewModel.setCup(context, 1000);
+                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                       break;
+
+               }
+
+           }
+       });
+
+//       chipGroup.setOnClickListener(new View.OnClickListener() {
+//           @Override
+//           public void onClick(View v) {
+//
+//           }
+//       });
 
 
         return root;

@@ -170,7 +170,7 @@
         android:layout_marginBottom="15dp"/>
 
     <TextView
-        android:id="@+id/tv_waterNeed"
+        android:id="@+id/tv_settingResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"

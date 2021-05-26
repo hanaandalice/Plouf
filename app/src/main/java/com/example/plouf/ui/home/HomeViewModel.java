@@ -210,7 +210,7 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 물 량 저장.
      */
     public void subWater() {
-        if(waterAmount > 0) {
+        if(waterAmount > 0 && waterAmount >= cup) {
             waterAmount-=cup;
             waterState = waterAmount+"/"+waterNeed+"ml";
             try{
@@ -219,14 +219,30 @@ public class HomeViewModel extends ViewModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if ( waterAmount > 0) {
+            waterAmount = 0;
+            waterState = waterAmount+"/"+waterNeed+"ml";
+            try{
+                pdRepository.subWater(today, waterAmount);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void subCoffee() {
-        if(coffee > 0) {
+        if(coffee > 0 && coffee >= cup) {
             coffee-=cup;
             try{
                 pdRepository.subCoffee(today, cup);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (coffee > 0) {
+            try{
+                pdRepository.subWater(today, coffee);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -235,10 +251,17 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void subTea() {
-        if(tea > 0) {
+        if(tea > 0 && tea >= cup) {
             tea-=cup;
             try{
                 pdRepository.subTea(today, cup);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (tea > 0) {
+            try{
+                pdRepository.subWater(today, tea);
 
             } catch (Exception e) {
                 e.printStackTrace();

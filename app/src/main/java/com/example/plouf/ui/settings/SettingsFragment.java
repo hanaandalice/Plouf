@@ -65,7 +65,7 @@ public class SettingsFragment extends Fragment {
                     if(et_waterCup.getText().toString().length() != 0) {
                         settingsViewModel.setCup(context, Integer.parseInt(et_waterCup.getText().toString()));
                         Integer waterNeed = settingsViewModel.getWaterNeed(context);
-                        tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                        tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                         tv_settingResult.setVisibility(View.VISIBLE);
                     } else {
                         tv_settingResult.setVisibility(View.INVISIBLE);
@@ -124,56 +124,56 @@ public class SettingsFragment extends Fragment {
                        settingsViewModel.setCup(context, 180);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "종이컵(대)" :
                        settingsViewModel.setCup(context, 360);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "스몰 사이즈" :
                        settingsViewModel.setCup(context, 240);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "레귤러 사이즈" :
                        settingsViewModel.setCup(context, 300);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "톨 사이즈" :
                        settingsViewModel.setCup(context, 255);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "그란데 사이즈" :
                        settingsViewModel.setCup(context, 473);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "벤티 사이즈" :
                        settingsViewModel.setCup(context, 591);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
                    case "리터" :
                        settingsViewModel.setCup(context, 1000);
                        et_waterCup.setText(settingsViewModel.getCup(context).toString());
                        waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 총 "+waterNeed/Integer.parseInt(et_waterCup.getText().toString())+"컵을 마셔야 합니다.");
+                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                        tv_settingResult.setVisibility(View.VISIBLE);
                        break;
 

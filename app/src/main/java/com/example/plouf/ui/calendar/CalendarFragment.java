@@ -240,12 +240,14 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             BarDataSet set1;
 
 
-            if (chart.getData() != null &&
+            if (chart.getData() != null  &&
                     chart.getData().getDataSetCount() > 0) {
                 set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
                 set1.setValues(datas);
+
                 chart.getData().notifyDataChanged();
                 chart.notifyDataSetChanged();
+                chart.invalidate(); //바로바로 로드
             } else {
                 set1 = new BarDataSet(datas, "파랑 : 물 | 노랑 : 커피 | 초록 : 차");
 

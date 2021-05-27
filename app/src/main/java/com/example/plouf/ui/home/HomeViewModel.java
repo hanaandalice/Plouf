@@ -220,14 +220,13 @@ public class HomeViewModel extends ViewModel {
                 e.printStackTrace();
             }
         } else if ( waterAmount > 0) {
-            waterAmount = 0;
-            waterState = waterAmount+"/"+waterNeed+"ml";
             try{
                 pdRepository.subWater(today, waterAmount);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            waterAmount = 0;
+            waterState = waterAmount+"/"+waterNeed+"ml";
         }
     }
 

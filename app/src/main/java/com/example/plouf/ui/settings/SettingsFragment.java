@@ -190,12 +190,7 @@ public class SettingsFragment extends Fragment {
            }
        });
 
-//       chipGroup.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//
-//           }
-//       });
+
 
 
         return root;

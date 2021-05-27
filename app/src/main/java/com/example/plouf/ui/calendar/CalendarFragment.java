@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -96,6 +97,13 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
         chart.getDescription().setEnabled(false);
         chart.setMaxVisibleValueCount(3);
+        chart.setPinchZoom(false);
+        chart.setActivated(false);
+
+        chart.setHighlightPerDragEnabled(false);
+        chart.setHighlightFullBarEnabled(false);
+        chart.setHighlightPerTapEnabled(false);
+        chart.setDoubleTapToZoomEnabled(false);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -121,6 +129,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         yr.setAxisMinimum(0f);
 
         chart.setFitBars(true);
+        chart.animateY(calendarViewModel.getWaterNeed(context)+1000);
 
 
         setChart(today);   //기본 차트 설정 : 오늘 일자
@@ -241,6 +250,8 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
                 set1 = new BarDataSet(datas, "파랑 : 물 | 노랑 : 커피 | 초록 : 차");
 
                 set1.setDrawIcons(false);
+                set1.setDrawValues(true);
+                set1.setHighlightEnabled(false);
 
                 int color1 = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light); //물
                 int color2 = ContextCompat.getColor(getContext(), android.R.color.holo_orange_light);    //커피
@@ -259,6 +270,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
                 BarData data = new BarData(dataSets);
                 data.setValueTextSize(10f);
                 data.setBarWidth(0.4f);
+                data.setHighlightEnabled(false);
 
                 chart.setData(data);
             }

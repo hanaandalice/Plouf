@@ -112,72 +112,80 @@ public class SettingsFragment extends Fragment {
            et_waterCup.setText(settingsViewModel.getWeight(context).toString());
        }
 
+       Chip past = chipGroup.findViewById(chipGroup.getCheckedChipId());
        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
            @Override
            public void onCheckedChanged(ChipGroup group, int checkedId) {
                Chip chip = group.findViewById(checkedId);
-               Log.d("chip", "onCheckedChanged: chip"+chip.getText().toString());
-               String selectedCup = chip.getText().toString();
-               Integer waterNeed;
-               switch (selectedCup) {
-                   case "종이컵(소)" :
-                       settingsViewModel.setCup(context, 180);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "종이컵(대)" :
-                       settingsViewModel.setCup(context, 360);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "스몰 사이즈" :
-                       settingsViewModel.setCup(context, 240);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "레귤러 사이즈" :
-                       settingsViewModel.setCup(context, 300);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "톨 사이즈" :
-                       settingsViewModel.setCup(context, 255);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "그란데 사이즈" :
-                       settingsViewModel.setCup(context, 473);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "벤티 사이즈" :
-                       settingsViewModel.setCup(context, 591);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
-                   case "리터" :
-                       settingsViewModel.setCup(context, 1000);
-                       et_waterCup.setText(settingsViewModel.getCup(context).toString());
-                       waterNeed = settingsViewModel.getWaterNeed(context);
-                       tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
-                       tv_settingResult.setVisibility(View.VISIBLE);
-                       break;
+               if(past != chip){
+                   Log.d("chip", "onCheckedChanged: chip"+chip.getText().toString());
+                   String selectedCup = chip.getText().toString();
+                   Integer waterNeed;
+                   switch (selectedCup) {
+                       case "종이컵(소)" :
+                           if (et_waterCup.getText().toString().equals(180)) {
+                               break;
+                           } else {
+                               settingsViewModel.setCup(context, 180);
+                               et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                               waterNeed = settingsViewModel.getWaterNeed(context);
+                               tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                               tv_settingResult.setVisibility(View.VISIBLE);
+                               break;
+                           }
+                       case "종이컵(대)" :
+                           settingsViewModel.setCup(context, 360);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "스몰 사이즈" :
+                           settingsViewModel.setCup(context, 240);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "레귤러 사이즈" :
+                           settingsViewModel.setCup(context, 300);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "톨 사이즈" :
+                           settingsViewModel.setCup(context, 255);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "그란데 사이즈" :
+                           settingsViewModel.setCup(context, 473);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "벤티 사이즈" :
+                           settingsViewModel.setCup(context, 591);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
+                       case "리터" :
+                           settingsViewModel.setCup(context, 1000);
+                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           waterNeed = settingsViewModel.getWaterNeed(context);
+                           tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+                           tv_settingResult.setVisibility(View.VISIBLE);
+                           break;
 
+                   }
                }
+
 
            }
        });

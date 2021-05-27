@@ -1,5 +1,6 @@
 package com.example.plouf.ui.calendar;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import androidx.room.paging.LimitOffsetDataSource;
 
 import com.example.plouf.PdApplication;
 import com.example.plouf.data.PdRepository;
+import com.example.plouf.data.PreferencesManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class CalendarViewModel extends ViewModel {
     PdApplication pdApplication;
     String today;
     String todayMonth;
+    PreferencesManager preferencesManager;
 
 
     public CalendarViewModel() {
@@ -41,6 +44,7 @@ public class CalendarViewModel extends ViewModel {
         pdRepository = new PdRepository(pdApplication);
         today = CalendarDay.today().getDate().toString();
         todayMonth = Integer.toString(CalendarDay.today().getMonth());
+        preferencesManager = new PreferencesManager();
 
 
         avgText.setValue("일 평균 소변 횟수 : ? 회         일 평균 대변 횟수 : ? 회");
@@ -53,6 +57,8 @@ public class CalendarViewModel extends ViewModel {
         return avgText;
     }
     public LiveData<String> getDailyText() { return  dailyText;}
+    public Integer getWaterNeed(Context context) { return preferencesManager.getWaterNeed(context);}
+
 
 
     /*-------------------------------------------------

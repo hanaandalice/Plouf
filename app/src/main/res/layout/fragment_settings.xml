@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/settings_layout_margin_right"
+            android:textSize="18dp"
             android:ems="10"
             android:nextFocusDown="@id/et_waterCup"
             android:inputType="number" />
@@ -71,6 +72,7 @@
             android:layout_width="59dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/settings_layout_margin_right"
+            android:textSize="18dp"
             android:layout_weight="1"
             android:maxLines="1"
             android:ems="10"
@@ -101,7 +103,7 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
         android:layout_width="match_parent"
-        android:layout_height="91dp"
+        android:layout_height="152dp"
         android:layout_marginBottom="@dimen/settings_vertical_margin"
         android:paddingLeft="@dimen/settings_vertical_margin"
         app:singleSelection="true">
@@ -111,6 +113,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="@string/paperCup_normal" />
 
         <com.google.android.material.chip.Chip
@@ -118,6 +121,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="@string/paperCup_large" />
 
         <com.google.android.material.chip.Chip
@@ -125,6 +129,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="@string/cup_small" />
 
         <com.google.android.material.chip.Chip
@@ -132,6 +137,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="@string/cup_regular" />
 
         <com.google.android.material.chip.Chip
@@ -139,6 +145,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="@string/cup_tall" />
 
         <com.google.android.material.chip.Chip
@@ -146,6 +153,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:text="@string/cup_grande" />
 
         <com.google.android.material.chip.Chip
@@ -153,6 +161,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:text="@string/cup_benti" />
 
         <com.google.android.material.chip.Chip
@@ -160,16 +169,12 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:text="@string/cup_liter" />
 
 
     </com.google.android.material.chip.ChipGroup>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray_line"
-        android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/tv_settingResult"

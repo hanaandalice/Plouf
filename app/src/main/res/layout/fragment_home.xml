@@ -7,22 +7,7 @@
     tools:context=".ui.home.HomeFragment"
     android:paddingTop="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:id="@+id/tv_progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="486dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_waterAmount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27" />
+
 
     <ImageView
         android:id="@+id/img_water"
@@ -50,21 +35,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_progress"
         app:layout_constraintVertical_bias="0.725" />
 
-    <TextView
-        android:id="@+id/tv_waterAmount"
-        android:layout_width="194dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="108dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/img_drink"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_water"
-        app:layout_constraintVertical_bias="0.125" />
 
     <ImageView
         android:id="@+id/img_drink"
@@ -77,6 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_water" />
 
+
     <ImageView
         android:id="@+id/img_pee"
         android:layout_width="40dp"
@@ -84,10 +55,10 @@
         android:src="@drawable/toilet_pee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintVertical_bias="0.163" />
 
     <ImageView
         android:id="@+id/img_feces"
@@ -97,53 +68,109 @@
         android:src="@drawable/toilet_feces"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_pee"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_peeCnt"
-        android:layout_width="72dp"
-        android:layout_height="26dp"
+        android:layout_width="67dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/img_pee"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_pee"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_pee"
-        app:layout_constraintVertical_bias="0.175" />
+        app:layout_constraintTop_toTopOf="@id/img_pee" />
 
     <TextView
         android:id="@+id/tv_fecesCnt"
-        android:layout_width="72dp"
-        android:layout_height="26dp"
+        android:layout_width="68dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_feces"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_pee"
         app:layout_constraintTop_toTopOf="@id/img_feces" />
 
     <TextView
-        android:id="@+id/tv_drink"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_progress"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="TextView"
-        android:textSize="18sp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="470dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:visibility="visible"
+        android:text="textview"
+        app:layout_constraintBottom_toTopOf="@id/layout_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_tv"
+        android:layout_width="370dp"
+        android:layout_height="88dp"
+        android:orientation="vertical"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_waterAmount"
-        app:layout_constraintVertical_bias="0.003" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.917">
+
+
+        <TextView
+            android:id="@+id/tv_waterAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/img_drink"
+            app:layout_constraintHorizontal_bias="0.711"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_water"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_waterAmount"
+            app:layout_constraintVertical_bias="0.0" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

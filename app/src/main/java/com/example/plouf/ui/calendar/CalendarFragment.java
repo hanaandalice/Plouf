@@ -148,7 +148,6 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 
     @Override
     public void onDateLongClick(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date) {
-        Toast.makeText(context, "This is "+date.getDate().toString(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -160,7 +159,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
      */
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-        Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, date.getDate().toString(), Toast.LENGTH_SHORT).show();
         setChart(date.getDate().toString());
     }
 

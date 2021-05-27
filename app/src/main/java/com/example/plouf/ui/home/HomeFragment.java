@@ -3,7 +3,14 @@ package com.example.plouf.ui.home;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +41,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 
     private HomeViewModel homeViewModel;
     public ImageView img_water;
+    public ImageView img_water2;
     public ImageView img_pee;
     public ImageView img_feces;
     public ImageView img_drink;
@@ -224,9 +232,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_drink = root.findViewById(R.id.tv_drink);
 
         img_water = root.findViewById(R.id.img_water);
+        img_water2 = root.findViewById(R.id.img_water2);
         img_drink = root.findViewById(R.id.img_drink);
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
+
+        img_water.setVisibility(View.INVISIBLE);
 
         water = getString(R.string.drink_water_korean);
         coffee = getString(R.string.drink_coffee_korean);
@@ -272,20 +283,100 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 //            img_water.setImageResource(R.drawable.excited_filled2_80);
             img_water.setImageResource(R.drawable.excited_80_filled_light);
         } else {
-            //          img_water.setImageResource(R.drawable.veryhappy_filled_100);
-            if( waterPer <= 100){
+//            img_water.setImageResource(R.drawable.veryhappy_filled_100);
+//            Bitmap bitmap = ((BitmapDrawable) img_water.getDrawable()).getBitmap();
+//            Bitmap compare_bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.veryhappy_100_light);
+//
+//            if(bitmap.equals(compare_bitmap)) {
+//                Log.d("image", "setImg_water: getDrawable");
+//                img_water2.setImageResource(R.drawable.over_100);
+//                img_water.setVisibility(View.INVISIBLE);
+//                img_water2.setVisibility(View.VISIBLE);
+//
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        img_water.setImageResource(R.drawable.veryhappy_100_light);
+//                        img_water.setVisibility(View.VISIBLE);
+//                        img_water2.setVisibility(View.INVISIBLE);
+//                    }
+//                },2000);
+//            }
+//            img_water.setImageResource(R.drawable.veryhappy_100_light);
+
+
+            if (waterPer <= 100){
                 img_water.setImageResource(R.drawable.veryhappy_100_light);
-            } else if(waterPer > 100) {
+            } else if (waterPer > 100 && waterPer < 120) {
                 Log.d(TAG, "setImg_water: thread 전");
-                try{
-                    Log.d(TAG, "setImg_water: thread");
-                    img_water.setImageResource(R.drawable.over_100);    //왜 안돼?
-                    Log.d(TAG, "setImg_water: thread water 후");
-                    Thread.sleep(1000);
-                    img_water.setImageResource(R.drawable.veryhappy_100_light);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, "setImg_water: thread");
+                img_water.setImageResource(R.drawable.veryhappy_100_light);
+                img_water2.setImageResource(R.drawable.over_100);
+                img_water.setVisibility(View.INVISIBLE);
+                img_water2.setVisibility(View.VISIBLE);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "setImg_water: thread water 후");
+                        img_water2.setVisibility(View.INVISIBLE);
+                        img_water.setVisibility(View.VISIBLE);
+                    }
+                },700);
+
+            } else if (waterPer >= 120 && waterPer < 140) {
+                Log.d(TAG, "setImg_water: thread 전");
+                Log.d(TAG, "setImg_water: thread");
+                img_water.setImageResource(R.drawable.veryhappy_100_light);
+                img_water2.setImageResource(R.drawable.wink_100);
+                img_water.setVisibility(View.INVISIBLE);
+                img_water2.setVisibility(View.VISIBLE);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "setImg_water: thread water 후");
+                        img_water2.setVisibility(View.INVISIBLE);
+                        img_water.setVisibility(View.VISIBLE);
+                    }
+                },700);
+            } else if (waterPer >=140 && waterPer < 160) {
+                Log.d(TAG, "setImg_water: thread 전");
+                Log.d(TAG, "setImg_water: thread");
+                img_water.setImageResource(R.drawable.veryhappy_100_light);
+                img_water2.setImageResource(R.drawable.heart_100);
+                img_water.setVisibility(View.INVISIBLE);
+                img_water2.setVisibility(View.VISIBLE);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "setImg_water: thread water 후");
+                        img_water2.setVisibility(View.INVISIBLE);
+                        img_water.setVisibility(View.VISIBLE);
+                    }
+                },700);
+            } else {
+                Log.d(TAG, "setImg_water: thread 전");
+                Log.d(TAG, "setImg_water: thread");
+                img_water.setImageResource(R.drawable.veryhappy_100_light);
+                img_water2.setImageResource(R.drawable.wow_100);
+                img_water.setVisibility(View.INVISIBLE);
+                img_water2.setVisibility(View.VISIBLE);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "setImg_water: thread water 후");
+                        img_water2.setVisibility(View.INVISIBLE);
+                        img_water.setVisibility(View.VISIBLE);
+                    }
+                },700);
             }
         }
     }

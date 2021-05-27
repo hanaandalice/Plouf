@@ -241,7 +241,7 @@ public class HomeViewModel extends ViewModel {
             }
         } else if (coffee > 0) {
             try{
-                pdRepository.subWater(today, coffee);
+                pdRepository.subCoffee(today, coffee);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -260,7 +260,7 @@ public class HomeViewModel extends ViewModel {
             }
         } else if (tea > 0) {
             try{
-                pdRepository.subWater(today, tea);
+                pdRepository.subTea(today, tea);
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.example.plouf.ui.calendar;
+package com.example.plouf.ui.history;
 
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;

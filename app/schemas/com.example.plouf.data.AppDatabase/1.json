@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "333ff9dba4441bbe04bab01f932f48e3",
+    "entities": [
+      {
+        "tableName": "PD_01",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`RECORD_DATE` TEXT NOT NULL, `WATER` INTEGER, `COFFEE` INTEGER, `TEA` INTEGER, `PEE_CNT` INTEGER, `FECES_CNT` INTEGER, `WATER_ACHIEVE` INTEGER, `ACHIEVE_CNT` INTEGER, PRIMARY KEY(`RECORD_DATE`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "RECORD_DATE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "water",
+            "columnName": "WATER",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coffee",
+            "columnName": "COFFEE",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tea",
+            "columnName": "TEA",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peeCnt",
+            "columnName": "PEE_CNT",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fecesCnt",
+            "columnName": "FECES_CNT",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "waterAchieve",
+            "columnName": "WATER_ACHIEVE",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "achiveCnt",
+            "columnName": "ACHIEVE_CNT",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "RECORD_DATE"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '333ff9dba4441bbe04bab01f932f48e3')"
+    ]
+  }
+}

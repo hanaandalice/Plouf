@@ -3,14 +3,8 @@ package com.example.plouf.ui.home;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
         tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
         if (homeViewModel.waterNeed == 0) {
-            tv_waterState.setText("설정에서 체중과 컵 용량을 입력하세요.");
+            tv_waterState.setText("체중과 컵용량을 설정 해주세요");
         } else {
             tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
         }
@@ -237,7 +231,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         img_feces = root.findViewById(R.id.img_feces);
         img_pee = root.findViewById(R.id.img_pee);
 
-        img_water.setVisibility(View.INVISIBLE);
+        img_water2.setVisibility(View.INVISIBLE);
 
         water = getString(R.string.drink_water_korean);
         coffee = getString(R.string.drink_coffee_korean);

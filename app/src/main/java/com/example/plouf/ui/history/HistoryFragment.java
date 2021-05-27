@@ -1,4 +1,4 @@
-package com.example.plouf.ui.calendar;
+package com.example.plouf.ui.history;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +25,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -46,9 +44,9 @@ import java.util.List;
  * 설명 : Calendar UI
  * waterAc 사용해서 캘린더 점 있는 날짜에 점 찍기.
  * */
-public class CalendarFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener, OnChartValueSelectedListener {
+public class HistoryFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener, OnChartValueSelectedListener {
 
-    private CalendarViewModel calendarViewModel;
+    private HistoryViewModel historyViewModel;
     public MaterialCalendarView cv_calendar;
     public TextView tv_dailyToilet;
     public TextView tv_chart;
@@ -62,11 +60,11 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
 //TODO : 그래프 가로지르는 물 용량 가이드선 하나 주기.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        calendarViewModel =
-                new ViewModelProvider(this).get(CalendarViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_calendar, container, false);
+        historyViewModel =
+                new ViewModelProvider(this).get(HistoryViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_history, container, false);
         final TextView tv_avgToilet = root.findViewById(R.id.tv_avgToilet);
-        calendarViewModel.getAvgText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        historyViewModel.getAvgText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 tv_avgToilet.setText(s);
@@ -129,7 +127,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
         yr.setAxisMinimum(0f);
 
         chart.setFitBars(true);
-        chart.animateY(calendarViewModel.getWaterNeed(context)+1000);
+        chart.animateY(historyViewModel.getWaterNeed(context)+1000);
 
 
         setChart(today);   //기본 차트 설정 : 오늘 일자
@@ -190,7 +188,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
             calendarDayList.add(CalendarDay.today());
 
             for(int waterAc = 1; waterAc <6; waterAc++) {
-                tempCalendarDayList = calendarViewModel.getCalendarDayList(CalendarDay.today().getMonth(), waterAc);
+                tempCalendarDayList = historyViewModel.getCalendarDayList(CalendarDay.today().getMonth(), waterAc);
                 Log.d("DB", "doInBackground: 리스트1  "+tempCalendarDayList);
                 for(String day : tempCalendarDayList) {
                     //캘린더 데이 리스트에 넣기
@@ -215,7 +213,7 @@ public class CalendarFragment extends Fragment  implements OnDateSelectedListene
      */
     private void setChart(String today) {
         ArrayList<BarEntry> datas = new ArrayList<>();
-        ArrayList<Integer> temp = calendarViewModel.getData(today);
+        ArrayList<Integer> temp = historyViewModel.getData(today);
         tv_chart.setText("일일 음수량 그래프  ("+today+")");
         if(temp == null) {
             tv_dailyToilet.setVisibility(View.VISIBLE);

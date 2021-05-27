@@ -1,13 +1,11 @@
-package com.example.plouf.ui.calendar;
+package com.example.plouf.ui.history;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.room.paging.LimitOffsetDataSource;
 
 import com.example.plouf.PdApplication;
 import com.example.plouf.data.PdRepository;
@@ -15,7 +13,6 @@ import com.example.plouf.data.PreferencesManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /*####################################################################################
  *형태 : Class
@@ -24,7 +21,7 @@ import java.util.List;
  * waterAc 케이스별 캘린더 데이 디비에서 가지고 와서 반환
  * */
 
-public class CalendarViewModel extends ViewModel {
+public class HistoryViewModel extends ViewModel {
 
     private MutableLiveData<String> avgText;
     private MutableLiveData<String> dailyText;
@@ -36,7 +33,7 @@ public class CalendarViewModel extends ViewModel {
     PreferencesManager preferencesManager;
 
 
-    public CalendarViewModel() {
+    public HistoryViewModel() {
         avgText = new MutableLiveData<>();
         dailyText = new MutableLiveData<>();
         calendarDayList = new ArrayList<>();

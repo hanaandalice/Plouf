@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.example.plouf.ui.calendar.CalendarFragment"
+        android:name="com.example.plouf.ui.history.HistoryFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        tools:layout="@layout/fragment_history" >
         <action
             android:id="@+id/action_navigation_calendar_to_navigation_settings"
             app:destination="@id/navigation_settings" />

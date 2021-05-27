@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plouf</string>
     <string name="title_home">Home</string>
-    <string name="title_calendar">Calendar</string>
+    <string name="title_calendar">History</string>
     <string name="title_Settings">Settings</string>
     <string name="drink_water_korean">물</string>
     <string name="drink_coffee_korean">커피</string>

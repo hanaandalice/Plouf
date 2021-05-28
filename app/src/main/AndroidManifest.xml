@@ -21,9 +21,6 @@
             </intent-filter>
         </activity>
 
-<!--        <activity android:name=".MainActivity"/>-->
-<!--        <activity android:name=".ui.lock.LockActivity"  android:windowSoftInputMode="stateAlwaysVisible"/>-->
-<!--        <activity android:name=".ui.lock.LockSettingActivity" android:windowSoftInputMode="stateAlwaysVisible"/>-->
     </application>
 
 </manifest>

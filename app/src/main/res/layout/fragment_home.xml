@@ -8,45 +8,31 @@
     android:paddingTop="@dimen/activity_horizontal_margin">
 
 
-
     <ImageView
         android:id="@+id/img_water"
-        android:layout_width="331dp"
-        android:layout_height="414dp"
-        android:layout_marginBottom="120dp"
+        android:layout_width="286dp"
+        android:layout_height="370dp"
         android:adjustViewBounds="true"
         android:src="@drawable/hungry_0_30"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layout_tv_img"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_progress"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <ImageView
         android:id="@+id/img_water2"
-        android:layout_width="331dp"
-        android:layout_height="414dp"
-        android:layout_marginBottom="120dp"
+        android:layout_width="286dp"
+        android:layout_height="370dp"
         android:adjustViewBounds="true"
         android:src="@drawable/over_100"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layout_tv_img"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_progress"
-        app:layout_constraintVertical_bias="0.725" />
-
-
-    <ImageView
-        android:id="@+id/img_drink"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/drink_water"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.927"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_water" />
-
+        app:layout_constraintVertical_bias="0.765" />
 
     <ImageView
         android:id="@+id/img_pee"
@@ -103,72 +89,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/img_feces" />
 
+
     <TextView
         android:id="@+id/tv_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="470dp"
         android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="24dp"
-        android:visibility="visible"
         android:text="textview"
-        app:layout_constraintBottom_toTopOf="@id/layout_tv"
+        android:textAlignment="center"
+        android:textSize="22dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintVertical_bias="0.012" />
 
     <LinearLayout
-        android:id="@+id/layout_tv"
-        android:layout_width="370dp"
-        android:layout_height="88dp"
-        android:orientation="vertical"
-        android:weightSum="2"
+        android:id="@+id/layout_tv_img"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:orientation="horizontal"
+        android:weightSum="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917">
+        app:layout_constraintTop_toTopOf="@+id/img_water"
+        app:layout_constraintVertical_bias="0.872">
 
 
-        <TextView
-            android:id="@+id/tv_waterAmount"
+        <LinearLayout
+            android:id="@+id/layout_tv"
             android:layout_width="wrap_content"
-            android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/img_drink"
-            app:layout_constraintHorizontal_bias="0.711"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_water"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/tv_drink"
-            android:layout_width="wrap_content"
-            android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="2dp"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="16dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:paddingLeft="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.619"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_waterAmount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.903">
+
+
+            <TextView
+                android:id="@+id/tv_waterAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="3dp"
+                android:text="TextView"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_drink"
+                app:layout_constraintHorizontal_bias="0.711"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_water"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_drink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="TextView"
+                android:gravity="center"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_waterAmount"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_drink"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/settings_layout_margin_right"
+            android:src="@drawable/drink_water"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.897"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_creator="@+id/layout_tv"
+            app:layout_constraintTop_toBottomOf="@+id/tv_progress"
             app:layout_constraintVertical_bias="0.0" />
     </LinearLayout>
 

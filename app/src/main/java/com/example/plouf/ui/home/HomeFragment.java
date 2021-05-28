@@ -116,41 +116,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
-                if (intSelectItem == 0 ) {
-                    homeViewModel.addWater();
-                    tv_waterState.setText(homeViewModel.getWaterState());
-                    setImg_water();
-                } else if (intSelectItem == 1) {
-                    homeViewModel.addCoffee();
-                    tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+        if(homeViewModel.waterNeed != 0){
+            switch (v.getId()) {
+                case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
+                    if (intSelectItem == 0 ) {
+                        homeViewModel.addWater();
+                        tv_waterState.setText(homeViewModel.getWaterState());
+                        setImg_water();
+                    } else if (intSelectItem == 1) {
+                        homeViewModel.addCoffee();
+                        tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
 
-                } else if (intSelectItem == 2) {
-                    homeViewModel.addTea();
-                    tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+                    } else if (intSelectItem == 2) {
+                        homeViewModel.addTea();
+                        tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
 
-                }
+                    }
 
-                break;
-            case R.id.img_pee :
-                homeViewModel.addPee();
-                tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
-                break;
-            case R.id.img_feces :
-                homeViewModel.addFeces();
-                tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
-                break;
-            case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
-                if (intSelectItem == 0 ) {
-                    Toast.makeText(context, "물", Toast.LENGTH_SHORT).show();
-                } else if (intSelectItem == 1 ) {
-                    Toast.makeText(context, "커피", Toast.LENGTH_SHORT).show();
-                } else if (intSelectItem == 2 ) {
-                    Toast.makeText(context, "차", Toast.LENGTH_SHORT).show();
-                }
-                Log.d(TAG, "setOnClick: "+img_drink);
-                break;
+                    break;
+                case R.id.img_pee :
+                    homeViewModel.addPee();
+                    tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
+                    break;
+                case R.id.img_feces :
+                    homeViewModel.addFeces();
+                    tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
+                    break;
+                case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
+                    if (intSelectItem == 0 ) {
+                        Toast.makeText(context, "물", Toast.LENGTH_SHORT).show();
+                    } else if (intSelectItem == 1 ) {
+                        Toast.makeText(context, "커피", Toast.LENGTH_SHORT).show();
+                    } else if (intSelectItem == 2 ) {
+                        Toast.makeText(context, "차", Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d(TAG, "setOnClick: "+img_drink);
+                    break;
+            }
         }
 
     }
@@ -163,49 +165,52 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      */
     @Override
     public boolean onLongClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
-                if (intSelectItem == 0) {
-                    homeViewModel.subWater();
-                    tv_waterState.setText(homeViewModel.getWaterState());
-                    setImg_water();
-                    setWaterAC();
-                } else if (intSelectItem == 1) {
-                    homeViewModel.subCoffee();
-                    tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
-                } else if (intSelectItem == 2) {
-                    homeViewModel.subTea();
-                    tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
-                }
+        if(homeViewModel.waterNeed != 0){
+            switch (v.getId()) {
+                case R.id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
+                    if (intSelectItem == 0) {
+                        homeViewModel.subWater();
+                        tv_waterState.setText(homeViewModel.getWaterState());
+                        setImg_water();
+                        setWaterAC();
+                    } else if (intSelectItem == 1) {
+                        homeViewModel.subCoffee();
+                        tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+                    } else if (intSelectItem == 2) {
+                        homeViewModel.subTea();
+                        tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+                    }
 
-                break;
-            case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
-                homeViewModel.subPee();
-                tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
-                break;
-            case R.id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
-                homeViewModel.subFeces();
-                tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
-                break;
-            case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
-                dDialog = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-                dDialog.setTitle("음료 종류를 선택하세요")
-                        .setItems(dItems, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dSelectItem = dItems[which].toString();
+                    break;
+                case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
+                    homeViewModel.subPee();
+                    tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
+                    break;
+                case R.id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
+                    homeViewModel.subFeces();
+                    tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
+                    break;
+                case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
+                    dDialog = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+                    dDialog.setTitle("음료 종류를 선택하세요")
+                            .setItems(dItems, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dSelectItem = dItems[which].toString();
 //                                Toast.makeText(context,dItems[which], Toast.LENGTH_SHORT).show();
-                                setImg_drink(dSelectItem);
-                                Log.d(TAG, "onClick: int selectItem = "+intSelectItem);
-                                setIntSelectItem(which);
+                                    setImg_drink(dSelectItem);
+                                    Log.d(TAG, "onClick: int selectItem = "+intSelectItem);
+                                    setIntSelectItem(which);
 
-                            }
-                        })
-                        .setCancelable(true)
-                        .show();
+                                }
+                            })
+                            .setCancelable(true)
+                            .show();
 //                Log.d(TAG, "onLongClick: selectItem"+intSelectItem);
-                break;
+                    break;
+            }
         }
+
 //                        Log.d(TAG, "onLongClick: selectItem"+intSelectItem);
 
         return true;    //onClick 동시 실행 안됨

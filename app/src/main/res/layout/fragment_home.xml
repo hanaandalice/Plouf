@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/img_water"
-        android:layout_width="286dp"
-        android:layout_height="370dp"
+        android:layout_width="273dp"
+        android:layout_height="345dp"
         android:adjustViewBounds="true"
         android:src="@drawable/hungry_0_30"
         app:layout_constraintBottom_toTopOf="@id/layout_tv_img"
@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/img_water2"
-        android:layout_width="286dp"
-        android:layout_height="370dp"
+        android:layout_width="273dp"
+        android:layout_height="345dp"
         android:adjustViewBounds="true"
         android:src="@drawable/over_100"
         app:layout_constraintBottom_toTopOf="@+id/layout_tv_img"

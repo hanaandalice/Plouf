@@ -277,28 +277,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
 //            img_water.setImageResource(R.drawable.excited_filled2_80);
             img_water.setImageResource(R.drawable.excited_80_filled_light);
         } else {
-//            img_water.setImageResource(R.drawable.veryhappy_filled_100);
-//            Bitmap bitmap = ((BitmapDrawable) img_water.getDrawable()).getBitmap();
-//            Bitmap compare_bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.veryhappy_100_light);
-//
-//            if(bitmap.equals(compare_bitmap)) {
-//                Log.d("image", "setImg_water: getDrawable");
-//                img_water2.setImageResource(R.drawable.over_100);
-//                img_water.setVisibility(View.INVISIBLE);
-//                img_water2.setVisibility(View.VISIBLE);
-//
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        img_water.setImageResource(R.drawable.veryhappy_100_light);
-//                        img_water.setVisibility(View.VISIBLE);
-//                        img_water2.setVisibility(View.INVISIBLE);
-//                    }
-//                },2000);
-//            }
-//            img_water.setImageResource(R.drawable.veryhappy_100_light);
-
 
             if (waterPer <= 100){
                 img_water.setImageResource(R.drawable.veryhappy_100_light);

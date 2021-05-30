@@ -3,4 +3,5 @@
     <dimen name="water_width">300dp</dimen>
     <dimen name="water_height">378dp</dimen>
     <dimen name="layout_tv_padding_left">70dp</dimen>
+    <dimen name="layout_drink_width_height">50dp</dimen>
 </resources>

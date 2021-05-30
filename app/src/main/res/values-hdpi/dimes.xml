@@ -2,4 +2,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="water_width">200dp</dimen>
     <dimen name="water_height">300dp</dimen>
+    <dimen name="layout_tv_padding_left">60dp</dimen>
 </resources>

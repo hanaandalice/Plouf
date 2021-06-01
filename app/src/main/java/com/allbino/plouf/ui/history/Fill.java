@@ -1,4 +1,4 @@
-package com.example.plouf.ui.history;
+package com.allbino.plouf.ui.history;
 
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;

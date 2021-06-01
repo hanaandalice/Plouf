@@ -1,4 +1,4 @@
-package com.example.plouf.ui.history;
+package com.allbino.plouf.ui.history;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,9 +7,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.plouf.PdApplication;
-import com.example.plouf.data.PdRepository;
-import com.example.plouf.data.PreferencesManager;
+import com.allbino.plouf.PdApplication;
+import com.allbino.plouf.data.PdRepository;
+import com.allbino.plouf.data.PreferencesManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;

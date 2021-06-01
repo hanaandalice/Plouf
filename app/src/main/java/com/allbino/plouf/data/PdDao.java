@@ -1,13 +1,8 @@
-package com.example.plouf.data;
+package com.allbino.plouf.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /*####################################################################################

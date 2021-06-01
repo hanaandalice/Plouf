@@ -1,4 +1,4 @@
-package com.example.plouf;
+package com.allbino.plouf;
 
 import org.junit.Test;
 

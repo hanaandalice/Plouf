@@ -1,10 +1,8 @@
-package com.example.plouf.data;
+package com.allbino.plouf.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 /*####################################################################################
  *형태 : Class

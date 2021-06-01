@@ -1,7 +1,6 @@
-package com.example.plouf;
+package com.allbino.plouf;
 
 import android.app.Application;
-import android.util.Log;
 
 /*####################################################################################
  *형태 : Class

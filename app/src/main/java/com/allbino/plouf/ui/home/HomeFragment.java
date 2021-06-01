@@ -1,4 +1,4 @@
-package com.example.plouf.ui.home;
+package com.allbino.plouf.ui.home;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.plouf.R;
+import com.allbino.plouf.R;
 
 import static android.content.ContentValues.TAG;
 
@@ -411,6 +411,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             } else {
                 homeViewModel.setWaterAC(5);
             }
+        } else {
+            homeViewModel.setWaterAC(0);
         }
     }
 

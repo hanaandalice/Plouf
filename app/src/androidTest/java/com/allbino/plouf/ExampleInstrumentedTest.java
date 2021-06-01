@@ -1,4 +1,4 @@
-package com.example.plouf;
+package com.allbino.plouf;
 
 import android.content.Context;
 

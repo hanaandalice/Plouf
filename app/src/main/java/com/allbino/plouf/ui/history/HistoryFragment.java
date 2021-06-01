@@ -1,4 +1,4 @@
-package com.example.plouf.ui.history;
+package com.allbino.plouf.ui.history;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.plouf.R;
+import com.allbino.plouf.R;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -187,7 +187,7 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
             ArrayList<String> tempCalendarDayList = new ArrayList<>();
             calendarDayList.add(CalendarDay.today());
 
-            for(int waterAc = 1; waterAc <6; waterAc++) {
+            for(int waterAc = 0; waterAc <6; waterAc++) {
                 tempCalendarDayList = historyViewModel.getCalendarDayList(CalendarDay.today().getMonth(), waterAc);
                 Log.d("DB", "doInBackground: 리스트1  "+tempCalendarDayList);
                 for(String day : tempCalendarDayList) {

@@ -1,11 +1,13 @@
-package com.example.plouf.ui.history;
+package com.allbino.plouf.ui.history;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.plouf.R;
+import com.allbino.plouf.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -46,6 +48,9 @@ public class EventDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
         Drawable drawable;
         switch (dotNum) {
+            case 0:
+                view.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                break;
             case 1 :
                 drawable = ContextCompat.getDrawable(context, R.drawable.temp_waterac_1);
                 view.setBackgroundDrawable(drawable);
@@ -67,6 +72,7 @@ public class EventDecorator implements DayViewDecorator {
                 drawable = ContextCompat.getDrawable(context, R.drawable.temp_waterac_5);    //TODO : 별 5개 이미지는 두개가 연결되는 느낌으로 만들기.
                 view.setBackgroundDrawable(drawable);
                 break;
+
         }
 
     }

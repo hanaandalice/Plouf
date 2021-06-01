@@ -1,13 +1,9 @@
-package com.example.plouf.data;
+package com.allbino.plouf.data;
 
 import android.app.Application;
-import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 

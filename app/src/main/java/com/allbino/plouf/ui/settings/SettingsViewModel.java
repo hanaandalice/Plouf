@@ -1,17 +1,10 @@
-package com.example.plouf.ui.settings;
+package com.allbino.plouf.ui.settings;
 
 import android.content.Context;
-import android.support.v4.app.INotificationSideChannel;
-import android.util.Log;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.plouf.PdApplication;
-import com.example.plouf.data.PreferencesManager;
+import com.allbino.plouf.data.PreferencesManager;
 
 /*####################################################################################
  *형태 : Class

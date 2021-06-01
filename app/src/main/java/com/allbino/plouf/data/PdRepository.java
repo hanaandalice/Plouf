@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.room.Update;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -266,20 +268,20 @@ public class PdRepository {
         Log.d("DB", "updateTea: 완");
     }
 
-    public void addPeeCnt(String date, Integer cup) {
+    public void addPeeCnt(String date) {
         try{
             Log.d("DB", "updatePeeCnt: 전");
-            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_ADD, cup).execute().get();
+            new UpdateToilet(pdDao, date,"peeCnt", UPDATE_MODE_ADD).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updatePeeCnt: 완");
     }
 
-    public void addFecesCnt(String date, Integer cup) {
+    public void addFecesCnt(String date) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
-            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_ADD, cup).execute().get();
+            new UpdateToilet(pdDao, date,"fecesCnt",UPDATE_MODE_ADD).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -323,20 +325,20 @@ public class PdRepository {
         Log.d("DB", "updateTea: 완");
     }
 
-    public void subPeeCnt(String date, Integer cup) {
+    public void subPeeCnt(String date) {
         try{
             Log.d("DB", "updatePeeCnt: 전");
-            new UpdateIntData(pdDao, date,"peeCnt", UPDATE_MODE_SUB, cup).execute().get();
+            new UpdateToilet(pdDao, date,"peeCnt", UPDATE_MODE_SUB).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d("DB", "updatePeeCnt: 완");
     }
 
-    public void subFecesCnt(String date, Integer cup) {
+    public void subFecesCnt(String date) {
         try{
             Log.d("DB", "updateFecesCnt: 전");
-            new UpdateIntData(pdDao, date,"fecesCnt",UPDATE_MODE_SUB, cup).execute().get();
+            new UpdateToilet(pdDao, date,"fecesCnt",UPDATE_MODE_SUB).execute().get();
         } catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -591,6 +593,74 @@ public class PdRepository {
             return null;
         }
     }
+
+    /*####################################################################################
+     *형태 : Class
+     * 모듈ID : UpdateToilet
+     * 설명 : 화장실(소변, 대변)데이터 업데이트
+     * */
+    private static class UpdateToilet extends AsyncTask<Void, Void, Boolean> {
+        private PdDao pdAsyncTaskDao;
+        String columnName;
+        PdEntity pdEntity;
+        String date;
+        Integer mode;
+        Integer data;
+
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : UpdateToilet
+         * 반환값 : 없음
+         * 설명 : 변수 초기화
+         */
+        UpdateToilet(PdDao pdAsyncTaskDao, String date, String columnName, Integer mode) {
+            this.pdAsyncTaskDao = pdAsyncTaskDao;
+            this.columnName = columnName;
+            this.date = date;
+            this.mode = mode;
+            data = 0;
+        }
+
+        /*-------------------------------------------------
+         *형태 : Method
+         * 소유자 : UpdateToilet
+         * 반환값 : Boolean
+         * 설명 :  소변, 대변 케이스 별로 값 가져오고 해당 날짜 엔티티 가져와서
+         *        엔티티 설정 후 업데이트(증가, 감소)
+         */
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try{
+                pdEntity = pdAsyncTaskDao.getPdByDate(date);//이게 제대로 안됨
+                Log.d("DB", "doInBackground: pdEntity load");
+                switch (columnName) {
+                    case "peeCnt" :
+                        data = pdEntity.getPeeCnt();
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setPeeCnt(++data);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setPeeCnt(--data);
+                        }
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                    case "fecesCnt" :
+                        data = pdEntity.getFecesCnt();
+                        if(mode == UPDATE_MODE_ADD){
+                            pdEntity.setFecesCnt(++data);
+                        } else if(mode == UPDATE_MODE_SUB) {
+                            pdEntity.setFecesCnt(--data);
+                        }
+                        pdAsyncTaskDao.update(pdEntity);
+                        break;
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
 
 
 

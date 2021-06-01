@@ -178,7 +178,7 @@ public class HomeViewModel extends ViewModel {
     public void addPee() {
         peeCnt++;
         try{
-            pdRepository.addPeeCnt(today, cup); //TODO : 나중에 따로 분리하기
+            pdRepository.addPeeCnt(today);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -194,7 +194,7 @@ public class HomeViewModel extends ViewModel {
     public void addFeces(){
         fecesCnt++;;
         try{
-            pdRepository.addFecesCnt(today, cup);
+            pdRepository.addFecesCnt(today);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -279,7 +279,7 @@ public class HomeViewModel extends ViewModel {
         if(peeCnt > 0) {
             peeCnt--;
             try{
-                pdRepository.subPeeCnt(today, cup);
+                pdRepository.subPeeCnt(today);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -299,7 +299,7 @@ public class HomeViewModel extends ViewModel {
             fecesCnt--;
             try{
 //            Log.d("DB", "subFeces: 전");
-                pdRepository.subFecesCnt(today, cup);
+                pdRepository.subFecesCnt(today);
 //            Log.d("DB", "subFeces: 완료");
             } catch (Exception e) {
                 e.printStackTrace();

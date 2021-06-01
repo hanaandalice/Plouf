@@ -75,42 +75,41 @@ public interface PdDao {
 
 
    //월 별로 날짜들 구하기 01~12
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-01_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-01-__')")
    List<String> getDatebyWaterAc_1(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-02_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-02-__')")
    List<String> getDatebyWaterAc_2(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-03_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-03-__')")
    List<String> getDatebyWaterAc_3(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-04_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-04-__')")
    List<String> getDatebyWaterAc_4(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-05_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-05-__')")
    List<String> getDatebyWaterAc_5(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-06_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-06-__')")
    List<String> getDatebyWaterAc_6(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-07_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-07-__')")
    List<String> getDatebyWaterAc_7(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-08_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-08-__')")
    List<String> getDatebyWaterAc_8(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-09_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-09-__')")
    List<String> getDatebyWaterAc_9(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-10_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-10-__')")
    List<String> getDatebyWaterAc_10(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-11_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-11-__')")
    List<String> getDatebyWaterAc_11(String waterAc);
 
-   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "OR (RECORD_DATE LIKE '____-12_')")
+   @Query("SELECT RECORD_DATE FROM PD_01 WHERE (WATER_ACHIEVE LIKE :waterAc) " + "AND (RECORD_DATE LIKE '____-12-__')")
    List<String> getDatebyWaterAc_12(String waterAc);
-
 
 
 }

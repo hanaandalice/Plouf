@@ -194,6 +194,7 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
                     //캘린더 데이 리스트에 넣기
                     String days[] = day.split("-");
                     Integer d = Integer.parseInt(days[2]);
+                    Log.d("day", "doInBackground: "+CalendarDay.today()+"hello"+d);
                     calendarDayList.add(CalendarDay.from(CalendarDay.today().getYear(), CalendarDay.today().getMonth(), d)); //형식
                 }
                 cv_calendar.addDecorators(new EventDecorator(calendarDayList, getContext(), waterAc));

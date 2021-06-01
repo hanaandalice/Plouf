@@ -23,4 +23,6 @@
     <string name="cup_grande">그란데 사이즈</string>
     <string name="cup_benti">벤티 사이즈</string>
     <string name="cup_liter">리터</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

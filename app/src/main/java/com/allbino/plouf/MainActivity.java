@@ -19,7 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 /*####################################################################################
- *형태 : Class
+ *형태 : Activity
  * 모듈ID : MainActivity
  * 설명 : NavigationView Control
  * */

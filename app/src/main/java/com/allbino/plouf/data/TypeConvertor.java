@@ -8,6 +8,12 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : TypeConvertor
+ * 설명 : 리스트<스트링> 타입 컨버터
+ * */
+
 public class TypeConvertor {
     @TypeConverter
     public static List<String> stringToList(String value) {

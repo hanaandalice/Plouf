@@ -34,13 +34,13 @@ public class SettingsViewModel extends ViewModel {
     public void setWeight(Context context, Integer weight) {
         preferencesManager.setWeight(context, weight);
     }
-    public void setLockSetting(Context context, Boolean lockSetting) {
-        preferencesManager.setLockSetting(context, lockSetting);
-    }
-
-    public void setPass(Context context, String pass) {
-        preferencesManager.setPass(context, pass);
-    }
+//    public void setLockSetting(Context context, Boolean lockSetting) {
+//        preferencesManager.setLockSetting(context, lockSetting);
+//    }
+//
+//    public void setPass(Context context, String pass) {
+//        preferencesManager.setPass(context, pass);
+//    }
 
 
     /*-------------------------------------------------
@@ -55,13 +55,13 @@ public class SettingsViewModel extends ViewModel {
     public Integer getWeight(Context context) {
         return preferencesManager.getWeight(context);   //단위 자르기
     }
-    public Boolean getLockSetting(Context context) {
-        return preferencesManager.getLockSetting(context);
-    }
-
-    public String getPass(Context context) {
-        return preferencesManager.getPass(context);
-    }
+//    public Boolean getLockSetting(Context context) {
+//        return preferencesManager.getLockSetting(context);
+//    }
+//
+//    public String getPass(Context context) {
+//        return preferencesManager.getPass(context);
+//    }
     public Integer getWaterNeed(Context context) { return preferencesManager.getWaterNeed(context);}
 
 }

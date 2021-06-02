@@ -25,7 +25,7 @@ import com.google.android.material.chip.ChipGroup;
  * 모듈ID : SettingsFragment
  * 설명 : Settings UI
  * SharedPreferences 값 저장 요청(컵 용량, 몸무게, 잠금 설정 여부)
- * SharedPrefeences 저장할 값 입력받음
+ * SharedPreferences 저장할 값 입력받음
  * */
 
 public class SettingsFragment extends Fragment {

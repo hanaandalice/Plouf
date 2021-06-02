@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /*####################################################################################
  *형태 : Class
- * 모듈ID : CalendarViewModel
+ * 모듈ID : HistoryViewModel
  * 설명 : 일 평균 소변 횟수 결과 텍스트 세팅
  * waterAc 케이스별 캘린더 데이 디비에서 가지고 와서 반환
  * */

@@ -40,8 +40,8 @@ import java.util.List;
 
 /*####################################################################################
  *형태 : Class
- * 모듈ID : CalendarFragment
- * 설명 : Calendar UI
+ * 모듈ID : HistoryFragment
+ * 설명 : History UI
  * waterAc 사용해서 캘린더 점 있는 날짜에 점 찍기.
  * */
 public class HistoryFragment extends Fragment  implements OnDateSelectedListener, OnMonthChangedListener, OnDateLongClickListener, OnChartValueSelectedListener {

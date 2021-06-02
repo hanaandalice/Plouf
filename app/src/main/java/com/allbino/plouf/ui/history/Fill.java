@@ -12,6 +12,13 @@ import androidx.annotation.Nullable;
 
 import com.github.mikephil.charting.utils.Utils;
 
+
+
+/*####################################################################################
+ *형태 : Class
+ * 모듈ID : Fill
+ * 설명 : 이벤트 데코레이트에서 사용하기 위한 Fill
+ * */
 public class Fill
 {
     public enum Type

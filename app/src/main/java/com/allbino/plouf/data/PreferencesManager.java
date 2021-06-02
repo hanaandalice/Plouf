@@ -29,11 +29,11 @@ public class PreferencesManager{
      * 반환값 : Boolean, Integer
      * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 반환 수행
      */
-    public Boolean getLockSetting(Context context) {
-        SharedPreferences preferences = getPreferences(context);
-        lockSetting = preferences.getBoolean("lockSetting", false);
-        return lockSetting;
-    }
+//    public Boolean getLockSetting(Context context) {
+//        SharedPreferences preferences = getPreferences(context);
+//        lockSetting = preferences.getBoolean("lockSetting", false);
+//        return lockSetting;
+//    }
 
     public Integer getWeight(Context context) {
         SharedPreferences preferences = getPreferences(context);
@@ -56,11 +56,11 @@ public class PreferencesManager{
         return waterNeed;
     }
 
-    public String getPass(Context context) {
-        SharedPreferences preferences = getPreferences(context);
-        pass = preferences.getString("pass", null); //password 가 0000인 경우 있을 수 있음.
-        return pass;
-    }
+//    public String getPass(Context context) {
+//        SharedPreferences preferences = getPreferences(context);
+//        pass = preferences.getString("pass", null); //password 가 0000인 경우 있을 수 있음.
+//        return pass;
+//    }
 
 
 
@@ -70,13 +70,13 @@ public class PreferencesManager{
      * 반환값 : Boolean, Integer
      * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 세팅 수행
      */
-    public void setLockSetting(Context context, Boolean lockSetting) {
-        SharedPreferences preferences = getPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        this.lockSetting = lockSetting;
-        editor.putBoolean("lockSetting", lockSetting);
-        editor.commit();
-    }
+//    public void setLockSetting(Context context, Boolean lockSetting) {
+//        SharedPreferences preferences = getPreferences(context);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        this.lockSetting = lockSetting;
+//        editor.putBoolean("lockSetting", lockSetting);
+//        editor.commit();
+//    }
 
     public void setWeight(Context context, Integer weight) {
         SharedPreferences preferences = getPreferences(context);
@@ -96,15 +96,15 @@ public class PreferencesManager{
         editor.commit();
 
     }
-
-    public void setPass(Context context, String pass) {
-        SharedPreferences preferences = getPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        this.pass = pass;
-        editor.putString("pass", pass);
-        editor.commit();
-
-    }
+//
+//    public void setPass(Context context, String pass) {
+//        SharedPreferences preferences = getPreferences(context);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        this.pass = pass;
+//        editor.putString("pass", pass);
+//        editor.commit();
+//
+//    }
 
 
 }

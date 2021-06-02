@@ -92,6 +92,14 @@
 
 
         <TextView
+            android:id="@+id/tv_graphResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/settings_layout_margin_left"
+            android:textSize="14dp"
+            android:text="TextView" />
+
+        <TextView
             android:id="@+id/tv_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

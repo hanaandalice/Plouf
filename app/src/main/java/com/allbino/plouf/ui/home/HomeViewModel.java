@@ -239,13 +239,14 @@ public class HomeViewModel extends ViewModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (coffee > 0) {
+        } else if (coffee > 0 && coffee < cup) {
             try{
                 pdRepository.subCoffee(today, coffee);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            coffee = 0;
         }
     }
 
@@ -258,13 +259,14 @@ public class HomeViewModel extends ViewModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (tea > 0) {
+        } else if (tea > 0 && tea < cup) {
             try{
                 pdRepository.subTea(today, tea);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            tea = 0;
         }
     }
 

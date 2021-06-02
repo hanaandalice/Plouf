@@ -42,7 +42,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public TextView tv_progress;
     public TextView tv_peeCnt;
     public TextView tv_fecesCnt;
-    public TextView tv_drink;
+    public TextView tv_coffee;
+    public TextView tv_tea;
     private Context context;
     public TextView tv_waterState;
     private View root;
@@ -73,15 +74,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             }
         });
 
-        if (intSelectItem == 0) {
-            tv_drink.setVisibility(View.INVISIBLE);
-        } else if (intSelectItem == 1) {
-            tv_drink.setVisibility(View.INVISIBLE);
-            tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
-        } else if (intSelectItem == 2) {
-            tv_drink.setVisibility(View.VISIBLE);
-            tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
-        }
+
+            tv_coffee.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+            tv_tea.setText("차 : "+homeViewModel.getTea()+"ml");
+
 
 
         tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
@@ -125,11 +121,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                         setImg_water();
                     } else if (intSelectItem == 1) {
                         homeViewModel.addCoffee();
-                        tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+                        tv_coffee.setText("커피 : "+homeViewModel.getCoffee()+"ml");
 
                     } else if (intSelectItem == 2) {
                         homeViewModel.addTea();
-                        tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+                        tv_tea.setText("차 : "+homeViewModel.getTea()+"ml");
 
                     }
 
@@ -175,10 +171,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                         setWaterAC();
                     } else if (intSelectItem == 1) {
                         homeViewModel.subCoffee();
-                        tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+                        tv_coffee.setText("커피 : "+homeViewModel.getCoffee()+"ml");
                     } else if (intSelectItem == 2) {
                         homeViewModel.subTea();
-                        tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
+                        tv_tea.setText("차 : "+homeViewModel.getTea()+"ml");
                     }
 
                     break;
@@ -201,7 +197,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                                     setImg_drink(dSelectItem);
                                     Log.d(TAG, "onClick: int selectItem = "+intSelectItem);
                                     setIntSelectItem(which);
-
                                 }
                             })
                             .setCancelable(true)
@@ -228,7 +223,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_waterState = root.findViewById(R.id.tv_waterAmount);
         tv_peeCnt = root.findViewById(R.id.tv_peeCnt);
         tv_fecesCnt = root.findViewById(R.id.tv_fecesCnt);
-        tv_drink = root.findViewById(R.id.tv_drink);
+        tv_tea = root.findViewById(R.id.tv_tea);
+        tv_coffee = root.findViewById(R.id.tv_coffee);
 
         img_water = root.findViewById(R.id.img_water);
         img_water2 = root.findViewById(R.id.img_water2);
@@ -421,21 +417,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      *형태 : Method
      * 소유자 : HomeFragment
      * 반환값 : 없음
-     * 설명 : IntSelectItem을 세팅하고 텍스트뷰 설정
+     * 설명 : IntSelectItem을 세팅
      */
     private void setIntSelectItem(Integer which)
     {
         intSelectItem = which;
-        if (intSelectItem == 0) {
-            tv_drink.setVisibility(View.INVISIBLE);
-        } else if (intSelectItem == 1) {
-            tv_drink.setVisibility(View.VISIBLE);
-            tv_drink.setText("커피 : "+homeViewModel.getCoffee()+"ml");
-        } else if (intSelectItem == 2) {
-            tv_drink.setVisibility(View.VISIBLE);
-            tv_drink.setText("차 : "+homeViewModel.getTea()+"ml");
-        }
-
     }
+
+
 
 }

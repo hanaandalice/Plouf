@@ -49,12 +49,21 @@ public class SettingsFragment extends Fragment {
         et_waterCup = root.findViewById(R.id.et_waterCup);
         et_weight = root.findViewById(R.id.et_weight);
         tv_settingResult = root.findViewById(R.id.tv_settingResult);
-        tv_settingResult.setVisibility(View.INVISIBLE);
 
         chipGroup = root.findViewById(R.id.chip_group);
 
         if(settingsViewModel.getCup(context) != null){
             et_waterCup.setText(settingsViewModel.getCup(context).toString());
+            tv_settingResult.setVisibility(View.VISIBLE);
+
+            if (settingsViewModel.getWaterNeed(context) != 0) {
+                Integer waterNeed = settingsViewModel.getWaterNeed(context);
+                tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+            } else {
+                tv_settingResult.setVisibility(View.INVISIBLE);
+            }
+
+
             et_waterCup.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -79,12 +88,18 @@ public class SettingsFragment extends Fragment {
         } else {
             settingsViewModel.setCup(context,473);
             et_waterCup.setText(settingsViewModel.getCup(context).toString());
+            if (settingsViewModel.getWaterNeed(context) != 0) {
+                Integer waterNeed = settingsViewModel.getWaterNeed(context);
+                tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
+            } else {
+                tv_settingResult.setVisibility(View.INVISIBLE);
+            }
         }
 
 
        if(settingsViewModel.getWeight(context) != null){
            et_weight.setText(settingsViewModel.getWeight(context).toString());
-           tv_settingResult.setVisibility(View.INVISIBLE);
+//           tv_settingResult.setVisibility(View.INVISIBLE);
            et_weight.addTextChangedListener(new TextWatcher() {
                @Override
                public void beforeTextChanged(CharSequence s, int start, int count, int after) {

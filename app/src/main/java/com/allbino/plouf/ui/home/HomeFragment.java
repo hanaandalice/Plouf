@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.allbino.plouf.R;
 
 import static android.content.ContentValues.TAG;
+import static com.allbino.plouf.R.*;
 
 /*####################################################################################
  *형태 : Class
@@ -36,6 +37,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private HomeViewModel homeViewModel;
     public ImageView img_water;
     public ImageView img_water2;
+    public ImageView img_waterGlide;
+
     public ImageView img_pee;
     public ImageView img_feces;
     public ImageView img_drink;
@@ -60,7 +63,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(layout.fragment_home, container, false);
         Log.d("pref", "onCreateView: waterNeed 전");
         context = container.getContext();
 
@@ -114,31 +117,50 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public void onClick(View v) {
         if(homeViewModel.waterNeed != 0){
             switch (v.getId()) {
-                case R.id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
+                case id.img_water :   //누르면 마신 물 기록 하고(뷰모델에서) 퍼센테이지 토스트 메시지로 보여주기
                     if (intSelectItem == 0 ) {
                         homeViewModel.addWater();
                         tv_waterState.setText(homeViewModel.getWaterState());
                         setImg_water();
                     } else if (intSelectItem == 1) {
+                        img_waterGlide.setVisibility(View.VISIBLE);
+                        img_waterGlide.setImageResource(drawable.glide_coffee);
                         homeViewModel.addCoffee();
                         tv_coffee.setText("커피 : "+homeViewModel.getCoffee()+"ml");
-
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "setImg_water: thread water 후");
+                                img_waterGlide.setVisibility(View.INVISIBLE);
+                            }
+                        },700);
                     } else if (intSelectItem == 2) {
+                        img_waterGlide.setVisibility(View.VISIBLE);
+                        img_waterGlide.setImageResource(drawable.glide_tea);
                         homeViewModel.addTea();
                         tv_tea.setText("차 : "+homeViewModel.getTea()+"ml");
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "setImg_water: thread water 후");
+                                img_waterGlide.setVisibility(View.INVISIBLE);
+                            }
+                        },700);
 
                     }
 
                     break;
-                case R.id.img_pee :
+                case id.img_pee :
                     homeViewModel.addPee();
                     tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
                     break;
-                case R.id.img_feces :
+                case id.img_feces :
                     homeViewModel.addFeces();
                     tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
                     break;
-                case R.id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
+                case id.img_drink :   //shortClick 음료 종류에 따라 다른 토스트 메시지
                     if (intSelectItem == 0 ) {
                         Toast.makeText(context, "물", Toast.LENGTH_SHORT).show();
                     } else if (intSelectItem == 1 ) {
@@ -163,30 +185,50 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public boolean onLongClick(View v) {
         if(homeViewModel.waterNeed != 0){
             switch (v.getId()) {
-                case R.id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
+                case id.img_water :   //롱 클릭 하면 잘못 입력한 물 취소.
                     if (intSelectItem == 0) {
                         homeViewModel.subWater();
                         tv_waterState.setText(homeViewModel.getWaterState());
                         setImg_water();
                         setWaterAC();
                     } else if (intSelectItem == 1) {
+                        img_waterGlide.setVisibility(View.VISIBLE);
+                        img_waterGlide.setImageResource(drawable.glide_coffee);
                         homeViewModel.subCoffee();
                         tv_coffee.setText("커피 : "+homeViewModel.getCoffee()+"ml");
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "setImg_water: thread water 후");
+                                img_waterGlide.setVisibility(View.INVISIBLE);
+                            }
+                        },700);
                     } else if (intSelectItem == 2) {
+                        img_waterGlide.setVisibility(View.VISIBLE);
+                        img_waterGlide.setImageResource(drawable.glide_tea);
                         homeViewModel.subTea();
                         tv_tea.setText("차 : "+homeViewModel.getTea()+"ml");
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "setImg_water: thread water 후");
+                                img_waterGlide.setVisibility(View.INVISIBLE);
+                            }
+                        },700);
                     }
 
                     break;
-                case R.id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
+                case id.img_pee : //peeCount  - 1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                     homeViewModel.subPee();
                     tv_peeCnt.setText(homeViewModel.getPeeCnt().toString());
                     break;
-                case R.id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
+                case id.img_feces :   //fecesCount -1 하고 바로 뷰모델로 보내고 뷰모델에서 값 받아오기
                     homeViewModel.subFeces();
                     tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
                     break;
-                case R.id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
+                case id.img_drink :   //LongClick에 dialogPopUp 넣고 popup 변경에 따라 drink 이미지 변경
                     dDialog = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
                     dDialog.setTitle("음료 종류를 선택하세요")
                             .setItems(dItems, new DialogInterface.OnClickListener() {
@@ -219,24 +261,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
      *      물방울 이미지 세팅 실행
      */
     public void initHome(){
-        tv_progress = root.findViewById(R.id.tv_progress);
-        tv_waterState = root.findViewById(R.id.tv_waterAmount);
-        tv_peeCnt = root.findViewById(R.id.tv_peeCnt);
-        tv_fecesCnt = root.findViewById(R.id.tv_fecesCnt);
-        tv_tea = root.findViewById(R.id.tv_tea);
-        tv_coffee = root.findViewById(R.id.tv_coffee);
+        tv_progress = root.findViewById(id.tv_progress);
+        tv_waterState = root.findViewById(id.tv_waterAmount);
+        tv_peeCnt = root.findViewById(id.tv_peeCnt);
+        tv_fecesCnt = root.findViewById(id.tv_fecesCnt);
+        tv_tea = root.findViewById(id.tv_tea);
+        tv_coffee = root.findViewById(id.tv_coffee);
 
-        img_water = root.findViewById(R.id.img_water);
-        img_water2 = root.findViewById(R.id.img_water2);
-        img_drink = root.findViewById(R.id.img_drink);
-        img_feces = root.findViewById(R.id.img_feces);
-        img_pee = root.findViewById(R.id.img_pee);
+        img_water = root.findViewById(id.img_water);
+        img_water2 = root.findViewById(id.img_water2);
+        img_waterGlide = root.findViewById(id.img_waterGlide);
+        img_drink = root.findViewById(id.img_drink);
+        img_feces = root.findViewById(id.img_feces);
+        img_pee = root.findViewById(id.img_pee);
 
         img_water2.setVisibility(View.INVISIBLE);
+        img_waterGlide.setVisibility(View.INVISIBLE);
 
-        water = getString(R.string.drink_water_korean);
-        coffee = getString(R.string.drink_coffee_korean);
-        tea = getString(R.string.drink_tea_korean);
+        water = getString(string.drink_water_korean);
+        coffee = getString(string.drink_coffee_korean);
+        tea = getString(string.drink_tea_korean);
 
         dItems = new CharSequence[]{water, coffee, tea};
         dSelectItem = new String();
@@ -267,25 +311,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         Log.d(TAG, "setImg_water: "+waterPer);
         if(waterPer<20) {
 //            img_water.setImageResource(R.drawable.hungry_0_30);
-            img_water.setImageResource(R.drawable.hungry_0_30_light);
+            img_water.setImageResource(drawable.hungry_0_30_light);
         } else if(waterPer>=20 && waterPer<50) {
 //            img_water.setImageResource(R.drawable.normal_filled_30_50);
-            img_water.setImageResource(R.drawable.normal_30_50_filled_light);
+            img_water.setImageResource(drawable.normal_30_50_filled_light);
         } else if(waterPer>=50 && waterPer<70) {
 //            img_water.setImageResource(R.drawable.pleased_filled_50_80);
-            img_water.setImageResource(R.drawable.pleased_50_80_filled_light);
+            img_water.setImageResource(drawable.pleased_50_80_filled_light);
         } else if(waterPer>=70 && waterPer<90) {
 //            img_water.setImageResource(R.drawable.excited_filled2_80);
-            img_water.setImageResource(R.drawable.excited_80_filled_light);
+            img_water.setImageResource(drawable.excited_80_filled_light);
         } else {
 
             if (waterPer <= 100){
-                img_water.setImageResource(R.drawable.veryhappy_100_light);
+                img_water.setImageResource(drawable.veryhappy_100_light);
             } else if (waterPer > 100 && waterPer < 120) {
                 Log.d(TAG, "setImg_water: thread 전");
                 Log.d(TAG, "setImg_water: thread");
-                img_water.setImageResource(R.drawable.veryhappy_100_light);
-                img_water2.setImageResource(R.drawable.over_100);
+                img_water.setImageResource(drawable.veryhappy_100_light);
+                img_water2.setImageResource(drawable.over_100);
                 img_water.setVisibility(View.INVISIBLE);
                 img_water2.setVisibility(View.VISIBLE);
 
@@ -302,8 +346,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             } else if (waterPer >= 120 && waterPer < 140) {
                 Log.d(TAG, "setImg_water: thread 전");
                 Log.d(TAG, "setImg_water: thread");
-                img_water.setImageResource(R.drawable.veryhappy_100_light);
-                img_water2.setImageResource(R.drawable.wink_100);
+                img_water.setImageResource(drawable.veryhappy_100_light);
+                img_water2.setImageResource(drawable.wink_100);
                 img_water.setVisibility(View.INVISIBLE);
                 img_water2.setVisibility(View.VISIBLE);
 
@@ -319,8 +363,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             } else if (waterPer >=140 && waterPer < 160) {
                 Log.d(TAG, "setImg_water: thread 전");
                 Log.d(TAG, "setImg_water: thread");
-                img_water.setImageResource(R.drawable.veryhappy_100_light);
-                img_water2.setImageResource(R.drawable.heart_100);
+                img_water.setImageResource(drawable.veryhappy_100_light);
+                img_water2.setImageResource(drawable.heart_100);
                 img_water.setVisibility(View.INVISIBLE);
                 img_water2.setVisibility(View.VISIBLE);
 
@@ -336,8 +380,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
             } else {
                 Log.d(TAG, "setImg_water: thread 전");
                 Log.d(TAG, "setImg_water: thread");
-                img_water.setImageResource(R.drawable.veryhappy_100_light);
-                img_water2.setImageResource(R.drawable.wow_100);
+                img_water.setImageResource(drawable.veryhappy_100_light);
+                img_water2.setImageResource(drawable.wow_100);
                 img_water.setVisibility(View.INVISIBLE);
                 img_water2.setVisibility(View.VISIBLE);
 
@@ -363,13 +407,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     public void setImg_drink(String dSelectItem) {
         switch (dSelectItem) {
             case "커피":
-                img_drink.setImageResource(R.drawable.drink_coffee);
+                img_drink.setImageResource(drawable.drink_coffee);
                 break;
             case "차":
-                img_drink.setImageResource(R.drawable.drink_tea);
+                img_drink.setImageResource(drawable.drink_tea);
                 break;
             default:
-                img_drink.setImageResource(R.drawable.drink_water);
+                img_drink.setImageResource(drawable.drink_water);
                 break;
         }
     }

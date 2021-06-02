@@ -34,6 +34,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_progress"
         app:layout_constraintVertical_bias="0.765" />
 
+
+    <ImageView
+        android:id="@+id/img_waterGlide"
+        android:layout_width="@dimen/water_width"
+        android:layout_height="@dimen/water_height"
+        android:adjustViewBounds="true"
+        android:src="@drawable/glide_coffee"
+        app:layout_constraintBottom_toTopOf="@+id/layout_tv_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_progress"
+        app:layout_constraintVertical_bias="0.765" />
+
     <ImageView
         android:id="@+id/img_pee"
         android:layout_width="40dp"

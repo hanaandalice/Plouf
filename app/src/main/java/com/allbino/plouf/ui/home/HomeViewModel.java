@@ -34,7 +34,10 @@ public class HomeViewModel extends ViewModel {
     public Integer fecesCnt;
     public Integer waterNeed;
     public String waterState;
-    public Integer cup;
+    public Integer waterCup;
+    public Integer coffeeCup;
+    public Integer teaCup;
+
 
     public String today;
     public PdRepository pdRepository;
@@ -66,7 +69,10 @@ public class HomeViewModel extends ViewModel {
 
         Log.d("pref", "HomeViewModel: amount 초기화후"+waterAmount);
 
-        cup = 473;  //SharedPreferences에서 컵용량 받아오기
+        waterCup = 473;  //SharedPreferences에서 컵용량 받아오기
+        coffeeCup = 473;  //SharedPreferences에서 컵용량 받아오기
+        teaCup = 473;  //SharedPreferences에서 컵용량 받아오기
+
         waterNeed = 0;
         waterState = waterAmount+"/"+waterNeed+"ml";
 
@@ -92,7 +98,9 @@ public class HomeViewModel extends ViewModel {
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}
     public Integer getWaterNeed(Context context) { return  preferencesManager.getWaterNeed(context); }
-    public Integer getCup(Context context) { return  preferencesManager.getWaterCup(context); }
+    public Integer getWaterCup(Context context) { return  preferencesManager.getWaterCup(context); }
+    public Integer getCoffeeCup(Context context) { return  preferencesManager.getCoffeeCup(context); }
+    public Integer getTeaCup(Context context) { return  preferencesManager.getTeaCup(context); }
     public Integer getCoffee() { return coffee;}
     public Integer getTea() { return tea;}
 
@@ -108,7 +116,10 @@ public class HomeViewModel extends ViewModel {
         this.waterNeed = waterNeed;
         waterState = waterAmount+"/"+waterNeed+"ml";
     }
-    public void setCup(Integer cup) { this.cup = cup; }
+    public void setWaterCup(Integer cup) { this.waterCup = cup; }
+    public void setCoffeeCup(Integer cup) { this.coffeeCup = cup; }
+    public void setTeaCup(Integer cup) { this.teaCup = cup; }
+
 
 
 
@@ -121,11 +132,11 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 물 량 저장.
      */
     public void addWater() {
-        waterAmount+=cup;
+        waterAmount+=waterCup;
         waterState = waterAmount+"/"+waterNeed+"ml";
         try{
 //            Log.d("DB", "addWater: 전");
-            pdRepository.addWater(today, cup);
+            pdRepository.addWater(today, waterCup);
 //            Log.d("DB", "addWater: 완료");
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,10 +151,10 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 커피 량 저장.
      */
     public void addCoffee() {
-        coffee += cup;
+        coffee += coffeeCup;
         try{
             Log.d("DB", "addCoffee: 전");
-            pdRepository.addCoffee(today, cup);
+            pdRepository.addCoffee(today, coffeeCup);
             Log.d("DB", "addCoffee: 완료");
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,10 +169,10 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 차 량 저장.
      */
     public void addTea() {
-        tea += cup;
+        tea += teaCup;
         try{
             Log.d("DB", "addTea: 전");
-            pdRepository.addTea(today, cup);
+            pdRepository.addTea(today, teaCup);
             Log.d("DB", "addTea: 완료");
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,11 +221,11 @@ public class HomeViewModel extends ViewModel {
      *        디비에 오늘 날짜의 마신 물 량 저장.
      */
     public void subWater() {
-        if(waterAmount > 0 && waterAmount >= cup) {
-            waterAmount-=cup;
+        if(waterAmount > 0 && waterAmount >= waterCup) {
+            waterAmount-=waterCup;
             waterState = waterAmount+"/"+waterNeed+"ml";
             try{
-                pdRepository.subWater(today, cup);
+                pdRepository.subWater(today, waterCup);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -231,15 +242,15 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void subCoffee() {
-        if(coffee > 0 && coffee >= cup) {
-            coffee-=cup;
+        if(coffee > 0 && coffee >= coffeeCup) {
+            coffee-=coffeeCup;
             try{
-                pdRepository.subCoffee(today, cup);
+                pdRepository.subCoffee(today, coffeeCup);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (coffee > 0 && coffee < cup) {
+        } else if (coffee > 0 && coffee < coffeeCup) {
             try{
                 pdRepository.subCoffee(today, coffee);
 
@@ -251,15 +262,15 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void subTea() {
-        if(tea > 0 && tea >= cup) {
-            tea-=cup;
+        if(tea > 0 && tea >= teaCup) {
+            tea-=teaCup;
             try{
-                pdRepository.subTea(today, cup);
+                pdRepository.subTea(today, teaCup);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (tea > 0 && tea < cup) {
+        } else if (tea > 0 && tea < teaCup) {
             try{
                 pdRepository.subTea(today, tea);
 

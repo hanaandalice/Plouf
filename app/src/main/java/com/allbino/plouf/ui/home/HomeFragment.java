@@ -19,8 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.allbino.plouf.R;
-
 import static android.content.ContentValues.TAG;
 import static com.allbino.plouf.R.*;
 
@@ -292,7 +290,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         if(homeViewModel.getWaterNeed(context)!= null){
             waterNeed = homeViewModel.getWaterNeed(context);
             homeViewModel.setWaterNeed(waterNeed);
-            homeViewModel.setCup(homeViewModel.getCup(context));
+            homeViewModel.setWaterCup(homeViewModel.getWaterCup(context));
+            homeViewModel.setCoffeeCup(homeViewModel.getCoffeeCup(context));
+            homeViewModel.setTeaCup(homeViewModel.getTeaCup(context));
         } else {
             homeViewModel.setWaterNeed(0);
         }

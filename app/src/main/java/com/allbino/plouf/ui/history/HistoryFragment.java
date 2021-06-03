@@ -238,6 +238,8 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
             datas.add(new BarEntry(0, temp.get(0)));
             datas.add(new BarEntry(1, temp.get(1)));
             datas.add(new BarEntry(2, temp.get(2)));
+
+
             tv_dailyToilet.setVisibility(View.VISIBLE);
             tv_dailyToilet.setText("일일 소변 횟수 : " + temp.get(3) + " 회         일일 대변 횟수 : " + temp.get(4) + " 회");
             tv_graphResult.setText("물 : "+temp.get(0)+"ml   커피 : "+temp.get(1)+"ml   차 : "+temp.get(2)+"ml");

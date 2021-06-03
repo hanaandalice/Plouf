@@ -59,11 +59,18 @@
         android:focusableInTouchMode="true">
 
         <TextView
-            android:layout_width="270dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/settings_layout_margin_left"
             android:text="컵 용량"
             android:textSize="18dp" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_drink"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/settings_layout_margin_left"
+            android:spinnerMode="dropdown" />
 
         <EditText
             android:id="@+id/et_waterCup"
@@ -102,13 +109,6 @@
             android:text="컵 사이즈 선택"
             android:textSize="18dp"
             android:paddingLeft="@dimen/settings_vertical_margin"/>
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner_drink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:paddingLeft="@dimen/settings_layout_margin_left"/>
 
     </LinearLayout>
 

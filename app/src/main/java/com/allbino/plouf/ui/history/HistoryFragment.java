@@ -25,10 +25,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -60,7 +58,6 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
 
 
 
-//TODO : 그래프 가로지르는 물 용량 가이드선 하나 주기.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         historyViewModel =
@@ -85,7 +82,6 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
         tv_graphResult = root.findViewById(R.id.tv_graphResult);
         tv_graphResult.setVisibility(View.INVISIBLE);
 
-
         context = container.getContext();
 
         cv_calendar  = root.findViewById(R.id.cv_calendar);
@@ -98,13 +94,12 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
         chart.setOnChartValueSelectedListener(this);
 
         chart.setDrawBarShadow(false);
-        chart.setDrawValueAboveBar(true);
+        chart.setDrawValueAboveBar(false);
 
         chart.getDescription().setEnabled(false);
         chart.setMaxVisibleValueCount(3);
         chart.setPinchZoom(false);
         chart.setActivated(false);
-
 
         chart.setHighlightPerDragEnabled(false);
         chart.setHighlightFullBarEnabled(false);
@@ -115,7 +110,6 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(false);
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
 
@@ -234,10 +228,12 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
             tv_graphResult.setVisibility(View.INVISIBLE);
 
 
+
         } else {
             chart.setVisibility(View.VISIBLE);
             tv_tip.setVisibility(View.VISIBLE);
             tv_graphResult.setVisibility(View.VISIBLE);
+
             tv_tip.setText("커피는 섭취량의 2배 차는 1.5배의 수분을 배출시킵니다.");
             datas.add(new BarEntry(0, temp.get(0)));
             datas.add(new BarEntry(1, temp.get(1)));
@@ -245,16 +241,15 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
             tv_dailyToilet.setVisibility(View.VISIBLE);
             tv_dailyToilet.setText("일일 소변 횟수 : " + temp.get(3) + " 회         일일 대변 횟수 : " + temp.get(4) + " 회");
             tv_graphResult.setText("물 : "+temp.get(0)+"ml   커피 : "+temp.get(1)+"ml   차 : "+temp.get(2)+"ml");
+
+
             BarDataSet set1;
-
-
 
 
             if (chart.getData() != null  &&
                     chart.getData().getDataSetCount() > 0) {
                 set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
                 set1.setValues(datas);
-//                set1.setDrawValues(true);   //바에 값 보이기
 
                 chart.getData().notifyDataChanged();
                 chart.notifyDataSetChanged();
@@ -263,7 +258,7 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
                 set1 = new BarDataSet(datas, "파랑 : 물 | 노랑 : 커피 | 초록 : 차");
 
                 set1.setDrawIcons(false);
-//                set1.setDrawValues(true);
+                set1.setDrawValues(true);
                 set1.setHighlightEnabled(false);
 
                 int color1 = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light); //물
@@ -285,10 +280,7 @@ public class HistoryFragment extends Fragment  implements OnDateSelectedListener
                 data.setBarWidth(0.4f);
                 data.setHighlightEnabled(false);
 
-
-
                 chart.setData(data);
-
             }
 
         }

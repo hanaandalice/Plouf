@@ -11,11 +11,12 @@ import android.util.Log;
  * 앱 잠금 설정 세팅값, 체중, 컵 용량, 권장 물 섭취량, password 저장하고 가져오기 수행
  * */
 public class PreferencesManager{
-    private Boolean lockSetting;
     private Integer weight;
-    private Integer cup;
+    private Integer waterCup;
+    private Integer coffeeCup;
+    private Integer teaCup;
+
     private Integer waterNeed;
-    private String pass;
     private static String shared ="shared";
 
     private static SharedPreferences getPreferences(Context context) {
@@ -27,13 +28,9 @@ public class PreferencesManager{
      *형태 : Method
      * 소유자 : PreferencesManager
      * 반환값 : Boolean, Integer
-     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 반환 수행
+     * 설명 :  몸무게, 컵 용량(물, 커피, 차) SharedPreferences 값 반환 수행
      */
-//    public Boolean getLockSetting(Context context) {
-//        SharedPreferences preferences = getPreferences(context);
-//        lockSetting = preferences.getBoolean("lockSetting", false);
-//        return lockSetting;
-//    }
+
 
     public Integer getWeight(Context context) {
         SharedPreferences preferences = getPreferences(context);
@@ -42,12 +39,28 @@ public class PreferencesManager{
         return weight;
     }
 
-    public Integer getCup(Context context) {
+    public Integer getWaterCup(Context context) {
         Log.d("pref", "getCup: PreferencesManager");
         SharedPreferences preferences = getPreferences(context);
-        cup = preferences.getInt("cup", 473);
-        Log.d("pref", "getCup: 성공"+cup);
-        return cup;
+        waterCup = preferences.getInt("waterCup", 473);
+        Log.d("pref", "getCup: 성공"+waterCup);
+        return waterCup;
+    }
+
+    public Integer getCoffeeCup(Context context) {
+        Log.d("pref", "getCup: PreferencesManager");
+        SharedPreferences preferences = getPreferences(context);
+        coffeeCup = preferences.getInt("coffeeCup", 473);
+        Log.d("pref", "getCup: 성공"+coffeeCup);
+        return coffeeCup;
+    }
+
+    public Integer getTeaCup(Context context) {
+        Log.d("pref", "getCup: PreferencesManager");
+        SharedPreferences preferences = getPreferences(context);
+        teaCup = preferences.getInt("teaCup", 473);
+        Log.d("pref", "getCup: 성공"+teaCup);
+        return teaCup;
     }
 
     public Integer getWaterNeed(Context context) {
@@ -56,11 +69,7 @@ public class PreferencesManager{
         return waterNeed;
     }
 
-//    public String getPass(Context context) {
-//        SharedPreferences preferences = getPreferences(context);
-//        pass = preferences.getString("pass", null); //password 가 0000인 경우 있을 수 있음.
-//        return pass;
-//    }
+
 
 
 
@@ -68,15 +77,8 @@ public class PreferencesManager{
      *형태 : Method
      * 소유자 : PreferencesManager
      * 반환값 : Boolean, Integer
-     * 설명 : 잠금 설정 여부, 몸무게, 컵 용량, password SharedPreferences 값 세팅 수행
+     * 설명 :  몸무게, 컵 용량 SharedPreferences 값 세팅 수행
      */
-//    public void setLockSetting(Context context, Boolean lockSetting) {
-//        SharedPreferences preferences = getPreferences(context);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        this.lockSetting = lockSetting;
-//        editor.putBoolean("lockSetting", lockSetting);
-//        editor.commit();
-//    }
 
     public void setWeight(Context context, Integer weight) {
         SharedPreferences preferences = getPreferences(context);
@@ -88,23 +90,32 @@ public class PreferencesManager{
         editor.commit();
     }
 
-    public void setCup(Context context, Integer cup) {
+    public void setWaterCup(Context context, Integer cup) {
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        this.cup = cup;
-        editor.putInt("cup", cup);
+        this.waterCup = cup;
+        editor.putInt("waterCup", cup);
         editor.commit();
 
     }
-//
-//    public void setPass(Context context, String pass) {
-//        SharedPreferences preferences = getPreferences(context);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        this.pass = pass;
-//        editor.putString("pass", pass);
-//        editor.commit();
-//
-//    }
+
+    public void setCoffeeCup(Context context, Integer cup) {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        this.coffeeCup = cup;
+        editor.putInt("coffeeCup", cup);
+        editor.commit();
+
+    }
+
+    public void setTeaCup(Context context, Integer cup) {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        this.waterCup = cup;
+        editor.putInt("teaCup", cup);
+        editor.commit();
+
+    }
 
 
 }

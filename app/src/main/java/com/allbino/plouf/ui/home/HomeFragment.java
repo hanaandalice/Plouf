@@ -87,8 +87,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         tv_fecesCnt.setText(homeViewModel.getFecesCnt().toString());
         if (homeViewModel.waterNeed == 0) {
             tv_waterState.setText("체중과 컵용량을 설정 해주세요");
+            tv_coffee.setVisibility(View.INVISIBLE);
+            tv_tea.setVisibility(View.INVISIBLE);
         } else {
             tv_waterState.setText(homeViewModel.getWaterState());  //마셔야 할 양, 마신 물 양 데이터 뷰모델에서 보내줘서 뷰모델에서 디비 작업
+            tv_coffee.setVisibility(View.VISIBLE);
+            tv_tea.setVisibility(View.VISIBLE);
         }
 
 

@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ public class SettingsFragment extends Fragment {
     EditText et_weight;
     TextView tv_settingResult;
     ChipGroup chipGroup;
+    Spinner spinner;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,8 +56,8 @@ public class SettingsFragment extends Fragment {
 
         chipGroup = root.findViewById(R.id.chip_group);
 
-        if(settingsViewModel.getCup(context) != null){
-            et_waterCup.setText(settingsViewModel.getCup(context).toString());
+        if(settingsViewModel.getWaterCup(context) != null){
+            et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
             tv_settingResult.setVisibility(View.VISIBLE);
 
             if (settingsViewModel.getWaterNeed(context) != 0) {
@@ -72,7 +76,7 @@ public class SettingsFragment extends Fragment {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if(et_waterCup.getText().toString().length() != 0) {
-                        settingsViewModel.setCup(context, Integer.parseInt(et_waterCup.getText().toString()));
+                        settingsViewModel.setWaterCup(context, Integer.parseInt(et_waterCup.getText().toString()));
                         Integer waterNeed = settingsViewModel.getWaterNeed(context);
                         tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                         tv_settingResult.setVisibility(View.VISIBLE);
@@ -86,8 +90,8 @@ public class SettingsFragment extends Fragment {
                 }
             });
         } else {
-            settingsViewModel.setCup(context,473);
-            et_waterCup.setText(settingsViewModel.getCup(context).toString());
+            settingsViewModel.setWaterCup(context,473);
+            et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
             if (settingsViewModel.getWaterNeed(context) != 0) {
                 Integer waterNeed = settingsViewModel.getWaterNeed(context);
                 tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는 하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
@@ -141,8 +145,8 @@ public class SettingsFragment extends Fragment {
                            if (et_waterCup.getText().toString().equals(180)) {
                                break;
                            } else {
-                               settingsViewModel.setCup(context, 180);
-                               et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                               settingsViewModel.setWaterCup(context, 180);
+                               et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                                waterNeed = settingsViewModel.getWaterNeed(context);
                                tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                        "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
@@ -150,56 +154,56 @@ public class SettingsFragment extends Fragment {
                                break;
                            }
                        case "종이컵(대)" :
-                           settingsViewModel.setCup(context, 360);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 360);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "스몰 사이즈" :
-                           settingsViewModel.setCup(context, 240);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 240);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "레귤러 사이즈" :
-                           settingsViewModel.setCup(context, 300);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 300);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "톨 사이즈" :
-                           settingsViewModel.setCup(context, 255);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 255);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "그란데 사이즈" :
-                           settingsViewModel.setCup(context, 473);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 473);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "벤티 사이즈" :
-                           settingsViewModel.setCup(context, 591);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 591);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
                            tv_settingResult.setVisibility(View.VISIBLE);
                            break;
                        case "리터" :
-                           settingsViewModel.setCup(context, 1000);
-                           et_waterCup.setText(settingsViewModel.getCup(context).toString());
+                           settingsViewModel.setWaterCup(context, 1000);
+                           et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());
                            waterNeed = settingsViewModel.getWaterNeed(context);
                            tv_settingResult.setText("권장 물 섭취량을 마시기 위해서는\n" +
                                    "하루 "+(waterNeed/Integer.parseInt(et_waterCup.getText().toString())+1)+"컵을 마셔야 합니다.");
@@ -213,6 +217,32 @@ public class SettingsFragment extends Fragment {
            }
        });
 
+        String[] drinks = {getString(R.string.drink_water_korean), getString(R.string.drink_coffee_korean), getString(R.string.drink_tea_korean)};
+        ArrayAdapter mAdapter = new ArrayAdapter(root.getContext(), android.R.layout.simple_spinner_dropdown_item, drinks);
+        spinner.setAdapter(mAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0 :
+                        et_waterCup.setText(settingsViewModel.getWaterCup(context).toString());  //물 컵 용량보여주기
+                        break;
+                    case 1 :
+                        et_waterCup.setText(settingsViewModel.getCoffeeCup(context).toString()); //커피컵 용량
+                        break;
+                    case 2 :
+                        et_waterCup.setText(settingsViewModel.getTeaCup(context).toString()); //차 컵 용량
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
@@ -228,7 +258,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        settingsViewModel.setCup(context, Integer.parseInt(et_waterCup.getText().toString()));
+        settingsViewModel.setWaterCup(context, Integer.parseInt(et_waterCup.getText().toString()));
         settingsViewModel.setWeight(context, Integer.parseInt(et_weight.getText().toString()));
 
 

@@ -92,7 +92,7 @@ public class HomeViewModel extends ViewModel {
     public Integer getPeeCnt() { return peeCnt;}
     public Integer getFecesCnt() { return fecesCnt;}
     public Integer getWaterNeed(Context context) { return  preferencesManager.getWaterNeed(context); }
-    public Integer getCup(Context context) { return  preferencesManager.getCup(context); }
+    public Integer getCup(Context context) { return  preferencesManager.getWaterCup(context); }
     public Integer getCoffee() { return coffee;}
     public Integer getTea() { return tea;}
 

@@ -21,6 +21,14 @@ This is Pilot Project at Allbino. Manage your drinking water record and toilet r
 - 마신 물 양에 따라 물방울의 이미지가 변화함(positive effect 부여를 통한 물 섭취 동기부여)
 
 
+## 프로그램 ScreenShot
+![plouf__1-tmi](https://user-images.githubusercontent.com/46364839/131510764-178509eb-166b-4119-a181-e9fff2e7e3d9.png)
+![이벤트1](https://user-images.githubusercontent.com/46364839/131510869-d126b5b0-37c6-4e2c-8491-1138babbfe0c.PNG)
+![Untitled](https://user-images.githubusercontent.com/46364839/131510820-d9a33867-f421-43bd-92c3-3992d790d4a7.png)
+![Untitled (1)](https://user-images.githubusercontent.com/46364839/131510924-489a9e67-7a80-4b27-b14d-70310a001fc0.png)
+
+### 직접 디자인한 앱의 아이콘들과 설명 이미지이다.
+
 -----
 
 ## 사용한 오픈 소스

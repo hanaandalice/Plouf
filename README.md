@@ -22,7 +22,6 @@ This is Pilot Project at Allbino. Manage your drinking water record and toilet r
 
 
 ## 프로그램 ScreenShot
-![icon_face](https://user-images.githubusercontent.com/46364839/131511332-0b50724e-3ced-4bb8-b82a-27b9bb633374.png){: width="100" height="100"}
 <img src="https://user-images.githubusercontent.com/46364839/131511332-0b50724e-3ced-4bb8-b82a-27b9bb633374.png" width="300" height="300">
 
 

@@ -22,12 +22,14 @@ This is Pilot Project at Allbino. Manage your drinking water record and toilet r
 
 
 ## 프로그램 ScreenShot
+![icon_face](https://user-images.githubusercontent.com/46364839/131511332-0b50724e-3ced-4bb8-b82a-27b9bb633374.png)
+
 ![plouf__1-tmi](https://user-images.githubusercontent.com/46364839/131510764-178509eb-166b-4119-a181-e9fff2e7e3d9.png)
 ![이벤트1](https://user-images.githubusercontent.com/46364839/131510869-d126b5b0-37c6-4e2c-8491-1138babbfe0c.PNG)
 ![Untitled](https://user-images.githubusercontent.com/46364839/131510820-d9a33867-f421-43bd-92c3-3992d790d4a7.png)
 ![Untitled (1)](https://user-images.githubusercontent.com/46364839/131510924-489a9e67-7a80-4b27-b14d-70310a001fc0.png)
 
-직접 디자인한 앱의 아이콘들과 설명 이미지임.
+직접 디자인한 앱의 아이콘과 직접 제작한 앱 설명 이미지.
 
 -----
 

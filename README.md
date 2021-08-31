@@ -2,7 +2,7 @@
 This is Pilot Project at Allbino. Manage your drinking water record and toilet record
 
 ## 목적
-- 다이어트당시 필요로 했었던 물과 화장실 기록을 한번에 할 수 있도록 하여 다이어트를 하는 사람들이 편하게 음수량과 화장실 기록을 간단하게 하도록 함.
+- 다이어트당시 필요로 했었던 물과 화장실 기록을 한번에 할 수 있도록 하여 다이어트를 하는 사람들이 편하게 음수량과 화장실 기록을 간단하게 할 수 있도록 함.
 
 
 ## 개발 기간
